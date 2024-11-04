@@ -1,15 +1,15 @@
-{
-  config,
-  pkgs,
-  system,
-  inputs,
-  ...
+{ config
+, pkgs
+, inputs
+, self
+, ...
 }:
 {
   imports = [
     ./terminal/zsh.nix
     ./terminal/git.nix
     ./terminal/ssh.nix
+    self.homeManagerModules.secrets
   ];
 
   systemd.user.startServices = "sd-switch";
@@ -21,31 +21,13 @@
   };
 
   home.packages = with pkgs; [
-    # github cli 
     gh
     nixpkgs-review
     cachix
-
-    # serial tool
     # minicom
     # rkdeveloptool
-
-    # formatter
     nixfmt-rfc-style
-
-    # colmena
     colmena
-
-    # python
-    # (python3.withPackages
-    # (python-pkgs: with python-pkgs; [
-    #   numpy
-    #   pip
-    # ]))
-
-    devenv
-
-    # agenix
     inputs.agenix.packages.${config.nixpkgs.system}.default
   ];
 
@@ -57,14 +39,9 @@
     };
   };
 
-  nix.registry = {
-    nix-develop = {
-      to = {
-        owner = "qbisi";
-        repo = "nix-develop";
-        type = "github";
-      };
-    };
+  services.vscode-server = {
+    enable = false;
+    enableFHS = false;
   };
 
   home.stateVersion = "24.11";

@@ -25,6 +25,7 @@ in
             inherit inputs self system;
           };
           modules = [
+            inputs.vscode-server.homeModules.default
             ./home.nix
             "${self}/home/profiles/${profile}.nix"
           ];

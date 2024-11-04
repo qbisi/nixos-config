@@ -7,7 +7,6 @@
 {
   imports = [
     ./qbisi.nix
-    self.homeManagerModules.secrets
   ];
 
   home.sessionVariables = {

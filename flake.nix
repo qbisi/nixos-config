@@ -1,7 +1,10 @@
 {
   inputs = {
-    nixos-images.url = "github:qbisi/nixos-images";
-    nixpkgs.follows = "nixos-images/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-images = {
+      url = "github:qbisi/nixos-images";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -25,6 +28,10 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       };
+    };
+    vscode-server = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixos-vscode-server";
     };
     secrets = {
       url = "git+ssh://git@github.com/qbisi/secrets";
