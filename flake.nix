@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "/home/qbisi/nixpkgs";
     nixos-images = {
       url = "github:qbisi/nixos-images";
       inputs.nixpkgs.follows = "nixpkgs";

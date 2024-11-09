@@ -26,6 +26,7 @@
     enable = true;
     settings = {
       PasswordAuthentication = false;
+      X11Forwarding = true;
     };
     knownHosts = {
       ft = {

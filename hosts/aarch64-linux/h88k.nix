@@ -20,6 +20,7 @@
     "${inputs.nixos-images}/devices/aarch64-linux/nixos-hinlink-h88k.nix"
     self.nixosModules.router
     self.nixosModules.secrets
+    # self.nixosModules.desktop
   ];
 
   disko.profile.partLabel = "nvme";
@@ -49,6 +50,10 @@
       };
     };
   };
+
+  #  environment.systemPackages = with pkgs; [
+  #   netgen
+  #  ];
 
   nix.buildMachines = with self.vars.buildMachines; [
     ft

@@ -13,6 +13,7 @@
       common = ./config/common.nix;
       router = ./config/router.nix;
       vps = ./config/vps.nix;
+      desktop = ./config/desktop.nix;
     };
   };
 }
