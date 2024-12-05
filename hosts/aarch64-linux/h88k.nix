@@ -51,9 +51,9 @@
     };
   };
 
-  #  environment.systemPackages = with pkgs; [
-  #   netgen
-  #  ];
+  environment.systemPackages = with pkgs; [
+    minicom
+  ];
 
   nix.buildMachines = with self.vars.buildMachines; [
     ft
