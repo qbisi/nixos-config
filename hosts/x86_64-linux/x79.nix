@@ -71,6 +71,13 @@
     openFirewall = true;
   };
 
+  services.qbittorrent = {
+    enable = true;
+    openFirewall = true;
+    group = "media";
+    port = 8080;
+  };
+
   fileSystems = {
     "/data" = {
       device = "/dev/disk/by-uuid/b599ceb0-36ac-4309-98e0-ad37fca219e5";

@@ -8,6 +8,7 @@
           ./modules/networking/tproxy.nix
           ./modules/networking/modemmanager.nix
           ./modules/services/sing-box.nix
+          ./modules/services/qbittorrent.nix
         ];
       };
       common = ./config/common.nix;
