@@ -55,6 +55,7 @@ in
             "direct"
             "final"
             "game"
+            "proxy"
           ]
         ];
       };
