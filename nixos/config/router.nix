@@ -91,9 +91,19 @@
     firewall = {
       enable = true;
       trustedInterfaces = [ "br0" ];
-      extraInputRules = "ip saddr { ${self.vars.hostIP.mac}, ${self.vars.hostIP.x79} } accept";
+      extraInputRules = ''
+        ip saddr { ${self.vars.hostIP.mac}, ${self.vars.hostIP.x79} } counter accept
+      '';
       checkReversePath = false;
       interfaces = {
+        "wwan0" = {
+          allowedTCPPorts = [
+            5201
+          ];
+          allowedUDPPorts = [
+            5201
+          ];
+        };
         "eth0" = {
           allowedTCPPorts = [
             53
