@@ -19,6 +19,7 @@
   imports = [
     "${inputs.nixos-images}/devices/x86_64-linux/nixos-x86_64-uefi.nix"
     self.nixosModules.secrets
+    ../../nixos/config/nettools.nix
   ];
 
   hardware = {
@@ -45,6 +46,9 @@
   networking = {
     hostName = "x79";
     proxy.default = "http://${self.vars.hostIP.h88k}:1080";
+    firewall.allowedTCPPorts = [
+      7892
+    ];
   };
 
   environment = {
@@ -53,8 +57,27 @@
     ];
   };
 
+  virtualisation.oci-containers.containers = {
+    autoBangumi = {
+      image = "ghcr.io/estrellaxd/auto_bangumi:latest";
+      ports = [ "7892:7892" ];
+      volumes = [
+        "/var/lib/autobangumi/config:/app/config"
+        "/var/lib/autobangumi/data:/app/data"
+      ];
+      environment = {
+        UMASK = "022";
+        PGID = toString config.users.groups.${config.users.users.qbittorrent.group}.gid;
+        PUID = toString config.users.users.qbittorrent.uid;
+      };
+    };
+  };
+
   users.groups = {
-    media = { };
+    media = {
+      gid = 991;
+      members = [ "qbisi" ];
+    };
     guest = { };
   };
 
@@ -63,6 +86,11 @@
       group = "guest";
       isSystemUser = true;
     };
+  };
+
+  systemd.services.jellyfin.environment = {
+    http_proxy = "http://172.16.4.100:1080";
+    https_proxy = "http://172.16.4.100:1080";
   };
 
   services.jellyfin = {
@@ -138,6 +166,7 @@
   services.samba-wsdd = {
     enable = true;
     openFirewall = true;
+    interface = "eth1";
   };
 
   nix.buildMachines = with self.vars.buildMachines; [
