@@ -132,26 +132,26 @@ in
           content = ''
             chain output {
              type route hook output priority mangle; policy accept;
-             skgid ${cfg.group} counter packets 0 bytes 0 return
-             fib saddr type local fib daddr type != local counter packets 0 bytes 0 jump setmark
+             skgid ${cfg.group} return
+             fib saddr type local fib daddr type != local jump setmark
             }
             chain prerouting {
               type filter hook prerouting priority mangle; policy accept;
-              iifname "lo" mark != ${fwmark} counter packets 0 bytes 0 return
-              iifname { ${ifaceSet} } fib saddr type != local fib daddr type != local counter packets 0 bytes 0 jump setmark
-              counter packets 0 bytes 0 mark ${fwmark} meta protocol ip meta l4proto { tcp, udp } tproxy ip to 127.0.0.1:${port} accept
-              counter packets 0 bytes 0 mark ${fwmark} meta protocol ip6 meta l4proto { tcp, udp } tproxy ip6 to [::1]:${port} accept
+              iifname "lo" mark != ${fwmark} return
+              iifname { ${ifaceSet} } fib saddr type != local fib daddr type != local jump setmark
+              mark ${fwmark} meta protocol ip meta l4proto { tcp, udp } tproxy ip to 127.0.0.1:${port} accept
+              mark ${fwmark} meta protocol ip6 meta l4proto { tcp, udp } tproxy ip6 to [::1]:${port} accept
             } 
             chain setmark {
-              counter packets 0 bytes 0 meta mark set ct mark
-              mark ${fwmark} counter packets 0 bytes 0 return
-              ${optionalString (tcpSet != "") "tcp dport { ${tcpSet} } counter packets 0 bytes 0 return"}
-              ${optionalString (udpSet != "") "udp dport { ${udpSet} } counter packets 0 bytes 0 return"}
-              ip daddr { ${ipSet} } counter packets 0 bytes 0 return
-              ip6 daddr { ${ip6Set} } counter packets 0 bytes 0 return
-              tcp dport 1-65535 tcp flags & (fin|syn|rst|ack) == syn counter packets 0 bytes 0 meta mark set ${fwmark}
-              udp dport 1-65535 ct state new counter packets 0 bytes 0 meta mark set ${fwmark}
-              counter packets 0 bytes 0 ct mark set mark 
+              meta mark set ct mark
+              mark ${fwmark} return
+              ${optionalString (tcpSet != "") "tcp dport { ${tcpSet} } return"}
+              ${optionalString (udpSet != "") "udp dport { ${udpSet} } return"}
+              ip daddr { ${ipSet} } return
+              ip6 daddr { ${ip6Set} } return
+              tcp dport 1-65535 tcp flags & (fin|syn|rst|ack) == syn meta mark set ${fwmark}
+              udp dport 1-65535 ct state new meta mark set ${fwmark}
+              ct mark set mark 
             }
           '';
         };
