@@ -233,6 +233,9 @@ in
           }
           {
             domain_keyword = [ "libgen" ];
+            domain_suffix = [
+              "mikanani.me"
+            ];
             rule_set = [
               "geoip-telegram"
               "geosite-gfw"
