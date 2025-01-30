@@ -10,6 +10,20 @@
     ./nettools.nix
   ];
 
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = lib.mkDefault self.vars.user.mail;
+    defaults.server = "https://acme.zerossl.com/v2/DV90";
+    defaults.extraLegoFlags = [
+      "--eab"
+    ];
+    certs."${config.networking.domain}" = {
+      domain = "*.${config.networking.domain}";
+      dnsProvider = "cloudflare";
+      environmentFile = config.age.secrets.acme.path;
+    };
+  };
+
   networking = {
     useDHCP = false;
     useNetworkd = true;

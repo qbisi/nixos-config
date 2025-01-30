@@ -7,6 +7,9 @@
   inputs,
   ...
 }:
+let
+  certDir = config.security.acme.certs.${config.networking.domain}.directory;
+in
 {
   deployment = {
     tags = [
@@ -43,6 +46,16 @@
 
   networking = {
     hostName = "ody";
+    firewall.interfaces = {
+      "wwan0" = {
+        allowedTCPPorts = [
+          8443
+        ];
+        allowedUDPPorts = [
+          8443 # hy2-in
+        ];
+      };
+    };
     domain = self.vars.domain;
     bridges.br0.interfaces = [ "eth1" ];
     networkmanager.ensureProfiles.profiles = {
@@ -65,16 +78,48 @@
     };
   };
 
-  services.sing-box.outbounds = {
-    socks = [
-      {
-        server = self.vars.hostIP.h88k;
-        group = [
-          "proxy"
-          "direct"
-        ];
-      }
-    ];
+  services.sing-box = {
+    outbounds = {
+      socks = [
+        {
+          server = self.vars.hostIP.h88k;
+          group = [
+            "proxy"
+            "direct"
+          ];
+        }
+      ];
+    };
+    settings = {
+      inbounds = [
+        {
+          tag = "hysteria2-in";
+          type = "hysteria2";
+          listen = "::";
+          listen_port = 8443;
+          sniff = true;
+          sniff_override_destination = true;
+          up_mbps = 10;
+          down_mbps = 40;
+          users = [
+            {
+              password = {
+                _secret = config.age.secrets."sing-uuid".path;
+              };
+            }
+          ];
+          masquerade = "https://www.baidu.com";
+          tls = {
+            enabled = true;
+            alpn = [
+              "h3"
+            ];
+            certificate_path = certDir + "/cert.pem";
+            key_path = certDir + "/key.pem";
+          };
+        }
+      ];
+    };
   };
 
   services.ddclient = {
