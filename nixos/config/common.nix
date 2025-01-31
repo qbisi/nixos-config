@@ -44,8 +44,6 @@
     };
   };
 
-  programs.vim.defaultEditor = true;
-
   programs.nix-ld = {
     enable = true;
     package = pkgs.nix-ld-rs;
