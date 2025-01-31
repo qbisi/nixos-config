@@ -1,11 +1,10 @@
-{
-  config,
-  pkgs,
-  lib,
-  modulesPath,
-  self,
-  inputs,
-  ...
+{ config
+, pkgs
+, lib
+, modulesPath
+, self
+, inputs
+, ...
 }:
 let
   certDir = config.security.acme.certs.${config.networking.domain}.directory;
@@ -124,7 +123,8 @@ in
 
   services.ddclient = {
     enable = true;
-    usev6 = "webv6, webv6=ipv6.ident.me/";
+    usev4 = "";
+    usev6 = "ifv6, ifv6=wwan0";
     protocol = "cloudflare";
     domains = [ config.networking.fqdn ];
     zone = config.networking.domain;
