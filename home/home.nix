@@ -15,7 +15,7 @@
   systemd.user.startServices = "sd-switch";
 
   home.sessionVariables = {
-    EDITOR = "vim";
+    EDITOR = "nvim";
     CACHIX_AUTH_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.cachix.path} 2>/dev/null)";
     GITHUB_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.github.path} 2>/dev/null)";
   };
