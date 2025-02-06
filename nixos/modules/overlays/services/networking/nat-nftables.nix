@@ -75,58 +75,42 @@ let
       chain pre {
         type nat hook prerouting priority dstnat;
 
-        ${
-          optionalString (fwdMap != "") ''
-            iifname "${cfg.externalInterface}" meta l4proto { tcp, udp } dnat meta l4proto . th dport map { ${fwdMap} } comment "port forward"
-          ''
-        }
+        ${optionalString (fwdMap != "") ''
+          iifname "${cfg.externalInterface}" meta l4proto { tcp, udp } dnat meta l4proto . th dport map { ${fwdMap} } comment "port forward"
+        ''}
 
-        ${
-          optionalString (fwdLoopDnatMap != "") ''
-            meta l4proto { tcp, udp } dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatMap} } comment "port forward loopback from other hosts behind NAT"
-          ''
-        }
+        ${optionalString (fwdLoopDnatMap != "") ''
+          meta l4proto { tcp, udp } dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatMap} } comment "port forward loopback from other hosts behind NAT"
+        ''}
 
-        ${
-          optionalString (dmzHost != null) ''
-            iifname "${cfg.externalInterface}" dnat ${dmzHost} comment "dmz"
-          ''
-        }
+        ${optionalString (dmzHost != null) ''
+          iifname "${cfg.externalInterface}" dnat ${dmzHost} comment "dmz"
+        ''}
       }
 
       chain post {
         type nat hook postrouting priority srcnat;
-        ${
-          concatMapStrings (face: ''
-            iifname ${face} oifname ${face} accept;
-          '') iofaceSet
-        }
-        ${
-          optionalString (ifaceSet != "") ''
-            iifname { ${ifaceSet} } ${oifExpr} ${dest} comment "from internal interfaces"
-          ''
-        }
-        ${
-          optionalString (ipSet != "") ''
-            ${ipVer} saddr { ${ipSet} } ${oifExpr} ${dest} comment "from internal IPs"
-          ''
-        }
+        ${concatMapStrings (face: ''
+          iifname ${face} oifname ${face} accept;
+        '') iofaceSet}
+        ${optionalString (ifaceSet != "") ''
+          iifname { ${ifaceSet} } ${oifExpr} ${dest} comment "from internal interfaces"
+        ''}
+        ${optionalString (ipSet != "") ''
+          ${ipVer} saddr { ${ipSet} } ${oifExpr} ${dest} comment "from internal IPs"
+        ''}
 
-        ${
-          optionalString (fwdLoopSnatSet != "") ''
-            iifname != "${cfg.externalInterface}" ${ipVer} daddr . meta l4proto . th dport { ${fwdLoopSnatSet} } masquerade comment "port forward loopback snat"
-          ''
-        }
+        ${optionalString (fwdLoopSnatSet != "") ''
+          iifname != "${cfg.externalInterface}" ${ipVer} daddr . meta l4proto . th dport { ${fwdLoopSnatSet} } masquerade comment "port forward loopback snat"
+        ''}
       }
 
       chain out {
         type nat hook output priority mangle;
 
-        ${
-          optionalString (fwdLoopDnatMap != "") ''
-            meta l4proto { tcp, udp } dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatMap} } comment "port forward loopback from the host itself"
-          ''
-        }
+        ${optionalString (fwdLoopDnatMap != "") ''
+          meta l4proto { tcp, udp } dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatMap} } comment "port forward loopback from the host itself"
+        ''}
       }
     '';
 

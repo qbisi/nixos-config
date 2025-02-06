@@ -1,9 +1,10 @@
-{ lib
-, config
-, pkgs
-, pkgs-self
-, self
-, ...
+{
+  lib,
+  config,
+  pkgs,
+  pkgs-self,
+  self,
+  ...
 }:
 {
   time.timeZone = "Asia/Shanghai";
@@ -138,7 +139,7 @@
     trusted-users = [ "@wheel" ];
     substituters = [
       # use mirror in CN only
-      # "https://mirrors.ustc.edu.cn/nix-channels/store" 
+      # "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://nix-community.cachix.org"
     ];
 

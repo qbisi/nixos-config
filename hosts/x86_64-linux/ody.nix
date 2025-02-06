@@ -1,10 +1,11 @@
-{ config
-, pkgs
-, lib
-, modulesPath
-, self
-, inputs
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  self,
+  inputs,
+  ...
 }:
 let
   certDir = config.security.acme.certs.${config.networking.domain}.directory;
