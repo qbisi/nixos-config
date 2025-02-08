@@ -8,8 +8,6 @@
   ...
 }:
 {
-  # deployment.sshOptions = [ "-o" "ConnectionAttempts=2" ];
-
   deployment = {
     targetHost = "192.168.100.108";
     # targetHost = "sw799";
@@ -21,7 +19,7 @@
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/aarch64-linux/nixos-rockchip-sw799-uboot-btrfs.nix"
+    "${inputs.nixos-images}/devices/aarch64-linux/nixos-bozz-sw799.nix"
     self.nixosModules.router
     self.nixosModules.secrets
   ];
