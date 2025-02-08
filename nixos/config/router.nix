@@ -25,6 +25,7 @@
   };
 
   networking = {
+    domain = lib.mkDefault self.vars.domain;
     useDHCP = false;
     useNetworkd = true;
     networkmanager.enable = true;
