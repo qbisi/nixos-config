@@ -151,4 +151,10 @@
   nix.package = pkgs.nixVersions.latest;
 
   nix.distributedBuilds = true;
+
+  systemd.sleep.extraConfig = lib.mkIf (!config.powerManagement.enable) ''
+    # disable hibernation
+    AllowSuspend=no
+    AllowHibernation=no
+  '';
 }

@@ -20,8 +20,10 @@
     "${inputs.nixos-images}/devices/aarch64-linux/nixos-hinlink-h88k.nix"
     self.nixosModules.router
     self.nixosModules.secrets
-    # self.nixosModules.desktop
+    self.nixosModules.desktop
   ];
+
+  powerManagement.enable = false;
 
   disko.profile.partLabel = "nvme";
 

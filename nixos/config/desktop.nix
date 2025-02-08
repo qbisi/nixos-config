@@ -11,17 +11,6 @@
     wayland.enable = true;
   };
 
-  systemd.sleep.extraConfig = ''
-    # disable hibernation
-    # doc : https://archived.forum.manjaro.org/t/turn-off-disable-hibernate-completely/139939
-    AllowHibernation=no
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
-  '';
-  services.logind.extraConfig = ''
-    HibernateKeyIgnoreInhibited=no
-  '';
-
   fonts.packages = with pkgs; [
     noto-fonts
     # noto-fonts-cjk-sans
@@ -55,16 +44,17 @@
     };
   };
 
-  i18n.supportedLocales = [
-    "en_US.UTF-8/UTF-8"
-    "zh_CN.UTF-8/UTF-8"
-  ];
-
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-rime
-    ];
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    inputMethod = {
+      enable = true;
+      type = "fcitx5";
+      fcitx5.plasma6Support = true;
+      fcitx5.waylandFrontend = true;
+      fcitx5.addons = [
+        pkgs.qt6Packages.fcitx5-chinese-addons
+        pkgs.fcitx5-pinyin-zhwiki
+      ];
+    };
   };
 }
