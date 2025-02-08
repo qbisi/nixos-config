@@ -1,20 +1,15 @@
 {
-  lib,
-  config,
-  self,
-  inputs,
-  ...
-}:
-{
   perSystem =
     {
       config,
       pkgs,
       lib,
       system,
+      inputs',
       ...
     }:
     {
-      legacyPackages = import ./top-level.nix { inherit pkgs; };
+      legacyPackages =
+        (import ./top-level.nix { inherit pkgs; }) // inputs'.nixos-images.legacyPackages;
     };
 }

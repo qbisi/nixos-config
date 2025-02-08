@@ -4,7 +4,8 @@
     # nixpkgs.url = "/home/qbisi/nixpkgs";
     nixos-images = {
       url = "github:qbisi/nixos-images";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Dont follow to avoid massive rebuild
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     flake-parts = {
@@ -53,7 +54,6 @@
         ./pkgs
         ./lib
         "${inputs.secrets}"
-        "${inputs.nixos-images}/pkgs"
       ];
       perSystem =
         { config, pkgs, ... }:
