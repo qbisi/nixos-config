@@ -113,14 +113,17 @@
   };
 
   users.users = {
-    "${self.vars.user.name}" = {
-      inherit (self.vars.user) hashedPassword;
+    mainUser = {
+      inherit (self.vars.user) name hashedPassword;
+      uid = 1000;
       isNormalUser = true;
       linger = true;
       shell = pkgs.zsh;
       extraGroups = [
         "wheel"
         "root"
+        "video"
+        "audio"
       ];
       openssh.authorizedKeys.keys = [
         self.vars.user.authorizedKeys
