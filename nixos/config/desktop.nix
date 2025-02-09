@@ -19,14 +19,15 @@
     source-han-serif
     # sarasa-gothic
     source-code-pro
-    hack-font
     jetbrains-mono
+    (nerdfonts.override { fonts = [ "Hack" ]; })
   ];
 
   fonts.fontconfig = {
     defaultFonts = {
       emoji = [ "Noto Color Emoji" ];
       monospace = [
+        "Hack Nerd Font"
         "Noto Sans Mono CJK SC"
         "Sarasa Mono SC"
         "DejaVu Sans Mono"
