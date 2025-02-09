@@ -21,6 +21,7 @@
     self.nixosModules.router
     self.nixosModules.secrets
     self.nixosModules.desktop
+    "${self}/nixos/config/apps/obs-studio.nix"
   ];
 
   powerManagement.enable = false;
