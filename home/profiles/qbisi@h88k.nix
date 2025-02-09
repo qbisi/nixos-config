@@ -17,4 +17,9 @@
   services.ssh-agent.enable = true;
 
   programs.ssh.matchBlocks."github.com".proxyJump = "hk";
+
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode.fhs;
+  };
 }
