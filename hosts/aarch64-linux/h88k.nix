@@ -54,6 +54,8 @@
     };
   };
 
+  services.onedrive.enable = true;
+
   environment.systemPackages = with pkgs; [
     minicom
   ];
