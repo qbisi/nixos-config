@@ -25,7 +25,7 @@
 
    home.packages = with pkgs; [
     telegram-desktop
-    # qq
+    qq
     # wechat-uos
     # zotero
    ];
