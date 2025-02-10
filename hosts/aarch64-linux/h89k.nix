@@ -10,7 +10,7 @@
 {
 
   deployment = {
-    targetHost = "192.168.100.69";
+    targetHost = "192.168.100.128";
     # buildOnTarget = true;
     tags = [
       "desktop"
@@ -25,6 +25,8 @@
 
   networking = {
     hostName = "h89k";
+    useDHCP = false;
+    networkmanager.enable = true;
   };
 
 }
