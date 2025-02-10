@@ -29,4 +29,7 @@
     networkmanager.enable = true;
   };
 
+  # currently does not support usb recover from suspend
+  powerManagement.enable = false;
+
 }
