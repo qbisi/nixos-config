@@ -10,7 +10,7 @@
 {
 
   deployment = {
-    targetHost = "192.168.100.128";
+    targetHost = "192.168.100.163";
     # buildOnTarget = true;
     tags = [
       "desktop"
@@ -27,6 +27,10 @@
     hostName = "h89k";
     useDHCP = false;
     networkmanager.enable = true;
+  };
+
+  hardware = {
+    deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
   };
 
   # currently does not support usb recover from suspend
