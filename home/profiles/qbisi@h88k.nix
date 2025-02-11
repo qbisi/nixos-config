@@ -7,6 +7,7 @@
 {
   imports = [
     ./qbisi.nix
+    ../texlive.nix
   ];
 
   home.sessionVariables = {
