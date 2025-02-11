@@ -24,10 +24,10 @@
     package = pkgs.vscode.fhs;
   };
 
-   home.packages = with pkgs; [
+  home.packages = with pkgs; [
     telegram-desktop
     qq
     # wechat-uos
     # zotero
-   ];
+  ];
 }

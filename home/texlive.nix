@@ -10,5 +10,8 @@ let
   };
 in
 {
-  home.packages = [ tex ];
+  home.packages = with pkgs; [
+    tex
+    times-newer-roman
+  ];
 }
