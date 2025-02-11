@@ -12,6 +12,9 @@ in
 {
   home.packages = with pkgs; [
     tex
-    times-newer-roman
-  ];
+    # Microsoft's TrueType core fonts for the Web
+    corefonts
+];
+
+  fonts.fontconfig.enable = true;
 }
