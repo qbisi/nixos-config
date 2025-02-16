@@ -6,14 +6,14 @@
 }:
 let
   tex = pkgs.texlive.combine {
-    inherit (pkgs.texlive) scheme-full;
+    inherit (pkgs.texlive) scheme-medium;
   };
 in
 {
   home.packages = with pkgs; [
-    # tex
+    tex
     # Microsoft's TrueType core fonts for the Web
-    # corefonts
+    corefonts
 ];
 
   fonts.fontconfig.enable = true;

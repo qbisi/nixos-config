@@ -8,13 +8,7 @@
   imports = [
     ./qbisi.nix
     ../texlive.nix
-    ../apps/thunderbird.nix
   ];
-
-  home.sessionVariables = {
-    http_proxy = "http://127.0.0.1:1080";
-    https_proxy = "http://127.0.0.1:1080";
-  };
 
   services.ssh-agent.enable = true;
 
@@ -23,7 +17,7 @@
   home.packages = with pkgs; [
     telegram-desktop
     qq
-    # wechat-uos
-    # zotero
   ];
+
+  programs.vscode.enable=true;
 }

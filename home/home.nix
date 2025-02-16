@@ -67,6 +67,20 @@
         bind c new-window -c "#{pane_current_path}"
       '';
     };
+    vscode = {
+    extensions = with pkgs.vscode-extensions; [
+      dracula-theme.theme-dracula
+      yzhang.markdown-all-in-one
+      jnoortheen.nix-ide
+      james-yu.latex-workshop
+      mkhl.direnv
+      # ms-python.vscode-pylance
+      # ms-python.python
+      # ms-python.debugpy
+      ms-vscode-remote.remote-ssh
+      editorconfig.editorconfig
+    ];
+  };
   };
 
   services.vscode-server = {

@@ -32,8 +32,15 @@
   networking = {
     hostName = "h89k";
     useDHCP = false;
+    useNetworkd = true;
     networkmanager.enable = true;
   };
+
+  nix.buildMachines = with self.vars.buildMachines; [
+    ft
+    x79
+    mac
+  ];
 
   system.stateVersion = "25.05";
 }
