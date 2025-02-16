@@ -149,8 +149,6 @@
       # use mirror in CN only
       # "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://nix-community.cachix.org"
-      # "ssh://${self.vars.user.name}@${self.vars.hostIP.ft}"
-      # "ssh://${self.vars.user.name}@${self.vars.hostIP.x79}"
     ];
 
     trusted-public-keys = [
