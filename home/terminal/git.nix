@@ -9,7 +9,10 @@
     enable = true;
     userName = self.vars.user.name;
     userEmail = self.vars.user.mail;
-    ignores = [ ".envrc" ];
+    ignores = [
+      ".envrc"
+      ".direnv"
+    ];
     extraConfig = {
       url = {
         "git@github.com" = {
