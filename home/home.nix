@@ -7,6 +7,7 @@
 }:
 {
   imports = [
+    ./terminal/bash.nix
     ./terminal/zsh.nix
     ./terminal/git.nix
     ./terminal/ssh.nix
@@ -37,7 +38,6 @@
   programs = {
     direnv = {
       enable = true;
-      enableBashIntegration = true;
       nix-direnv.enable = true;
     };
     tmux = {
