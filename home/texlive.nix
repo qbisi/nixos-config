@@ -13,7 +13,7 @@ in
   home.packages = with pkgs; [
     # tex
     # Microsoft's TrueType core fonts for the Web
-    corefonts
+    # corefonts
 ];
 
   fonts.fontconfig.enable = true;

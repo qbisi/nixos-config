@@ -28,8 +28,6 @@
     deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
   };
 
-  powerManagement.enable = false;
-
   disko.profile.partLabel = "nvme";
 
   networking = {

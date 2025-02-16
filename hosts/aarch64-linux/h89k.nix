@@ -10,12 +10,18 @@
 {
 
   deployment = {
-    targetHost = "192.168.100.73";
+    targetHost = "192.168.100.250";
     # buildOnTarget = true;
     tags = [
       "desktop"
       "dev"
     ];
+  };
+
+  disko.profile.partLabel = "nvme";
+
+  hardware = {
+    deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
   };
 
   imports = [
@@ -29,11 +35,5 @@
     networkmanager.enable = true;
   };
 
-  hardware = {
-    deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
-  };
-
-  # currently does not support usb recover from suspend
-  powerManagement.enable = false;
-
+  system.stateVersion = "25.05";
 }

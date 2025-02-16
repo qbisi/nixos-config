@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   hardware = {
     graphics.enable = true;
@@ -12,16 +12,10 @@
   };
 
   fonts.packages = with pkgs; [
-    noto-fonts
-    # noto-fonts-cjk-sans
-    # noto-fonts-cjk-serif
-    source-han-sans
-    source-han-serif
-    # sarasa-gothic
-    source-code-pro
-    jetbrains-mono
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    noto-fonts-color-emoji
     nerd-fonts.hack
-    #(nerdfonts.override { fonts = [ "Hack" ]; })
   ];
 
   fonts.fontconfig = {
@@ -29,19 +23,12 @@
       emoji = [ "Noto Color Emoji" ];
       monospace = [
         "Hack Nerd Font"
-        "Noto Sans Mono CJK SC"
-        "Sarasa Mono SC"
-        "DejaVu Sans Mono"
       ];
       sansSerif = [
         "Noto Sans CJK SC"
-        "Source Han Sans SC"
-        "DejaVu Sans"
       ];
       serif = [
         "Noto Serif CJK SC"
-        "Source Han Serif SC"
-        "DejaVu Serif"
       ];
     };
   };
@@ -59,4 +46,10 @@
       ];
     };
   };
+
+  systemd.sleep.extraConfig = lib.mkDefault ''
+    # disable hibernation
+    AllowSuspend=no
+    AllowHibernation=no
+  '';
 }
