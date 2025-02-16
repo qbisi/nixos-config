@@ -11,7 +11,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    tex
+    # tex
     # Microsoft's TrueType core fonts for the Web
     corefonts
 ];
