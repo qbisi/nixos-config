@@ -10,13 +10,14 @@
     ./nettools.nix
   ];
 
+  systemd.services.ModemManager.wantedBy = [ "multi-user.target" ];
+
   networking = {
     useDHCP = false;
     useNetworkd = true;
     networkmanager.enable = true;
     networkmanager.settings.main.no-auto-default = "*";
     modemmanager.enable = true;
-    # modemmanager.enableIPv6 = false;
     nftables.enable = true;
 
     networkmanager.ensureProfiles.profiles = {
@@ -26,12 +27,18 @@
           interface-name = "eth0";
           type = "ethernet";
         };
-        ipv4 = {
-          method = "auto";
+        ipv4.method = "auto";
+        ipv6.method = "auto";
+      };
+
+      wwan0 = {
+        connection = {
+          id = "wwan0";
+          interface-name = "cdc-wdm0";
+          type = "gsm";
         };
-        ipv6 = {
-          method = "auto";
-        };
+        ipv4.method = "auto";
+        ipv6.method = "auto";
       };
 
       hotspot = lib.mkDefault {

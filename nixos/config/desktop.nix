@@ -20,7 +20,8 @@
     # sarasa-gothic
     source-code-pro
     jetbrains-mono
-    (nerdfonts.override { fonts = [ "Hack" ]; })
+    nerd-fonts.hack
+    #(nerdfonts.override { fonts = [ "Hack" ]; })
   ];
 
   fonts.fontconfig = {

@@ -1,7 +1,8 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-test.url = "/home/qbisi/nixpkgs";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "/home/qbisi/nixpkgs";
     nixos-images = {
       url = "github:qbisi/nixos-images";
       # Dont follow to avoid massive rebuild

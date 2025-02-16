@@ -23,7 +23,7 @@ in
     "${inputs.nixos-images}/devices/x86_64-linux/nixos-x86_64-uefi.nix"
     self.nixosModules.router
     self.nixosModules.secrets
-    self.nixosModules.desktop
+    # self.nixosModules.desktop
   ];
 
   hardware = {
