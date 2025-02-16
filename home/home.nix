@@ -85,8 +85,9 @@
   };
 
   services.vscode-server = {
-    enable = false;
+    enable = true;
     enableFHS = false;
+    installPath = "$HOME/.vscodium-server";
   };
 
   home.stateVersion = "24.11";

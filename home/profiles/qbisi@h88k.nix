@@ -7,8 +7,6 @@
 {
   imports = [
     ./qbisi.nix
-    ../texlive.nix
-    ../apps/thunderbird.nix
   ];
 
   home.sessionVariables = {
