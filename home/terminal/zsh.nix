@@ -21,6 +21,7 @@
     syntaxHighlighting.enable = true;
     shellAliases = {
       help = "run-help";
+      codium = "code";
     };
     oh-my-zsh = {
       enable = true;
