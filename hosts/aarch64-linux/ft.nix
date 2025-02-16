@@ -58,10 +58,17 @@
     systemPackages = with pkgs; [ lm_sensors ];
   };
 
-  nix.buildMachines = with self.vars.buildMachines; [
-    x79
-    mac
-  ];
+  nix = {
+    buildMachines = with self.vars.buildMachines; [
+      x79
+      mac
+    ];
+
+    sshServe = {
+      enable = true;
+      keys = config.users.users.mainUser.openssh.authorizedKeys.keys;
+    };
+  };
 
   system.stateVersion = "24.11";
 }
