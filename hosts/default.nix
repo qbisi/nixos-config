@@ -6,13 +6,13 @@
 }:
 let
   inherit (lib) nixosSystem cartesianProduct;
-  inherit (self.lib) genAttrs' listNixname;
+  inherit (self.lib) genAttrs' listNixName;
   x86_64-hosts = cartesianProduct {
-    name = listNixname ./x86_64-linux;
+    name = listNixName ./x86_64-linux;
     system = [ "x86_64-linux" ];
   };
   aarch64-hosts = cartesianProduct {
-    name = listNixname ./aarch64-linux;
+    name = listNixName ./aarch64-linux;
     system = [ "aarch64-linux" ];
   };
   hosts = x86_64-hosts ++ aarch64-hosts;

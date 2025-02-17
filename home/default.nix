@@ -1,7 +1,7 @@
 { inputs, self, ... }:
 let
   inherit (inputs.home-manager.lib) homeManagerConfiguration;
-  profiles = self.lib.listNixname "${self}/home/profiles";
+  profiles = self.lib.listNixName "${self}/home/profiles";
 in
 {
   systems = [

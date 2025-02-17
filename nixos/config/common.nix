@@ -148,10 +148,10 @@
       experimental-features = [
         "nix-command"
         "flakes"
+        "pipe-operators"
       ];
       trusted-users = [ "@wheel" ];
       substituters = [
-        # use mirror in CN only
         # "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://nix-community.cachix.org"
       ];
