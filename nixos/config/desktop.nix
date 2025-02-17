@@ -47,6 +47,8 @@
     };
   };
 
+  environment.systemPackages = [ pkgs.wl-clipboard ];
+
   systemd.sleep.extraConfig = lib.mkDefault ''
     # disable hibernation
     AllowSuspend=no

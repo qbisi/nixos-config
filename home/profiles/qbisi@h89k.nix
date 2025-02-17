@@ -16,7 +16,10 @@
   home.packages = with pkgs; [
     telegram-desktop
     qq
+    corefonts
   ];
+
+  fonts.fontconfig.enable = true;
 
   programs.vscode.enable=true;
 }
