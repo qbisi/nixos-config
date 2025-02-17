@@ -37,6 +37,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nixos-vscode-server";
     };
+    nix-vscode-extensions = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nix-vscode-extensions";
+    };
     secrets = {
       url = "git+ssh://git@github.com/qbisi/secrets";
       flake = false;

@@ -2,9 +2,13 @@
   config,
   pkgs,
   inputs,
+  system,
   self,
   ...
 }:
+let
+  extensions = inputs.nix-vscode-extensions.extensions.${system};
+in
 {
   imports = [
     ./terminal/bash.nix
@@ -79,6 +83,7 @@
         ms-python.python
         ms-python.debugpy
         ms-vscode-remote.remote-ssh
+        # jeanp413.open-remote-ssh
         editorconfig.editorconfig
         pkief.material-icon-theme
       ];
