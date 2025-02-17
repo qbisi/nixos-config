@@ -143,24 +143,26 @@
     ];
   };
 
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    trusted-users = [ "@wheel" ];
-    substituters = [
-      # use mirror in CN only
-      # "https://mirrors.ustc.edu.cn/nix-channels/store"
-      "https://nix-community.cachix.org"
-    ];
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      trusted-users = [ "@wheel" ];
+      substituters = [
+        # use mirror in CN only
+        # "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://nix-community.cachix.org"
+      ];
 
-    trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
+
+    package = pkgs.nixVersions.latest;
+
+    distributedBuilds = true;
   };
-
-  nix.package = pkgs.nixVersions.latest;
-
-  nix.distributedBuilds = true;
 }

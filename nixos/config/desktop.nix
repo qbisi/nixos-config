@@ -5,11 +5,18 @@
     bluetooth.enable = true;
   };
 
-  services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
+  services = {
+    desktopManager.plasma6.enable = true;
+
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+
+    printing.enable = true;
   };
+
+  programs.system-config-printer.enable = true;
 
   fonts.packages = with pkgs; [
     noto-fonts-cjk-sans
