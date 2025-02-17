@@ -7,7 +7,6 @@
 {
   imports = [
     ./qbisi.nix
-    ../texlive.nix
   ];
 
   services.ssh-agent.enable = true;
