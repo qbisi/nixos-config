@@ -18,6 +18,7 @@
           export EDITOR="code --wait"
         elif [[ "$VSCODE_ZDOTDIR" == *"codium"* ]]; then
           export EDITOR="codium --wait"
+          alias code="codium"
         fi
       fi
     '';
@@ -25,7 +26,7 @@
     syntaxHighlighting.enable = true;
     shellAliases = {
       help = "run-help";
-      code = "codium";
+      # code = "codium";
     };
     oh-my-zsh = {
       enable = true;

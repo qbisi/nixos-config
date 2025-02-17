@@ -74,16 +74,16 @@ in
     };
     vscode = {
       package = pkgs.vscodium;
-      extensions = with pkgs.vscode-extensions; [
+      extensions = with extensions.vscode-marketplace; [
         yzhang.markdown-all-in-one
         jnoortheen.nix-ide
         james-yu.latex-workshop
         mkhl.direnv
-        ms-python.vscode-pylance
+        # ms-python.vscode-pylance
         ms-python.python
         ms-python.debugpy
-        ms-vscode-remote.remote-ssh
-        # jeanp413.open-remote-ssh
+        donjayamanne.githistory
+        # ms-vscode-remote.remote-ssh
         editorconfig.editorconfig
         pkief.material-icon-theme
       ];

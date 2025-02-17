@@ -156,6 +156,24 @@ in
     ];
     route = {
       final = "direct";
+      rule_set = (
+        lib.forEach
+          [
+            "geoip-cn"
+            "geosite-cn"
+          ]
+          (v: {
+            download_detour = "direct";
+            format = "binary";
+            tag = v;
+            type = "remote";
+            url =
+              let
+                prefix = builtins.elemAt (lib.splitString "-" v) 0;
+              in
+              "https://raw.githubusercontent.com/1715173329/sing-${prefix}/rule-set/${v}.srs";
+          })
+      );
       rules = [
         {
           outbound = "dns-out";
@@ -167,8 +185,10 @@ in
           rules = [
             { ip_version = 6; }
             {
-              geoip = [ "cn" ];
-              geosite = [ "cn" ];
+              rule_set = [
+                "geoip-cn"
+                "geosite-cn"
+              ];
             }
           ];
           type = "logical";

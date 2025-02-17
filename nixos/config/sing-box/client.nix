@@ -27,7 +27,10 @@ let
 in
 {
   config = {
-    systemd.services.sing-box.serviceConfig.Group = "proxy";
+    systemd.services.sing-box.serviceConfig = {
+      Group = "proxy";
+      MemoryMax = "400M";
+    };
 
     users.groups.proxy.members = [ self.vars.user.name ];
 
@@ -38,6 +41,7 @@ in
         { tag = "direct"; }
         { tag = "proxy"; }
         { tag = "game"; }
+        { tag = "ai"; }
         {
           tag = "final";
           outbounds = [ "proxy" ];
@@ -89,7 +93,12 @@ in
             "server"
             "bind_interface"
           ] config;
-        group = [ [ "proxy" ] ];
+        group = [
+          [
+            "proxy"
+            "ai"
+          ]
+        ];
       };
 
       hysteria2 = cartesianProduct' {
@@ -100,7 +109,12 @@ in
         tls = forEach vps (v: {
           server_name = "${v}.${domain}";
         });
-        group = [ [ "proxy" ] ];
+        group = [
+          [
+            "proxy"
+            "ai"
+          ]
+        ];
       };
 
       other = [
@@ -176,6 +190,7 @@ in
               "geosite-cn"
               "geosite-gfw"
               "geosite-steam"
+              "geosite-category-ai-chat-!cn"
             ]
             (v: {
               download_detour = "proxy";
@@ -230,6 +245,12 @@ in
               "geosite-cn"
             ];
             outbound = "direct";
+          }
+          {
+            rule_set = [
+              "geosite-category-ai-chat-!cn"
+            ];
+            outbound = "ai";
           }
           {
             domain_keyword = [ "libgen" ];
