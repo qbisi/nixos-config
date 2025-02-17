@@ -36,6 +36,9 @@ in
         ];
       })
     );
+    
+    colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
+
     colmena =
       (genAttrs' hosts (host: {
         imports = [
