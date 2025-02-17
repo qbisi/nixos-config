@@ -62,9 +62,15 @@
         "${inputs.secrets}"
       ];
       perSystem =
-        { config, pkgs, ... }:
+        { config, pkgs, inputs', ... }:
         {
           formatter = pkgs.nixfmt-rfc-style;
+          devShells.default = pkgs.mkShell {
+            packages = [
+              pkgs.colmena
+              inputs'.agenix.packages.default
+            ];
+          };
         };
     };
 }

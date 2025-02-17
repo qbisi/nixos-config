@@ -11,36 +11,38 @@ let
 in
 {
   imports = [
-    ./terminal/bash.nix
-    ./terminal/zsh.nix
-    ./terminal/git.nix
-    ./terminal/ssh.nix
-    self.homeManagerModules.secrets
+    ./CLI/bash.nix
+    ./CLI/zsh.nix
+    ./CLI/git.nix
+    ./CLI/ssh.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
 
   systemd.user.startServices = "sd-switch";
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    CACHIX_AUTH_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.cachix.path} 2>/dev/null)";
-    GITHUB_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.github.path} 2>/dev/null)";
-    NIXPKGS_ALLOW_UNFREE = "1";
+  home = {
+    sessionVariables = {
+      EDITOR = "nvim";
+      CACHIX_AUTH_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.cachix.path} 2>/dev/null)";
+      GITHUB_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.github.path} 2>/dev/null)";
+      NIXPKGS_ALLOW_UNFREE = "1";
+    };
+
+    shellAliases = {
+      os = "nh os";
+      hm = "nh home";
+    };
   };
 
   home.packages = with pkgs; [
     gh
-    nixpkgs-review
-    cachix
-    # minicom
-    # rkdeveloptool
+    # cachix
     nixfmt-rfc-style
-    colmena
-    inputs.agenix.packages.${config.nixpkgs.system}.default
   ];
 
   programs = {
+    nix-index.enable = true;
     direnv = {
       enable = true;
       nix-direnv.enable = true;

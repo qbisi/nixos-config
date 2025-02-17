@@ -24,10 +24,6 @@
     '';
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    shellAliases = {
-      help = "run-help";
-      # code = "codium";
-    };
     oh-my-zsh = {
       enable = true;
       theme = "gentoo";
