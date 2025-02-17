@@ -14,7 +14,11 @@
       esac
       # detect vscode editor
       if [ "$VSCODE_INJECTION" = "1" ]; then
+        if [[ "$VSCODE_ZDOTDIR" == *"code"* ]]; then
           export EDITOR="code --wait"
+        elif [[ "$VSCODE_ZDOTDIR" == *"codium"* ]]; then
+          export EDITOR="codium --wait"
+        fi
       fi
     '';
     autosuggestion.enable = true;
