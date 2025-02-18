@@ -21,7 +21,7 @@
       };
       # armbian build workaround new limitations imposed by CVE-2022-24765 fix in git,
       # otherwise  "fatal: unsafe repository"
-      safe.directory = "/home/${self.vars.user.name}/build";
+      # safe.directory = "/home/${self.vars.user.name}/build";
     };
   };
 }
