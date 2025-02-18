@@ -54,24 +54,18 @@
   environment = {
     systemPackages = with pkgs; [
       lm_sensors
-      distrobox
     ];
   };
 
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
+  virtualisation = {
+    # docker.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
   };
 
   users.users.admin.extraGroups = [ "podman" ];
-
-  virtualisation.oci-containers.containers = {
-    debian = {
-      image = "docker.io/amd64/debian:latest";
-      volumes = [ ];
-      environment = { };
-    };
-  };
 
   # virtualisation.oci-containers.containers = {
   #   autoBangumi = {
