@@ -21,7 +21,7 @@
     self.nixosModules.router
     self.nixosModules.secrets
     self.nixosModules.desktop
-    "${self}/nixos/config/apps/obs-studio.nix"
+    "${self}/nixos/config/nas.nix"
   ];
 
   hardware = {
@@ -29,6 +29,16 @@
   };
 
   disko.profile.partLabel = "nvme";
+
+  fileSystems = {
+    "/data" = {
+      device = "/dev/disk/by-uuid/86b949df-d134-4ed4-8e2e-ab41b8d7fcf2";
+      fsType = "btrfs";
+      options = [
+        "nofail"
+      ];
+    };
+  };
 
   networking = {
     hostName = "h88k";
@@ -55,8 +65,6 @@
       };
     };
   };
-
-  # services.onedrive.enable = true;
 
   environment.systemPackages = with pkgs; [
     minicom
