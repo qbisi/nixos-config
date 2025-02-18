@@ -11,5 +11,5 @@
 
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
-  users.users.mainUser.extraGroups = [ "video" ];
+  users.users.admin.extraGroups = [ "video" ];
 }

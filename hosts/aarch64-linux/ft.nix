@@ -66,7 +66,7 @@
 
     sshServe = {
       enable = true;
-      keys = config.users.users.mainUser.openssh.authorizedKeys.keys;
+      keys = config.users.users.admin.openssh.authorizedKeys.keys;
     };
   };
 

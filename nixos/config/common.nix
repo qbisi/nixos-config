@@ -47,7 +47,7 @@
 
   programs.nh = {
     enable = true;
-    flake = "/home/${config.users.users.mainUser.name}/nixos-config";
+    flake = "/home/${config.users.users.admin.name}/nixos-config";
   };
 
   programs.nix-ld = {
@@ -122,7 +122,7 @@
   };
 
   users.users = {
-    mainUser = {
+    admin = {
       inherit (self.vars.user) name hashedPassword;
       uid = 1000;
       isNormalUser = true;
@@ -150,7 +150,8 @@
         "flakes"
         "pipe-operators"
       ];
-      trusted-users = [ "@wheel" ];
+      trusted-users = [ config.users.users.admin.name ];
+      warn-dirty = false;
       substituters = [
         # "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://nix-community.cachix.org"
