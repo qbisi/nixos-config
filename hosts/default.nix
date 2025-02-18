@@ -44,7 +44,7 @@ in
         imports = [
           # SSH to llmnr hosts need retry to wait for hostname resolution.
           # Requires colmena version > 0.5.0.
-          # { deployment.sshOptions = [ "-o" "ConnectionAttempts=2" ]; }
+          { deployment.sshOptions = [ "-o ConnectionAttempts=2" ]; }
           "${self}/hosts/${host.system}/${host.name}.nix"
           self.nixosModules.default
           self.nixosModules.common

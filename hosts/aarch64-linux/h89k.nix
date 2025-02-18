@@ -10,7 +10,7 @@
 {
 
   deployment = {
-    targetHost = "192.168.100.250";
+    targetHost = "h89k";
     # buildOnTarget = true;
     tags = [
       "desktop"
@@ -34,6 +34,9 @@
     useDHCP = false;
     useNetworkd = true;
     networkmanager.enable = true;
+    firewall.allowedUDPPorts = [
+      5355 #LLMNR
+    ];
   };
 
   nix.buildMachines = with self.vars.buildMachines; [
