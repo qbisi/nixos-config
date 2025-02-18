@@ -17,9 +17,10 @@
     telegram-desktop
     qq
     corefonts
+    vista-fonts
   ];
 
   fonts.fontconfig.enable = true;
 
-  programs.vscode.enable=true;
+  programs.vscode.enable = true;
 }
