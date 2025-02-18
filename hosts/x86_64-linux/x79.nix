@@ -58,14 +58,14 @@
   };
 
   virtualisation = {
-    # docker.enable = true;
+    docker.enable = true;
     podman = {
       enable = true;
-      dockerCompat = true;
+      # dockerCompat = true;
     };
   };
 
-  users.users.admin.extraGroups = [ "podman" ];
+  users.users.admin.extraGroups = [ "podman" "docker" ];
 
   # virtualisation.oci-containers.containers = {
   #   autoBangumi = {
