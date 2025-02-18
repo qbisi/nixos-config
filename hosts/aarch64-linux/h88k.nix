@@ -36,8 +36,16 @@
       fsType = "btrfs";
       options = [
         "nofail"
+        "x-systemd.automount"
       ];
     };
+  };
+
+  systemd.services.jellyfin.serviceConfig = {
+    # TasksMax = 4;
+    IOAccounting = "yes";
+    IOReadIOPSMax = "/dev/mmcblk1 20";
+    IOWriteIOPSMax = "/dev/mmcblk1 20";
   };
 
   networking = {
