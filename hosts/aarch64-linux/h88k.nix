@@ -31,22 +31,51 @@
   disko.profile.partLabel = "nvme";
 
   fileSystems = {
-    "/data" = {
-      device = "/dev/disk/by-uuid/86b949df-d134-4ed4-8e2e-ab41b8d7fcf2";
-      fsType = "btrfs";
+    "/.gigatf" = {
+      device = "/dev/disk/by-uuid/e64827a8-9986-42da-8364-a958dcd129d4";
+      fsType = "f2fs";
       options = [
         "nofail"
         "x-systemd.automount"
+        "nodev"
+        "noatime"
+      ];
+    };
+    "/data" = {
+      device = "data:";
+      fsType = "rclone";
+      options = [
+        "nodev"
+        "nofail"
+        "allow_other"
+        "args2env"
+        "config=/etc/rclone-mnt.conf"
       ];
     };
   };
 
-  systemd.services.jellyfin.serviceConfig = {
-    # TasksMax = 4;
-    IOAccounting = "yes";
-    IOReadIOPSMax = "/dev/mmcblk1 20";
-    IOWriteIOPSMax = "/dev/mmcblk1 20";
+  system.activationScripts = {
+    mergerfs = {
+      text = ''
+        mkdir -p /.data
+      '';
+    };
   };
+
+  environment.etc."rclone-mnt.conf".text = ''
+    [x79]
+    type = sftp
+    host = ${self.vars.hostIP.x79}
+    user = root
+    key_file = ${config.age.secrets.id_ed25519.path}
+
+    [data]
+    type = union
+    action_policy = all
+    create_policy = all
+    search_policy = ff
+    upstreams = /.data x79:/.gigatf:ro
+  '';
 
   networking = {
     hostName = "h88k";
@@ -76,6 +105,7 @@
 
   environment.systemPackages = with pkgs; [
     minicom
+    rclone
   ];
 
   nix.buildMachines = with self.vars.buildMachines; [
