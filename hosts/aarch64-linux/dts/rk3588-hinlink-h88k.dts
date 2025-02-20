@@ -95,6 +95,17 @@
 		};
 	};
 
+	hdmi1-con {
+		compatible = "hdmi-connector";
+		type = "a";
+
+		port {
+			hdmi1_con_in: endpoint {
+				remote-endpoint = <&hdmi1_out_con>;
+			};
+		};
+	};
+
 	rfkilli-wifi {
 		compatible = "rfkill-gpio";
 		label = "rfkill-pcie-wlan";
@@ -290,6 +301,12 @@
 &hdmi1_in {
 	hdmi1_in_vp1: endpoint {
 		remote-endpoint = <&vp1_out_hdmi1>;
+	};
+};
+
+&hdmi1_out {
+	hdmi1_out_con: endpoint {
+		remote-endpoint = <&hdmi1_con_in>;
 	};
 };
 
