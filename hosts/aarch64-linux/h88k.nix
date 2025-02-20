@@ -31,25 +31,25 @@
   disko.profile.partLabel = "nvme";
 
   fileSystems = {
-    "/.gigatf" = {
+    "/gigatf" = {
       device = "/dev/disk/by-uuid/e64827a8-9986-42da-8364-a958dcd129d4";
       fsType = "f2fs";
       options = [
         "nofail"
-        "x-systemd.automount"
+        "x-systemd.wanted-by=dev-disk-by\\x2duuid-e64827a8\\x2d9986\\x2d42da\\x2d8364\\x2da958dcd129d4.device"
         "nodev"
         "noatime"
       ];
     };
     "/data" = {
-      device = "data:";
-      fsType = "rclone";
+      device = "/.data:/gigatf=RO";
+      fsType = "mergerfs";
       options = [
         "nodev"
         "nofail"
-        "allow_other"
-        "args2env"
-        "config=/etc/rclone-mnt.conf"
+        "cache.files=off"
+        "dropcacheonclose=false"
+        "category.create=mfs"
       ];
     };
   };
@@ -74,7 +74,7 @@
     action_policy = all
     create_policy = all
     search_policy = ff
-    upstreams = /.data x79:/.gigatf:ro
+    upstreams = /.data x79:/gigatf:ro
   '';
 
   networking = {
@@ -106,6 +106,7 @@
   environment.systemPackages = with pkgs; [
     minicom
     rclone
+    mergerfs
   ];
 
   nix.buildMachines = with self.vars.buildMachines; [
