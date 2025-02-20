@@ -21,6 +21,15 @@ in
 
   systemd.user.startServices = "sd-switch";
 
+  xdg = {
+    userDirs = {
+      enable = true;
+      desktop = "$HOME";
+      download = "$HOME";
+      createDirectories = false;
+    };
+  };
+
   home = {
     sessionVariables = {
       EDITOR = "nvim";
