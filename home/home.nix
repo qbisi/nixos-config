@@ -23,7 +23,7 @@ in
 
   xdg = {
     userDirs = {
-      enable = true;
+      enable = false;
       desktop = "$HOME";
       download = "$HOME";
       createDirectories = false;
