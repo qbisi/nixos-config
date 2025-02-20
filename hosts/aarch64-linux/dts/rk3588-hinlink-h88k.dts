@@ -73,19 +73,19 @@
 		net {
 			label = "blue:net";
 			gpios = <&gpio2 RK_PC3 GPIO_ACTIVE_HIGH>;
-			linux,default-trigger = "hci0-power";
+			linux,default-trigger = "netdev";
 		};
 
-		sata {
-			label = "amber:sata";
+		ssd {
+			label = "amber:ssd";
 			gpios = <&gpio2 RK_PC5 GPIO_ACTIVE_HIGH>;
-			linux,default-trigger = "mmc1";
+			linux,default-trigger = "disk-activity";
 		};
 
 		user {
 			label = "green:user";
 			gpios = <&gpio3 RK_PB7 GPIO_ACTIVE_HIGH>;
-			linux,default-trigger = "netdev";
+			linux,default-trigger = "mmc1";
 		};
 
 		work {

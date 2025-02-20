@@ -30,6 +30,19 @@
 
   disko.profile.partLabel = "nvme";
 
+  boot = {
+    kernelModules = [ "ledtrig-netdev" ];
+  };
+
+  system.activationScripts = {
+    led-netdev = ''
+      echo "wwan0" > /sys/class/leds/blue:net/device_name
+      echo 1 > /sys/class/leds/blue:net/link
+      echo 1 > /sys/class/leds/blue:net/rx
+      echo 1 > /sys/class/leds/blue:net/tx
+    '';
+  };
+
   fileSystems = {
     "/gigatf" = {
       device = "/dev/disk/by-uuid/e64827a8-9986-42da-8364-a958dcd129d4";
