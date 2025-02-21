@@ -10,8 +10,7 @@
 {
 
   deployment = {
-    targetHost = "h89k";
-    # buildOnTarget = true;
+    targetHost = "192.168.100.250";
     tags = [
       "desktop"
       "dev"

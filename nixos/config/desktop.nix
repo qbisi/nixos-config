@@ -3,7 +3,10 @@
   hardware = {
     graphics.enable = true;
     bluetooth.enable = true;
+    # alsa.enable = true;
   };
+
+  security.rtkit.enable = true;
 
   services = {
     desktopManager.plasma6.enable = true;
@@ -11,6 +14,12 @@
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
+    };
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
     };
 
     printing.enable = true;
