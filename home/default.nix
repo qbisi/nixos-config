@@ -26,6 +26,7 @@ in
           };
           modules = [
             inputs.vscode-server.homeModules.default
+            inputs.nix-index-database.hmModules.nix-index
             self.homeManagerModules.secrets
             ./home.nix
             "${self}/home/profiles/${profile}.nix"
