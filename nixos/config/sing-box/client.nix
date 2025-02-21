@@ -178,7 +178,7 @@ in
         }
       ];
       log = {
-        level = "info";
+        level = "error";
       };
       route = {
         final = "final";

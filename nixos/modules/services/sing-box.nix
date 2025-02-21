@@ -224,6 +224,8 @@ in
 
   config = mkIf config.services.sing-box.enable {
 
+    environment.systemPackages = [ config.services.sing-box.package ];
+
     services.sing-box = {
       outbounds.other = with cfg; direct ++ socks ++ vless ++ hysteria2;
       settings = {

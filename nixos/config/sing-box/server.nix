@@ -121,7 +121,7 @@ in
       }
     ];
     log = {
-      level = "info";
+      level = "error";
     };
     outbounds = [
       {
