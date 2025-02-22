@@ -17,9 +17,10 @@
 		mmc1 = &sdmmc;
 		mmc2 = &sdio;
 	};
-	
-	sound {
+
+	analog-sound {
 		compatible = "simple-audio-card";
+		label = "rockchip,es8388-codec";
 		pinctrl-names = "default";
 		pinctrl-0 = <&hp_detect>;
 		simple-audio-card,name = "Analog";
@@ -28,7 +29,6 @@
 		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
 		simple-audio-card,bitclock-master = <&daicpu>;
 		simple-audio-card,frame-master = <&daicpu>;
-		/*TODO: SARADC_IN3 is used as MIC detection / key input */
 
 		simple-audio-card,widgets =
 			"Microphone", "Onboard Microphone",
@@ -92,6 +92,17 @@
 			label = "red:work";
 			gpios = <&gpio0 RK_PA0 GPIO_ACTIVE_HIGH>;
 			linux,default-trigger = "heartbeat";
+		};
+	};
+
+	hdmi0-con {
+		compatible = "hdmi-connector";
+		type = "a";
+
+		port {
+			hdmi0_con_in: endpoint {
+				remote-endpoint = <&hdmi0_out_con>;
+			};
 		};
 	};
 
@@ -294,6 +305,12 @@
 	};
 };
 
+&hdmi0_out {
+	hdmi0_out_con: endpoint {
+		remote-endpoint = <&hdmi0_con_in>;
+	};
+};
+
 &hdmi1 {
 	status = "okay";
 };
@@ -388,13 +405,13 @@
 	es8388: audio-codec@11 {
 		compatible = "everest,es8388";
 		reg = <0x11>;
-		clocks = <&cru I2S0_8CH_MCLKOUT>;
 		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
 		assigned-clock-rates = <12288000>;
-		AVDD-supply = <&vcc_3v3_s0>;
-		DVDD-supply = <&vcc_1v8_s0>;
-		HPVDD-supply = <&vcc_3v3_s0>;
-		PVDD-supply = <&vcc_1v8_s0>;
+		AVDD-supply = <&vcc_3v3_s3>;
+		clocks = <&cru I2S0_8CH_MCLKOUT>;
+		DVDD-supply = <&vcc_1v8_s3>;
+		HPVDD-supply = <&vcc_3v3_s3>;
+		PVDD-supply = <&vcc_1v8_s3>;
 		#sound-dai-cells = <0>;
 	};
 };
