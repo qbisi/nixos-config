@@ -18,34 +18,43 @@
 		mmc2 = &sdio;
 	};
 	
-	analog-sound {
+	sound {
 		compatible = "simple-audio-card";
 		pinctrl-names = "default";
 		pinctrl-0 = <&hp_detect>;
-		simple-audio-card,name = "rockchip,es8388";
-		simple-audio-card,bitclock-master = <&masterdai>;
+		simple-audio-card,name = "Analog";
 		simple-audio-card,format = "i2s";
-		simple-audio-card,frame-master = <&masterdai>;
-		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
 		simple-audio-card,mclk-fs = <256>;
-		simple-audio-card,pin-switches = "Headphones";
+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
+		simple-audio-card,bitclock-master = <&daicpu>;
+		simple-audio-card,frame-master = <&daicpu>;
+		/*TODO: SARADC_IN3 is used as MIC detection / key input */
+
+		simple-audio-card,widgets =
+			"Microphone", "Onboard Microphone",
+			"Microphone", "Microphone Jack",
+			"Speaker", "Speaker",
+			"Headphone", "Headphones";
+
 		simple-audio-card,routing =
 			"Headphones", "LOUT1",
 			"Headphones", "ROUT1",
+			"Speaker", "LOUT2",
+			"Speaker", "ROUT2",
+
+			/* single ended signal to LINPUT1 */
 			"LINPUT1", "Microphone Jack",
 			"RINPUT1", "Microphone Jack",
+			/* differential signal */
 			"LINPUT2", "Onboard Microphone",
 			"RINPUT2", "Onboard Microphone";
-		simple-audio-card,widgets =
-			"Microphone", "Microphone Jack",
-			"Microphone", "Onboard Microphone",
-			"Headphone", "Headphones";
 
-		simple-audio-card,cpu {
+		daicpu: simple-audio-card,cpu {
 			sound-dai = <&i2s0_8ch>;
+			system-clock-frequency = <12288000>;
 		};
 
-		masterdai: simple-audio-card,codec {
+		daicodec: simple-audio-card,codec {
 			sound-dai = <&es8388>;
 			system-clock-frequency = <12288000>;
 		};
