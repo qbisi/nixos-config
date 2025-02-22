@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-self,
   lib,
   modulesPath,
   self,
