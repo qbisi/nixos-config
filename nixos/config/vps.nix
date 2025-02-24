@@ -81,4 +81,33 @@
     passwordFile = "/run/keys/ddclient";
   };
 
+  services.vnstat.enable = true;
+
+  systemd.services.vnstat-alert = {
+    after = [ "vnstat.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      RestartSec = 600;
+    };
+    path = with pkgs; [ vnstat ];
+    script = ''
+      vnstat -i eth0 --alert 1 3 m tx 100 GB
+    '';
+    onFailure = [ "stop-sing-box.service" ];
+  };
+
+
+  systemd.services.stop-sing-box = {
+    after = [ "vnstat-alert.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+    };
+    path = with pkgs; [ systemd ];
+    script = ''
+      systemctl stop sing-box.service
+    '';
+  };
+
 }
