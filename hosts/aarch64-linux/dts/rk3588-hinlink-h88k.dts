@@ -79,7 +79,7 @@
 		ssd {
 			label = "amber:ssd";
 			gpios = <&gpio2 RK_PC5 GPIO_ACTIVE_HIGH>;
-			linux,default-trigger = "disk-activity";
+			linux,default-trigger = "rfkill0";
 		};
 
 		user {
@@ -295,7 +295,7 @@
 };
 
 
-&hdptxphy_hdmi0 {
+&hdptxphy0 {
 	status = "okay";
 };
 
