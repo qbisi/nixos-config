@@ -79,7 +79,6 @@
 		ssd {
 			label = "amber:ssd";
 			gpios = <&gpio2 RK_PC5 GPIO_ACTIVE_HIGH>;
-			linux,default-trigger = "rfkill0";
 		};
 
 		user {
@@ -893,6 +892,15 @@
 &uart2 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart2m0_xfer>;
+	status = "okay";
+};
+
+&uart3 {
+	status = "okay";
+};
+
+&uart4 {
+	pinctrl-0 = <&uart4m0_xfer>;
 	status = "okay";
 };
 
