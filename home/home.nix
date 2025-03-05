@@ -47,6 +47,9 @@ in
   home.packages = with pkgs; [
     gh
     yazi
+    fd
+    ripgrep
+    tldr
     # cachix
     nixfmt-rfc-style
   ];
@@ -86,26 +89,26 @@ in
     };
     vscode = {
       package = pkgs.vscodium;
-      extensions = with extensions.vscode-marketplace; [
-        yzhang.markdown-all-in-one
-        jnoortheen.nix-ide
-        james-yu.latex-workshop
-        mkhl.direnv
-        # ms-python.vscode-pylance
-        ms-python.python
-        ms-python.debugpy
-        donjayamanne.githistory
-        # ms-vscode-remote.remote-ssh
-        editorconfig.editorconfig
-        pkief.material-icon-theme
-      ];
+      # extensions = with extensions.vscode-marketplace; [
+      #   yzhang.markdown-all-in-one
+      #   jnoortheen.nix-ide
+      #   james-yu.latex-workshop
+      #   mkhl.direnv
+      #   # ms-python.vscode-pylance
+      #   ms-python.python
+      #   ms-python.debugpy
+      #   donjayamanne.githistory
+      #   # ms-vscode-remote.remote-ssh
+      #   editorconfig.editorconfig
+      #   pkief.material-icon-theme
+      # ];
     };
   };
 
   services.vscode-server = {
     enable = true;
     enableFHS = false;
-    installPath = "$HOME/.vscodium-server";
+    installPath = "$HOME/.vscode-server";
   };
 
   home.stateVersion = "24.11";
