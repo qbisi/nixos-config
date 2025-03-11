@@ -162,7 +162,11 @@
         "nix-command"
         "flakes"
         "pipe-operators"
+        "cgroups"
+        "auto-allocate-uids"
       ];
+      auto-allocate-uids = true;
+      use-cgroups = true;
       trusted-users = [ config.users.users.admin.name ];
       accept-flake-config = true;
       warn-dirty = false;
