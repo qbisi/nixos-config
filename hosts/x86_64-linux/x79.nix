@@ -101,7 +101,7 @@
   };
 
   nix = {
-    settings.max-jobs = 4;
+    settings.max-jobs = 2;
     buildMachines = with self.vars.buildMachines; [
       ft
       mac
