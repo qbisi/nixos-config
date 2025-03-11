@@ -25,6 +25,16 @@
   hardware = {
     enableRedistributableFirmware = true;
     cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
+    graphics = {
+      enable = true;
+      # Fixup for opengl not found sshing from non-nixos system
+      extraPackages = [
+        (pkgs.runCommand "mesa_glxindirect" { } (''
+          mkdir -p $out/lib
+          ln -s ${pkgs.mesa.drivers}/lib/libGLX_mesa.so.0 $out/lib/libGLX_indirect.so.0
+        ''))
+      ];
+    };
   };
 
   boot = {
@@ -47,7 +57,7 @@
     hostName = "x79";
     proxy.default = "http://${self.vars.hostIP.h88k}:1080";
     firewall.allowedTCPPorts = [
-      7892
+      7892 # docker autobangumi
     ];
   };
 
@@ -59,13 +69,15 @@
 
   virtualisation = {
     docker.enable = true;
-    podman = {
-      enable = true;
-      # dockerCompat = true;
-    };
+    podman.enable = true;
+    lxd.enable = true;
   };
 
-  users.users.admin.extraGroups = [ "podman" "docker" ];
+  users.users.admin.extraGroups = [
+    "podman"
+    "docker"
+    "lxd"
+  ];
 
   # virtualisation.oci-containers.containers = {
   #   autoBangumi = {
@@ -83,10 +95,18 @@
   #   };
   # };
 
-  nix.buildMachines = with self.vars.buildMachines; [
-    ft
-    mac
-  ];
+  systemd.services.nix-daemon.serviceConfig = {
+    MemoryHigh = "100G";
+    MemoryMax = "110G";
+  };
+
+  nix = {
+    settings.max-jobs = 4;
+    buildMachines = with self.vars.buildMachines; [
+      ft
+      mac
+    ];
+  };
 
   system.stateVersion = "24.11";
 }
