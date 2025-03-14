@@ -59,6 +59,7 @@
   };
 
   nix = {
+    settings.max-jobs = 2;
     buildMachines = with self.vars.buildMachines; [
       x79
       mac
@@ -68,6 +69,11 @@
       enable = true;
       keys = config.users.users.admin.openssh.authorizedKeys.keys;
     };
+  };
+
+  systemd.services.nix-daemon.serviceConfig = {
+    MemoryHigh = "100G";
+    MemoryMax = "110G";
   };
 
   system.stateVersion = "24.11";
