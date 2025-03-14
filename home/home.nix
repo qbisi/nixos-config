@@ -55,7 +55,7 @@ in
     nixpkgs-review
     nix-output-monitor
     nix-update
-    # lazygit
+    lazygit
   ];
 
   programs = {
