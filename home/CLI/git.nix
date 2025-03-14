@@ -27,7 +27,6 @@
       safe.directory = "/home/${self.vars.user.name}/build";
 
       receive.denyCurrentBranch = "warn";
-
     };
   };
 }
