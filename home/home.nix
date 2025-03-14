@@ -52,6 +52,10 @@ in
     tldr
     # cachix
     nixfmt-rfc-style
+    nixpkgs-review
+    nix-output-monitor
+    nix-update
+    lazygit
   ];
 
   programs = {
