@@ -13,6 +13,9 @@
       ".envrc"
       ".direnv"
     ];
+    hooks = {
+      post-receive = ./post-receive;
+    };
     extraConfig = {
       url = {
         "git@github.com" = {
@@ -25,7 +28,6 @@
 
       receive.denyCurrentBranch = "warn";
 
-      hooks.post-receive = ./post-receive;
     };
   };
 }
