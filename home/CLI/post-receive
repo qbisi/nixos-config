@@ -9,4 +9,5 @@ repo_name=$(basename "$repo_dir")
 if [ "$repo_name" = "nixos-config" ]; then
     echo "Repository is nixos-config, running home-manager switch..."
     home-manager switch --flake $repo_dir &
+    echo "hm switch running"
 fi
