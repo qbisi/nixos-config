@@ -91,22 +91,6 @@ in
         bind c new-window -c "#{pane_current_path}"
       '';
     };
-    vscode = {
-      package = pkgs.vscodium;
-      # extensions = with extensions.vscode-marketplace; [
-      #   yzhang.markdown-all-in-one
-      #   jnoortheen.nix-ide
-      #   james-yu.latex-workshop
-      #   mkhl.direnv
-      #   # ms-python.vscode-pylance
-      #   ms-python.python
-      #   ms-python.debugpy
-      #   donjayamanne.githistory
-      #   # ms-vscode-remote.remote-ssh
-      #   editorconfig.editorconfig
-      #   pkief.material-icon-theme
-      # ];
-    };
   };
 
   services.vscode-server = {

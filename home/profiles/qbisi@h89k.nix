@@ -15,12 +15,9 @@
 
   home.packages = with pkgs; [
     telegram-desktop
-    qq
     corefonts
     vista-fonts
   ];
 
   fonts.fontconfig.enable = true;
-
-  programs.vscode.enable = true;
 }
