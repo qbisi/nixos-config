@@ -14,7 +14,6 @@
   programs.ssh.matchBlocks."github.com".proxyJump = "hk";
 
   home.packages = with pkgs; [
-    telegram-desktop
     corefonts
     vista-fonts
   ];
