@@ -36,7 +36,7 @@ in
         ];
       })
     );
-    
+
     colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
 
     colmena =

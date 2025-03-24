@@ -31,7 +31,7 @@
       extraPackages = [
         (pkgs.runCommand "mesa_glxindirect" { } (''
           mkdir -p $out/lib
-          ln -s ${pkgs.mesa.drivers}/lib/libGLX_mesa.so.0 $out/lib/libGLX_indirect.so.0
+          ln -s ${pkgs.mesa}/lib/libGLX_mesa.so.0 $out/lib/libGLX_indirect.so.0
         ''))
       ];
     };

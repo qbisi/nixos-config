@@ -24,6 +24,12 @@
     "${self}/nixos/config/nas.nix"
   ];
 
+  services.vlmcsd = {
+    enable = true;
+    disconnectClients = true;
+    openFirewall = true;
+  };
+
   hardware = {
     deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
   };

@@ -1,15 +1,6 @@
 {
-  nixConfig = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-      "pipe-operators"
-    ];
-  };
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "/home/qbisi/nixpkgs";
     nixos-images = {
       url = "github:qbisi/nixos-images";
       # Dont follow to avoid massive rebuild
@@ -21,7 +12,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     home-manager = {
-      # url = "github:nix-community/home-manager/release-24.11";
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -52,6 +42,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     secrets = {
       url = "git+ssh://git@github.com/qbisi/secrets";
       flake = false;
@@ -65,28 +59,29 @@
         "aarch64-linux"
       ];
       imports = [
+        inputs.flake-parts.flakeModules.easyOverlay
         ./home
         ./hosts
         ./nixos
-        ./pkgs
         ./lib
         "${inputs.secrets}"
       ];
       perSystem =
         {
           config,
+          lib,
           pkgs,
           inputs',
           ...
         }:
         {
           formatter = pkgs.nixfmt-rfc-style;
-          devShells.default = pkgs.mkShell {
-            packages = [
-              pkgs.colmena
-              inputs'.agenix.packages.default
-            ];
-          };
+          legacyPackages =
+            (lib.packagesFromDirectoryRecursive {
+              inherit (pkgs) callPackage;
+              directory = ./pkgs;
+            })
+            // inputs'.nixos-images.legacyPackages;
         };
     };
 }
