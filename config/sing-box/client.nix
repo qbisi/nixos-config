@@ -32,7 +32,7 @@ in
       MemoryMax = "400M";
     };
 
-    users.groups.proxy.members = [ self.vars.user.name ];
+    users.groups.proxy.members = [ config.users.users.admin.name ];
 
     services.sing-box.enable = true;
 

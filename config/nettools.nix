@@ -15,7 +15,7 @@
     termshark
   ];
 
-  users.groups.wireshark.members = [ self.vars.user.name ];
+  users.groups.wireshark.members = [ config.users.users.admin.name ];
   security.wrappers.termshark = {
     source = "${pkgs.termshark}/bin/termshark";
     capabilities = "cap_net_raw,cap_net_admin+eip";

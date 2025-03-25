@@ -710,10 +710,10 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1739902346,
-        "narHash": "sha256-xcEgRYJtiiwwawEsbKtbyIUOFxaKC7DM/HTMXHz5XGA=",
+        "lastModified": 1742882610,
+        "narHash": "sha256-W9xttw34IevOBc5/45eDohMwAyZxkvgL5QW5sD18woE=",
         "ref": "refs/heads/master",
-        "rev": "ea75938e5df50dc8d50c56fd4a22bb37d8c34dec",
+        "rev": "b4dd335333fa48611728deafa557365ae6ff2d7e",
         "revCount": 5,
         "type": "git",
         "url": "ssh://git@github.com/qbisi/secrets"

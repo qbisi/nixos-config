@@ -60,6 +60,7 @@
         ./hosts
         ./modules
         ./lib
+        ./vars
         "${inputs.secrets}"
       ];
 

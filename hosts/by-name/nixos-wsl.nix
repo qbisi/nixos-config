@@ -15,7 +15,7 @@
   networking.hostName = "nixos-wsl";
 
   wsl.enable = true;
-  wsl.defaultUser = self.vars.user.name;
+  wsl.defaultUser = config.users.users.admin.name;
 
   system.stateVersion = "24.05";
 }
