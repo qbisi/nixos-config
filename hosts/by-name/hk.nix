@@ -14,7 +14,7 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
-    self.nixosModules.vps
+    "${self}/config/vps.nix"
   ];
 
   boot.initrd.availableKernelModules = [ "sd_mod" ];

@@ -20,9 +20,8 @@ in
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
-    self.nixosModules.router
+    "${self}/config/router.nix"
     self.nixosModules.secrets
-    # self.nixosModules.desktop
   ];
 
   hardware = {

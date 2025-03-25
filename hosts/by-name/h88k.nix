@@ -17,10 +17,10 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
-    self.nixosModules.router
-    self.nixosModules.secrets
-    self.nixosModules.desktop
+    "${self}/config/router.nix"
+    "${self}/config/desktop.nix"
     "${self}/nixos/config/nas.nix"
+    self.nixosModules.secrets
   ];
 
   services.vlmcsd = {
@@ -30,7 +30,7 @@
   };
 
   hardware = {
-    deviceTree.dtsFile = lib.mkForce "${self}/dts/rk3588-hinlink-h88k.dts";
+    deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
   };
 
   disko.bootImage.partLabel = "nvme";

@@ -18,12 +18,12 @@
   disko.bootImage.partLabel = "nvme";
 
   hardware = {
-    deviceTree.dtsFile = lib.mkForce "${self}/dts/rk3588-hinlink-h88k.dts";
+    deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
   };
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
-    self.nixosModules.desktop
+    "${self}/config/desktop"
   ];
 
   networking = {

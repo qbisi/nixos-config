@@ -18,10 +18,5 @@
 
   programs.ssh.matchBlocks."github.com".proxyJump = "hk";
 
-  home.packages = with pkgs; [
-    telegram-desktop
-    qq
-    # wechat-uos
-    # zotero
-  ];
+  home.packages = with pkgs; [ ];
 }

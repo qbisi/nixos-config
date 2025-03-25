@@ -1,12 +1,10 @@
 { inputs, self, ... }:
-let
-  inherit (inputs.home-manager.lib) homeManagerConfiguration;
-  profiles = self.lib.listNixName "${self}/home/profiles";
-in
 {
   systems = [
     "x86_64-linux"
+    "x86_64-darwin"
     "aarch64-linux"
+    "aarch64-darwin"
   ];
   perSystem =
     {
@@ -17,21 +15,23 @@ in
       ...
     }:
     {
-      legacyPackages.homeConfigurations = lib.genAttrs profiles (
-        profile:
-        homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {
-            inherit inputs self system;
-          };
-          modules = [
-            inputs.vscode-server.homeModules.default
-            inputs.nix-index-database.hmModules.nix-index
-            self.homeManagerModules.secrets
-            ./home.nix
-            "${self}/home/profiles/${profile}.nix"
-          ];
-        }
-      );
+      legacyPackages.homeConfigurations = lib.packagesFromDirectoryRecursive {
+        callPackage =
+          path: _:
+          (inputs.home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = {
+              inherit inputs self system;
+            };
+            modules = [
+              path
+              inputs.vscode-server.homeModules.default
+              inputs.nix-index-database.hmModules.nix-index
+              self.homeManagerModules.secrets
+              ./home.nix
+            ];
+          });
+        directory = ./profiles;
+      };
     };
 }

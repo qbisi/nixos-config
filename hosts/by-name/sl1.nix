@@ -13,10 +13,9 @@
   };
 
   imports = [
-    "/profiles/qemu-guest.nix"
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
-    self.nixosModules.common
-    self.nixosModules.vps
+    "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
+    "${self}/config/vps.nix"
   ];
 
   boot = {

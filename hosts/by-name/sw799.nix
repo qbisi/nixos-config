@@ -8,9 +8,7 @@
 }:
 {
   deployment = {
-    targetHost = "192.168.100.108";
-    # targetHost = "sw799";
-    # buildOnTarget = true;
+    targetHost = "sw799";
     tags = [
       "router"
       "dev"
@@ -19,7 +17,7 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-bozz-sw799.nix"
-    self.nixosModules.router
+    "${self}/config/router.nix"
     self.nixosModules.secrets
   ];
 

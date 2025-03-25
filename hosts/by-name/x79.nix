@@ -17,8 +17,8 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
+    "${self}/config/nettools.nix"
     self.nixosModules.secrets
-    ../../nixos/config/nettools.nix
   ];
 
   hardware = {
@@ -55,9 +55,6 @@
   networking = {
     hostName = "x79";
     proxy.default = "http://${self.vars.hostIP.h88k}:1080";
-    firewall.allowedTCPPorts = [
-      7892 # docker autobangumi
-    ];
   };
 
   environment = {
@@ -77,22 +74,6 @@
     "docker"
     "lxd"
   ];
-
-  # virtualisation.oci-containers.containers = {
-  #   autoBangumi = {
-  #     image = "ghcr.io/estrellaxd/auto_bangumi:latest";
-  #     ports = [ "7892:7892" ];
-  #     volumes = [
-  #       "/var/lib/autobangumi/config:/app/config"
-  #       "/var/lib/autobangumi/data:/app/data"
-  #     ];
-  #     environment = {
-  #       UMASK = "022";
-  #       PGID = toString config.users.groups.${config.users.users.qbittorrent.group}.gid;
-  #       PUID = toString config.users.users.qbittorrent.uid;
-  #     };
-  #   };
-  # };
 
   systemd.services.nix-daemon.serviceConfig = {
     MemoryHigh = "100G";

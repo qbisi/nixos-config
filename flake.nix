@@ -48,7 +48,7 @@
     };
   };
   outputs =
-    { self, ... }@inputs:
+    inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
@@ -58,22 +58,10 @@
         inputs.flake-parts.flakeModules.easyOverlay
         ./home
         ./hosts
-        ./nixos
+        ./modules
         ./lib
         "${inputs.secrets}"
       ];
-
-      flake = {
-        colmenaHive = inputs.colmena.lib.makeHive self.colmena;
-
-        colmena.meta = {
-          nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
-          machinesFile = "/etc/nix/machines";
-          specialArgs = {
-            inherit inputs self;
-          };
-        };
-      };
 
       perSystem =
         {

@@ -80,7 +80,7 @@
     passwordFile = "/run/keys/ddclient";
   };
 
-  services.vnstat.enable = true;
+  services.vnstat.enable = false;
 
   systemd.services.vnstat-alert = {
     after = [ "vnstat.service" ];

@@ -5,18 +5,14 @@
   self,
   ...
 }:
-with lib;
-let
-  inherit (self.lib) genAttrs';
-in
 {
-  config = mkMerge [
+  config = lib.mkMerge [
     {
       programs.ssh = {
         enable = true;
         addKeysToAgent = "yes";
         serverAliveInterval = 60;
-        matchBlocks = genAttrs' (attrsToList self.vars.hostIP) (host: {
+        matchBlocks = self.lib.genAttrs' (lib.attrsToList self.vars.hostIP) (host: {
           hostname = host.value;
         });
       };
