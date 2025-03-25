@@ -120,6 +120,30 @@
         };
       };
     };
+    nat.internalInterfaces = [ "wg0" ];
+    firewall = {
+      allowedUDPPorts = [ 51820 ];
+    };
+    wireguard = {
+      enable = true;
+      interfaces = {
+        wg0 = {
+          ips = [ "192.168.200.1/24" ];
+          listenPort = 51820;
+          privateKeyFile = config.age.secrets.wg-h88k.path;
+          peers = [
+            {
+              publicKey = self.vars.wgkey.x79;
+              allowedIPs = [ "192.168.200.2/32" ];
+            }
+            {
+              publicKey = self.vars.wgkey.ft;
+              allowedIPs = [ "192.168.200.3/32" ];
+            }
+          ];
+        };
+      };
+    };
   };
 
   environment.systemPackages = with pkgs; [

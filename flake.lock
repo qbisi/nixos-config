@@ -421,11 +421,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742871411,
-        "narHash": "sha256-F3xBdOs5m0SE6Gq3jz+JxDOPvsLs22vbGfD05uF6xEc=",
+        "lastModified": 1742935044,
+        "narHash": "sha256-+51vrMB+YlAkNCeuP/IA4g4mSAcpyBVdoc8241qMjA0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "869f2ec2add75ce2a70a6dbbf585b8399abec625",
+        "rev": "d8b4ba070f5dfcb6c051c74fb31eafb58127580b",
         "type": "github"
       },
       "original": {
@@ -677,11 +677,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1742880587,
-        "narHash": "sha256-Y/VtSeUqBn6GFQ/U+vR3EF8Km29lx9OyMDvtG9mkJoM=",
+        "lastModified": 1742936200,
+        "narHash": "sha256-8setXzaM0w3IEM9nMwU1LWKZqK2GdlzT5buRMN5lfMU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "dcb3ba703bf384fc7294caa683eded6242460712",
+        "rev": "e877eb56f46722fca894e4b162998ef83054b02a",
         "type": "github"
       },
       "original": {
@@ -710,11 +710,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1742882610,
-        "narHash": "sha256-W9xttw34IevOBc5/45eDohMwAyZxkvgL5QW5sD18woE=",
+        "lastModified": 1742937175,
+        "narHash": "sha256-sHFLJSTaTQ7K2ey3CrqiZJqDFvOzYvtoj7fOGpjA8kg=",
         "ref": "refs/heads/master",
-        "rev": "b4dd335333fa48611728deafa557365ae6ff2d7e",
-        "revCount": 5,
+        "rev": "069aafc982fbec5632e35e18544d33036ed771b0",
+        "revCount": 6,
         "type": "git",
         "url": "ssh://git@github.com/qbisi/secrets"
       },

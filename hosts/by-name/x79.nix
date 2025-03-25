@@ -12,7 +12,7 @@
       "builder"
       "dev"
     ];
-    buildOnTarget = true;
+    # buildOnTarget = true;
   };
 
   imports = [
@@ -55,7 +55,47 @@
 
   networking = {
     hostName = "x79";
-    proxy.default = "http://${self.vars.hostIP.h88k}:1080";
+    defaultGateway = {
+      address = "192.168.200.1";
+      interface = "wg0";
+    };
+    # proxy.default = "http://${self.vars.hostIP.h88k}:1080";
+
+    interfaces.eth1.ipv4.routes = [
+      {
+        address = "10.0.0.0";
+        via = "172.16.4.254";
+        prefixLength = 16;
+      }
+      {
+        address = "172.16.0.0";
+        prefixLength = 24;
+        via = "172.16.4.254";
+      }
+    ];
+
+    firewall = {
+      allowedUDPPorts = [ 51820 ];
+    };
+
+    wireguard = {
+      enable = true;
+      interfaces = {
+        wg0 = {
+          ips = [ "192.168.200.2/24" ];
+          listenPort = 51820;
+          privateKeyFile = config.age.secrets."wg-x79".path;
+          peers = [
+            {
+              publicKey = self.vars.wgkey.h88k;
+              allowedIPs = [ "0.0.0.0/0" ];
+              endpoint = "${self.vars.hostIP.h88k}:51820";
+              persistentKeepalive = 25;
+            }
+          ];
+        };
+      };
+    };
   };
 
   environment = {
