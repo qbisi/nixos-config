@@ -11,7 +11,7 @@ in
         sshKey = "/run/agenix/id_ed25519";
         hostName = secret.hostIP."ft";
         speedFactor = 8;
-        maxJobs = 1;
+        maxJobs = 2;
         supportedFeatures = [
           "big-parallel"
           "kvm"
@@ -25,7 +25,7 @@ in
         sshKey = "/run/agenix/id_ed25519";
         hostName = secret.hostIP."x79";
         speedFactor = 8;
-        maxJobs = 1;
+        maxJobs = 2;
         supportedFeatures = [
           "big-parallel"
           "kvm"
