@@ -80,7 +80,7 @@
     passwordFile = "/run/keys/ddclient";
   };
 
-  services.vnstat.enable = false;
+  services.vnstat.enable = true;
 
   systemd.services.vnstat-alert = {
     after = [ "vnstat.service" ];
@@ -92,7 +92,16 @@
     };
     path = with pkgs; [ vnstat ];
     script = ''
-      vnstat -i eth0 --alert 1 3 m tx 100 GB
+      OUTPUT=$(vnstat -i eth0 --alert 1 3 m tx 100 GB 2>&1 || true)
+      RETVAL=$?
+
+      echo "$OUTPUT"
+
+      if echo "$OUTPUT" | grep -q "No month data available"; then
+          exit 0
+      else
+          exit $RETVAL
+      fi
     '';
     onFailure = [ "stop-sing-box.service" ];
   };
