@@ -13,6 +13,7 @@
     iperf3
     nload
     termshark
+    wireguard-tools
   ];
 
   users.groups.wireshark.members = [ config.users.users.admin.name ];

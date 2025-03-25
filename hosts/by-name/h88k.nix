@@ -19,7 +19,8 @@
     "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
     "${self}/config/router.nix"
     "${self}/config/desktop.nix"
-    "${self}/nixos/config/nas.nix"
+    "${self}/config/nas.nix"
+    "${self}/config/nettools.nix"
     self.nixosModules.secrets
   ];
 
