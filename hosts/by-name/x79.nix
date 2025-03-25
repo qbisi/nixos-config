@@ -12,7 +12,7 @@
       "builder"
       "dev"
     ];
-    # buildOnTarget = true;
+    buildOnTarget = true;
   };
 
   imports = [
@@ -55,24 +55,34 @@
 
   networking = {
     hostName = "x79";
+    # useDHCP = false;
+    # useNetworkd = true;
+    proxy.default = "http://${self.vars.hostIP.h88k}:1080";
     defaultGateway = {
       address = "192.168.200.1";
       interface = "wg0";
     };
-    # proxy.default = "http://${self.vars.hostIP.h88k}:1080";
 
-    interfaces.eth1.ipv4.routes = [
-      {
-        address = "10.0.0.0";
-        via = "172.16.4.254";
-        prefixLength = 16;
-      }
-      {
-        address = "172.16.0.0";
-        prefixLength = 24;
-        via = "172.16.4.254";
-      }
-    ];
+    interfaces.eth1.ipv4 = {
+      addresses = [
+        {
+          address = self.vars.hostIP.x79;
+          prefixLength = 23;
+        }
+      ];
+      routes = [
+        {
+          address = "10.0.0.0";
+          via = "172.16.4.254";
+          prefixLength = 12;
+        }
+        {
+          address = "172.16.0.0";
+          prefixLength = 16;
+          via = "172.16.4.254";
+        }
+      ];
+    };
 
     firewall = {
       allowedUDPPorts = [ 51820 ];

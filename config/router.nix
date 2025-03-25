@@ -84,6 +84,7 @@
         "10.0.0.0/8"
         "172.16.0.0/12"
         "192.168.100.0/24"
+        "192.168.200.0/24"
       ];
       allowedTCPPorts = [
         22
@@ -97,7 +98,7 @@
 
     firewall = {
       enable = true;
-      trustedInterfaces = [ "br0" ];
+      trustedInterfaces = [ "br0" "wg0" ];
       extraInputRules = ''
         ip saddr { ${self.vars.hostIP.mac}, ${self.vars.hostIP.x79} } counter accept
       '';
