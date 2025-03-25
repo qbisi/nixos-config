@@ -13,15 +13,20 @@
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/x86_64-linux/nixos-x86_64-uefi.nix"
+    "${inputs.nixos-images}/devices/by-name/nixos-aarch64-uefi.nix"
     self.nixosModules.vps
   ];
 
-  boot.initrd.availableKernelModules = [ "sd_mod" ];
+  boot = {
+    kernelParams = lib.mkAfter [
+      "console=ttyAMA0"
+    ];
+    loader.grub.font = null;
+  };
 
   virtualisation.hypervGuest.enable = true;
 
-  networking.hostName = "hk";
+  networking.hostName = "jp1";
 
   swapDevices = [
     {

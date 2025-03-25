@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  modulesPath,
   self,
   inputs,
   ...
@@ -17,7 +16,7 @@
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/aarch64-linux/nixos-hinlink-h88k.nix"
+    "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
     self.nixosModules.router
     self.nixosModules.secrets
     self.nixosModules.desktop
@@ -31,10 +30,10 @@
   };
 
   hardware = {
-    deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
+    deviceTree.dtsFile = lib.mkForce "${self}/dts/rk3588-hinlink-h88k.dts";
   };
 
-  disko.profile.partLabel = "nvme";
+  disko.bootImage.partLabel = "nvme";
 
   boot = {
     kernelModules = [ "ledtrig-netdev" ];

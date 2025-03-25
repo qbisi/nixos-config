@@ -1,11 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-images = {
-      url = "github:qbisi/nixos-images";
-      # Dont follow to avoid massive rebuild
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixos-images.url = "github:qbisi/nixos-images";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -52,7 +48,7 @@
     };
   };
   outputs =
-    inputs:
+    { self, ... }@inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
@@ -66,22 +62,35 @@
         ./lib
         "${inputs.secrets}"
       ];
+
+      flake = {
+        colmenaHive = inputs.colmena.lib.makeHive self.colmena;
+
+        colmena.meta = {
+          nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+          machinesFile = "/etc/nix/machines";
+          specialArgs = {
+            inherit inputs self;
+          };
+        };
+      };
+
       perSystem =
         {
           config,
           lib,
           pkgs,
-          inputs',
           ...
         }:
         {
           formatter = pkgs.nixfmt-rfc-style;
-          legacyPackages =
-            (lib.packagesFromDirectoryRecursive {
-              inherit (pkgs) callPackage;
-              directory = ./pkgs;
-            })
-            // inputs'.nixos-images.legacyPackages;
+
+          overlayAttrs = config.legacyPackages;
+
+          legacyPackages = lib.packagesFromDirectoryRecursive {
+            inherit (pkgs) callPackage;
+            directory = ./pkgs;
+          };
         };
     };
 }

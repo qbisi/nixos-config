@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  modulesPath,
   self,
   inputs,
   ...
@@ -17,7 +16,7 @@
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/aarch64-linux/nixos-phytium-uefi.nix"
+    "${inputs.nixos-images}/devices/by-name/nixos-phytium-uefi.nix"
     self.nixosModules.secrets
   ];
 

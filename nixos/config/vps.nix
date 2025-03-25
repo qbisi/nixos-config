@@ -4,7 +4,6 @@
   pkgs,
   self,
   inputs,
-  modulesPath,
   ...
 }:
 {

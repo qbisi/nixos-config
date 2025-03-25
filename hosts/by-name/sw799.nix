@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  modulesPath,
   self,
   inputs,
   ...
@@ -19,12 +18,12 @@
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/aarch64-linux/nixos-bozz-sw799.nix"
+    "${inputs.nixos-images}/devices/by-name/nixos-bozz-sw799.nix"
     self.nixosModules.router
     self.nixosModules.secrets
   ];
 
-  disko.profile.partLabel = "mmc";
+  disko.bootImage.partLabel = "mmc";
 
   hardware.firmware = [ pkgs.linux-firmware ];
 

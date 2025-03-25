@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  modulesPath,
   self,
   inputs,
   ...
@@ -17,7 +16,7 @@
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/x86_64-linux/nixos-x86_64-uefi.nix"
+    "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
     self.nixosModules.secrets
     ../../nixos/config/nettools.nix
   ];

@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  pkgs-self,
   self,
   ...
 }:
@@ -14,7 +13,6 @@
     iperf3
     nload
     termshark
-    # pkgs-self.mptcpd
   ];
 
   users.groups.wireshark.members = [ self.vars.user.name ];

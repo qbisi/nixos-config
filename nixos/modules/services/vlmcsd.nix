@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  pkgs-self,
   ...
 }:
 
@@ -52,7 +51,7 @@ in
 
       serviceConfig = {
         ExecStart = ''
-          ${pkgs-self.vlmcsd}/bin/vlmcsd -e -D \
+          ${pkgs.vlmcsd}/bin/vlmcsd -e -D \
           -L ${cfg.listen.address}:${toString cfg.listen.port} \
           ${lib.optionalString (cfg.disconnectClients) "-d"} \
           -t ${toString cfg.disconnectTimeout}

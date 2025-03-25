@@ -5,62 +5,40 @@
   ...
 }:
 let
-  inherit (lib) nixosSystem cartesianProduct;
-  inherit (self.lib) genAttrs' listNixName;
-  x86_64-hosts = cartesianProduct {
-    name = listNixName ./x86_64-linux;
-    system = [ "x86_64-linux" ];
-  };
-  aarch64-hosts = cartesianProduct {
-    name = listNixName ./aarch64-linux;
-    system = [ "aarch64-linux" ];
-  };
-  hosts = x86_64-hosts ++ aarch64-hosts;
+  shareModules = [
+    self.nixosModules.default
+    self.nixosModules.common
+    inputs.nixos-images.nixosModules.default
+    { nixpkgs.overlays = [ self.overlays.default ]; }
+  ];
 in
 {
   flake = {
-    nixosConfigurations = genAttrs' hosts (
-      host:
-      (nixosSystem {
-        inherit (host) system;
-        specialArgs = {
-          inherit inputs self;
-          pkgs-self = self.legacyPackages.${host.system};
+    nixosConfigurations = lib.packagesFromDirectoryRecursive {
+      callPackage =
+        path: _:
+        lib.nixosSystem {
+          specialArgs = {
+            inherit inputs self;
+          };
+          modules = shareModules ++ [
+            path
+            inputs.colmena.nixosModules.deploymentOptions
+          ];
         };
-        modules = [
-          "${self}/hosts/${host.system}/${host.name}.nix"
-          self.nixosModules.default
-          self.nixosModules.common
-          inputs.nixos-images.nixosModules.default
-          inputs.colmena.nixosModules.deploymentOptions
-        ];
-      })
-    );
+      directory = ./by-name;
+    };
 
-    colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
-
-    colmena =
-      (genAttrs' hosts (host: {
-        imports = [
+    colmena = lib.packagesFromDirectoryRecursive {
+      callPackage = path: _: {
+        imports = shareModules ++ [
+          path
           # SSH to llmnr hosts need retry to wait for hostname resolution.
           # Requires colmena version > 0.5.0.
           { deployment.sshOptions = [ "-o ConnectionAttempts=2" ]; }
-          "${self}/hosts/${host.system}/${host.name}.nix"
-          self.nixosModules.default
-          self.nixosModules.common
-          inputs.nixos-images.nixosModules.default
         ];
-      }))
-      // {
-        meta = {
-          nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
-          machinesFile = "/etc/nix/machines";
-          nodeNixpkgs = genAttrs' hosts (host: (import inputs.nixpkgs { inherit (host) system; }));
-          nodeSpecialArgs = genAttrs' hosts (host: {
-            inherit inputs self;
-            pkgs-self = self.legacyPackages.${host.system};
-          });
-        };
       };
+      directory = ./by-name;
+    };
   };
 }

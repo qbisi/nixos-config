@@ -13,20 +13,24 @@
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/aarch64-linux/nixos-aarch64-uefi.nix"
+    "/profiles/qemu-guest.nix"
+    "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
+    self.nixosModules.common
     self.nixosModules.vps
   ];
 
   boot = {
-    kernelParams = lib.mkAfter [
-      "console=ttyAMA0"
+    initrd.availableKernelModules = [
+      "ata_piix"
+      "uhci_hcd"
+      "virtio_pci"
+      "virtio_scsi"
+      "sd_mod"
     ];
-    loader.grub.font = null;
+    kernelModules = [ "kvm-amd" ];
   };
 
-  virtualisation.hypervGuest.enable = true;
-
-  networking.hostName = "jp1";
+  networking.hostName = "sl1";
 
   swapDevices = [
     {

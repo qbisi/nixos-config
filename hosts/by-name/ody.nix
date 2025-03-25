@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  modulesPath,
   self,
   inputs,
   ...
@@ -20,7 +19,7 @@ in
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/x86_64-linux/nixos-x86_64-uefi.nix"
+    "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
     self.nixosModules.router
     self.nixosModules.secrets
     # self.nixosModules.desktop
