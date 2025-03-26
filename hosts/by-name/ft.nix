@@ -96,11 +96,6 @@
       x79
       mac
     ];
-
-    # sshServe = {
-    #   enable = true;
-    #   keys = config.users.users.admin.openssh.authorizedKeys.keys;
-    # };
   };
 
   systemd.services.nix-daemon.serviceConfig = {

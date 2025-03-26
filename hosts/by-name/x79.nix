@@ -140,6 +140,10 @@
       ft
       mac
     ];
+    sshServe = {
+      enable = true;
+      keys = config.users.users.root.openssh.authorizedKeys.keys;
+    };
   };
 
   system.stateVersion = "24.11";
