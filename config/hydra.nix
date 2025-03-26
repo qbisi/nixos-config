@@ -13,7 +13,7 @@
   services.hydra = {
     enable = true;
     listenHost = "*";
-    hydraURL = "https://hydra.csrc.eu.org";
+    hydraURL = "http://${config.networking.fqdnOrHostName}:3000";
     useSubstitutes = true;
     notificationSender = self.vars.user.mail;
     extraConfig = ''
@@ -21,9 +21,27 @@
     '';
   };
 
-  nix.settings.allowed-uris = [
-    "github:"
-    "git+https://github.com/"
-    "git+ssh://github.com/"
-  ];
+  nix = {
+    settings = {
+      allowed-uris = [
+        "github:"
+        "git+https://github.com/"
+        "git+ssh://github.com/"
+      ];
+    };
+    buildMachines = lib.mkAfter [
+      {
+        hostName = "localhost";
+        system = config.nixpkgs.system;
+        supportedFeatures = [
+          "kvm"
+          "nixos-test"
+          "big-parallel"
+          "benchmark"
+        ];
+        maxJobs = config.nix.settings.max-jobs;
+        protocol = null;
+      }
+    ];
+  };
 }

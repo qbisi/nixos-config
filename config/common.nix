@@ -157,13 +157,13 @@
     };
 
     settings = {
+      # auto-optimise-store = true;
       experimental-features = [
         "nix-command"
         "flakes"
         "pipe-operators"
       ];
       trusted-users = [ config.users.users.admin.name ];
-      accept-flake-config = true;
       warn-dirty = false;
       substituters = [
         # "https://mirrors.ustc.edu.cn/nix-channels/store"

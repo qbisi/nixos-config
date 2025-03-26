@@ -1,17 +1,16 @@
 { inputs, ... }:
 let
-  secret = import "${inputs.secrets}/vars.nix";
+  vars = import "${inputs.secrets}/vars.nix";
 in
 {
-  flake.vars = secret // {
+  flake.vars = vars // {
     buildMachines = {
       ft = {
         system = "aarch64-linux";
-        sshUser = secret.user.name;
-        sshKey = "/run/agenix/id_ed25519";
-        hostName = secret.hostIP."ft";
-        speedFactor = 8;
-        maxJobs = 2;
+        sshUser = "root";
+        sshKey = "/run/agenix/hydra_ed25519";
+        hostName = vars.hostIP."ft";
+        maxJobs = 4;
         supportedFeatures = [
           "big-parallel"
           "kvm"
@@ -21,11 +20,10 @@ in
       };
       x79 = {
         system = "x86_64-linux";
-        sshUser = secret.user.name;
-        sshKey = "/run/agenix/id_ed25519";
-        hostName = secret.hostIP."x79";
-        speedFactor = 8;
-        maxJobs = 2;
+        sshUser = "root";
+        sshKey = "/run/agenix/hydra_ed25519";
+        hostName = vars.hostIP."x79";
+        maxJobs = 4;
         supportedFeatures = [
           "big-parallel"
           "kvm"
@@ -35,10 +33,9 @@ in
       };
       mac = {
         system = "aarch64-darwin";
-        sshUser = secret.user.name;
-        sshKey = "/run/agenix/id_ed25519";
-        hostName = secret.hostIP."mac";
-        speedFactor = 8;
+        sshUser = vars.user.name;
+        sshKey = "/run/agenix/hydra_ed25519";
+        hostName = "mac";
         maxJobs = 1;
         supportedFeatures = [
           "big-parallel"

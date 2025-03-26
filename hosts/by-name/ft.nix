@@ -18,7 +18,6 @@
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-phytium-uefi.nix"
     "${self}/config/nettools.nix"
-    "${self}/config/hydra.nix"
     self.nixosModules.secrets
   ];
 
@@ -89,16 +88,19 @@
   };
 
   nix = {
-    settings.max-jobs = 2;
+    settings = {
+      max-jobs = 4;
+      cores = 16;
+    };
     buildMachines = with self.vars.buildMachines; [
       x79
       mac
     ];
 
-    sshServe = {
-      enable = true;
-      keys = config.users.users.admin.openssh.authorizedKeys.keys;
-    };
+    # sshServe = {
+    #   enable = true;
+    #   keys = config.users.users.admin.openssh.authorizedKeys.keys;
+    # };
   };
 
   systemd.services.nix-daemon.serviceConfig = {

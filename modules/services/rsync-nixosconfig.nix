@@ -8,7 +8,7 @@
   systemd.services.rsync-nixosconfigurations = {
     description = "Rsync this flake source to /etc/nixos";
 
-    enable = lib.mkDefault true;
+    enable = lib.mkDefault false;
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";
