@@ -45,6 +45,7 @@ in
 
   networking = {
     hostName = "ody";
+    domain = self.vars.domain;
     firewall.interfaces = {
       "wwan0" = {
         allowedTCPPorts = [
@@ -55,7 +56,6 @@ in
         ];
       };
     };
-    domain = self.vars.domain;
     bridges.br0.interfaces = [ "eth1" ];
     networkmanager.ensureProfiles.profiles = {
       eth0 = {

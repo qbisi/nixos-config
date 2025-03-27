@@ -28,10 +28,20 @@
     ];
   };
 
+  services.resolved.fallbackDns = [
+    "223.5.5.5"
+    "114.114.114.114"
+  ];
+
   networking = {
     hostName = "ft";
-    # useDHCP = false;
-    # useNetworkd = true;
+    useDHCP = false;
+    useNetworkd = true;
+    defaultGateway = {
+      address = "10.0.5.1";
+      interface = "eth0";
+      metric = 10;
+    };
     proxy.default = "http://${self.vars.hostIP.h88k}:1080";
     interfaces.eth0.ipv4 = {
       routes = [
@@ -52,11 +62,6 @@
           prefixLength = 24;
         }
       ];
-    };
-
-    defaultGateway = {
-      address = "192.168.200.1";
-      interface = "wg0";
     };
 
     firewall = {
