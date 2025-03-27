@@ -13,6 +13,34 @@ let
   certDir = config.security.acme.certs.${config.networking.domain}.directory;
 in
 {
+  networking = {
+    firewall.allowedUDPPortRanges = [
+      {
+        from = 2080;
+        to = 3000;
+      }
+    ];
+    nftables = {
+      enable = true;
+      tables = {
+        hysteria_porthopping = {
+          enable = true;
+          family = "inet";
+          content = ''
+            define INGRESS_INTERFACE="eth0"
+            define PORT_RANGE=2080-3000
+            define HYSTERIA_SERVER_PORT=443
+
+            chain prerouting {
+              type nat hook prerouting priority dstnat; policy accept;
+              iifname $INGRESS_INTERFACE udp dport $PORT_RANGE counter redirect to :$HYSTERIA_SERVER_PORT
+            }
+          '';
+        };
+      };
+    };
+  };
+
   systemd.services.sing-box.serviceConfig = {
     Group = "acme";
     MemoryMax = "200M";

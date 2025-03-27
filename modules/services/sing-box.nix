@@ -160,9 +160,13 @@ let
           type = types.nonEmptyStr;
           default = config.tls.server_name;
         };
-        server_port = mkOption {
-          type = types.port;
-          default = 443;
+        server_ports = mkOption {
+          type = types.nonEmptyStr;
+          default = "2080:3000";
+        };
+        hop_interval = mkOption {
+          type = types.nonEmptyStr;
+          default = "30s";
         };
         tls = {
           enabled = mkOption {

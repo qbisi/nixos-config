@@ -256,6 +256,7 @@ in
             domain_keyword = [ "libgen" ];
             domain_suffix = [
               "mikanani.me"
+              "nixos.org"
             ];
             rule_set = [
               "geoip-telegram"
