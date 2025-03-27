@@ -23,7 +23,7 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
-    "${self}/config/desktop"
+    "${self}/config/desktop.nix"
   ];
 
   networking = {
@@ -32,15 +32,15 @@
     useNetworkd = true;
     networkmanager.enable = true;
     firewall.allowedUDPPorts = [
-      5355 #LLMNR
+      5355 # LLMNR
     ];
   };
 
-  nix.buildMachines = with self.vars.buildMachines; [
-    ft
-    x79
-    mac
-  ];
+  nix.settings = {
+    substituters = [
+      "ssh://root@${self.vars.hostIP.x79}?ssh-key=/run/agenix/id_ed25519"
+    ];
+  };
 
   virtualisation.waydroid.enable = true;
 

@@ -167,6 +167,7 @@
       warn-dirty = false;
       substituters = [
         # "https://mirrors.ustc.edu.cn/nix-channels/store"
+        # "ssh://root@${self.vars.hostIP.x79}?ssh-key=/run/agenix/id_ed25519"
         "https://nix-community.cachix.org"
         "https://colmena.cachix.org"
       ];
