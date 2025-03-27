@@ -29,6 +29,10 @@ let
         outbounds = mkOption {
           type = types.nonEmptyListOf types.str;
         };
+        default = mkOption {
+          type = types.str;
+          default = "";
+        };
         interrupt_exist_connections = mkEnableOption "interrupt exist connections";
       };
       config = {

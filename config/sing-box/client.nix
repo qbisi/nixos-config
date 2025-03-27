@@ -9,10 +9,10 @@ let
   inherit (self.lib) cartesianProduct';
   inherit (lib) forEach;
   vps = [
+    "jp1"
     "sg1"
     "hk"
     "sl1"
-    "jp1"
   ];
   domain = self.vars.domain;
   uuid = {
@@ -39,7 +39,10 @@ in
     services.sing-box.outbounds = {
       selector = [
         { tag = "direct"; }
-        { tag = "proxy"; }
+        {
+          tag = "proxy";
+          default = "reality-jp1.qbisi.cc-eth0";
+        }
         { tag = "game"; }
         { tag = "ai"; }
         {
@@ -155,9 +158,8 @@ in
         clash_api = {
           default_mode = "Rule";
           external_controller = ":9090";
-          external_ui = "metacubexd-gh-pages";
-          external_ui_download_detour = "proxy";
-          external_ui_download_url = "https://github.com/MetaCubeX/metacubexd/archive/gh-pages.zip";
+          access_control_allow_private_network = true;
+          external_ui = "${pkgs.metacubexd}";
         };
       };
       inbounds = [
@@ -190,7 +192,7 @@ in
               "geosite-cn"
               "geosite-gfw"
               "geosite-steam"
-              "geosite-category-ai-chat-!cn"
+              # "geosite-category-ai-chat-!cn"
             ]
             (v: {
               download_detour = "proxy";
@@ -246,17 +248,18 @@ in
             ];
             outbound = "direct";
           }
-          {
-            rule_set = [
-              "geosite-category-ai-chat-!cn"
-            ];
-            outbound = "ai";
-          }
+          # {
+          #   rule_set = [
+          #     "geosite-category-ai-chat-!cn"
+          #   ];
+          #   outbound = "ai";
+          # }
           {
             domain_keyword = [ "libgen" ];
             domain_suffix = [
               "mikanani.me"
               "nixos.org"
+              "sing-box.sagernet.org"
             ];
             rule_set = [
               "geoip-telegram"
