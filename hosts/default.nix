@@ -9,7 +9,7 @@ let
     self.nixosModules.default
     "${self}/config/common.nix"
     inputs.nixos-images.nixosModules.default
-    { nixpkgs.overlays = [ self.overlays.default ]; }
+    { nixpkgs.overlays = [ inputs.nixos-images.overlays.default ]; }
   ];
 in
 {

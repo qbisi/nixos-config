@@ -36,19 +36,19 @@
         "git+ssh://github.com/"
       ];
     };
-    buildMachines = lib.mkAfter [
-      {
-        hostName = "localhost";
-        system = config.nixpkgs.system;
-        supportedFeatures = [
-          "kvm"
-          "nixos-test"
-          "big-parallel"
-          "benchmark"
-        ];
-        maxJobs = config.nix.settings.max-jobs;
-        protocol = null;
-      }
-    ];
+    # buildMachines = lib.mkAfter [
+    #   {
+    #     hostName = "localhost";
+    #     system = config.nixpkgs.system;
+    #     supportedFeatures = [
+    #       "kvm"
+    #       "nixos-test"
+    #       "big-parallel"
+    #       "benchmark"
+    #     ];
+    #     maxJobs = config.nix.settings.max-jobs;
+    #     protocol = null;
+    #   }
+    # ];
   };
 }

@@ -1,7 +1,7 @@
 {
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.follows = "nixos-images/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.follows = "nixos-images/nixpkgs";
     nixos-images.url = "github:qbisi/nixos-images";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     flake-parts = {
@@ -55,6 +55,7 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
+
       imports = [
         inputs.flake-parts.flakeModules.easyOverlay
         ./home
