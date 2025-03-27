@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # nixpkgs.follows = "nixos-images/nixpkgs";
     nixos-images.url = "github:qbisi/nixos-images";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     flake-parts = {
