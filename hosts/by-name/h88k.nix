@@ -146,6 +146,11 @@
     };
   };
 
+  services.resolved.extraConfig = ''
+    DNSStubListenerExtra=192.168.100.1
+    DNSStubListenerExtra=192.168.200.1
+  '';
+
   environment.systemPackages = with pkgs; [
     minicom
     rclone
