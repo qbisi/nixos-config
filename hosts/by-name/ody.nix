@@ -12,7 +12,7 @@
       "router"
       "dev"
     ];
-    # buildOnTarget = true;
+    buildOnTarget = true;
   };
 
   imports = [
