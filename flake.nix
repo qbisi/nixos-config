@@ -77,10 +77,6 @@
 
           overlayAttrs = config.legacyPackages;
 
-          # legacyPackages = lib.packagesFromDirectoryRecursive {
-          #   inherit (pkgs) callPackage;
-          #   directory = ./pkgs;
-          # };
           legacyPackages = lib.makeScope pkgs.newScope (
             self:
             lib.packagesFromDirectoryRecursive {
@@ -88,11 +84,6 @@
               directory = ./pkgs;
             }
           );
-
-          # packages = lib.packagesFromDirectoryRecursive {
-          #   inherit (self'.legacyPackages) callPackage;
-          #   directory = ./pkgs;
-          # };
         };
     };
 }
