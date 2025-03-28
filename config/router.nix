@@ -145,7 +145,7 @@
     };
     dhcpServerConfig = {
       EmitDNS = "yes";
-      DNS = "192.168.100.1";
+      DNS = "223.5.5.5";
     };
   };
 }

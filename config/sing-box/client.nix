@@ -183,16 +183,6 @@ in
       };
       inbounds = [
         {
-          listen = "192.168.100.1";
-          listen_port = 53;
-          type = "direct";
-        }
-        {
-          listen = "192.168.200.1";
-          listen_port = 53;
-          type = "direct";
-        }
-        {
           listen = "::";
           listen_port = 1080;
           tag = "mixed-in";
