@@ -19,6 +19,10 @@
     "sing-wgcf".keyFile = /run/user/1000/agenix/sing-wgcf;
   };
 
+  disabledModules = [
+    self.nixosModules.secrets
+  ];
+
   imports = [
     ./sing-box/server.nix
     ./nettools.nix

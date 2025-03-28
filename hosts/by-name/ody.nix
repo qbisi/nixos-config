@@ -17,7 +17,6 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
-    self.nixosModules.secrets
   ];
 
   hardware = {

@@ -21,7 +21,6 @@
     "${self}/config/desktop.nix"
     "${self}/config/nas.nix"
     "${self}/config/nettools.nix"
-    self.nixosModules.secrets
   ];
 
   services.vlmcsd = {

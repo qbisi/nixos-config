@@ -18,7 +18,6 @@
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-bozz-sw799.nix"
     "${self}/config/router.nix"
-    self.nixosModules.secrets
   ];
 
   disko.bootImage.partLabel = "mmc";
