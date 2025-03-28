@@ -162,6 +162,40 @@ in
           };
         }
       ];
+      # endpoints = [
+      #   {
+      #     type = "wireguard";
+      #     tag = "wgcf";
+      #     system = true;
+      #     name = "wg0";
+      #     mtu = 1280;
+      #     address = [
+      #       "172.16.0.2/32"
+      #       "2606:4700:110:8f3f:34c1:705c:6bb6:b69f/128"
+      #     ];
+      #     private_key = {
+      #       _secret = "/run/keys/sing-wgcf";
+      #     };
+      #     listen_port = 50080;
+      #     peers = [
+      #       {
+      #         address = "162.159.192.123";
+      #         port = 2506;
+      #         public_key = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
+      #         pre_shared_key = "";
+      #         allowed_ips = [
+      #           "0.0.0.0/0"
+      #         ];
+      #         persistent_keepalive_interval = 30;
+      #         reserved = [
+      #           115
+      #           252
+      #           141
+      #         ];
+      #       }
+      #     ];
+      #   }
+      # ];
       outbounds = [
         {
           domain_strategy = "ipv4_only";
