@@ -106,7 +106,6 @@
     onFailure = [ "stop-sing-box.service" ];
   };
 
-
   systemd.services.stop-sing-box = {
     after = [ "vnstat-alert.service" ];
     serviceConfig = {
@@ -116,6 +115,12 @@
     script = ''
       systemctl stop sing-box.service
     '';
+  };
+
+  nix.settings = {
+    substituters = lib.mkForce [
+      "https://cache.nixos.org/"
+    ];
   };
 
 }

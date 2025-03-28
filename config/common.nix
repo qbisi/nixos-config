@@ -166,12 +166,14 @@
       trusted-users = [ config.users.users.admin.name ];
       warn-dirty = false;
       substituters = [
-        # "https://mirrors.ustc.edu.cn/nix-channels/store"
-        # "ssh://root@${self.vars.hostIP.x79}?ssh-key=/run/agenix/id_ed25519"
+        "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://nix-community.cachix.org"
         "https://colmena.cachix.org"
+        # "ssh://root@${self.vars.hostIP.x79}?ssh-key=/run/agenix/id_ed25519"
       ];
-
+      builders-use-substitutes = true;
+      fallback = true;
+      connect-timeout = 3;
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
