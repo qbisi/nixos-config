@@ -4,14 +4,6 @@
   lib,
   ...
 }:
-let
-  shareModules = [
-    self.nixosModules.default
-    "${self}/config/common.nix"
-    inputs.nixos-images.nixosModules.default
-    { nixpkgs.overlays = [ inputs.nixos-images.overlays.default ]; }
-  ];
-in
 {
   flake = {
     nixosConfigurations = lib.packagesFromDirectoryRecursive {
@@ -21,8 +13,9 @@ in
           specialArgs = {
             inherit inputs self;
           };
-          modules = shareModules ++ [
+          modules = [
             path
+            "${self}/config/common.nix"
             inputs.colmena.nixosModules.deploymentOptions
           ];
         };
@@ -32,8 +25,9 @@ in
     colmena =
       (lib.packagesFromDirectoryRecursive {
         callPackage = path: _: {
-          imports = shareModules ++ [
+          imports = [
             path
+            "${self}/config/common.nix"
             # SSH to llmnr hosts need retry to wait for hostname resolution.
             # Requires colmena version > 0.5.0.
             { deployment.sshOptions = [ "-o ConnectionAttempts=2" ]; }
