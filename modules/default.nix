@@ -1,16 +1,16 @@
+{ lib, self, ... }:
 {
   flake = {
     nixosModules = {
       default = {
-        imports = [
-          ./overlays
-          ./services/rsync-nixosconfig.nix
-          ./networking/tproxy.nix
-          ./networking/tproxy.nix
-          ./services/vlmcsd.nix
-          ./services/sing-box.nix
-          ./services/qbittorrent.nix
+        disabledModules = [
+          "config/swap.nix"
+          "services/networking/nat.nix"
+          "services/networking/nat-nftables.nix"
+          "${self}/modules/default.nix"
         ];
+
+        imports = lib.filesystem.listFilesRecursive ./.;
       };
     };
   };
