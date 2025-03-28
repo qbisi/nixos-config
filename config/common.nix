@@ -9,7 +9,6 @@
 {
   imports = [
     self.nixosModules.default
-    { nixpkgs.overlays = [ inputs.nixos-images.overlays.default ]; }
     inputs.nixos-images.nixosModules.default
     inputs.daeuniverse.nixosModules.dae
     inputs.daeuniverse.nixosModules.daed
