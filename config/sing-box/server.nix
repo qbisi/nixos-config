@@ -80,6 +80,8 @@ in
           tag = "reality-in";
           listen = "::";
           listen_port = 443;
+          sniff = true;
+          sniff_override_destination = true;
           multiplex = {
             brutal = {
               down_mbps = 480;
@@ -138,6 +140,8 @@ in
         {
           tag = "hysteria2-in";
           type = "hysteria2";
+          sniff = true;
+          sniff_override_destination = true;
           listen = "::";
           listen_port = 443;
           up_mbps = 480;
@@ -188,10 +192,6 @@ in
       route = {
         final = "direct";
         rules = [
-          {
-            action = "resolve";
-            strategy = "prefer_ipv4";
-          }
           {
             action = "route";
             mode = "or";
