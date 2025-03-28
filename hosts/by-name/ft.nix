@@ -42,7 +42,6 @@
       interface = "eth0";
       metric = 10;
     };
-    proxy.default = "http://${self.vars.hostIP.h88k}:1080";
     interfaces.eth0.ipv4 = {
       routes = [
         {

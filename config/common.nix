@@ -6,6 +6,8 @@
   ...
 }:
 {
+  imports = lib.filesystem.listFilesRecursive ./common;
+
   time.timeZone = "Asia/Shanghai";
 
   environment.systemPackages = with pkgs; [

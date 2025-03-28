@@ -62,7 +62,6 @@
     hostName = "x79";
     useDHCP = false;
     useNetworkd = true;
-    proxy.default = "http://${self.vars.hostIP.h88k}:1080";
     defaultGateway = {
       address = "172.16.4.254";
       interface = "eth1";

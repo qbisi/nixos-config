@@ -10,62 +10,11 @@
     ./nettools.nix
   ];
 
-  systemd.services.ModemManager.wantedBy = [ "multi-user.target" ];
-
   networking = {
     useDHCP = false;
     useNetworkd = true;
     networkmanager.enable = true;
-    networkmanager.settings.main.no-auto-default = "*";
-    modemmanager.enable = true;
     nftables.enable = true;
-
-    networkmanager.ensureProfiles.profiles = {
-      eth0 = lib.mkDefault {
-        connection = {
-          id = "eth0";
-          interface-name = "eth0";
-          type = "ethernet";
-        };
-        ipv4.method = "auto";
-        ipv6.method = "auto";
-      };
-
-      wwan0 = {
-        connection = {
-          id = "wwan0";
-          interface-name = "cdc-wdm0";
-          type = "gsm";
-        };
-        ipv4.method = "auto";
-        ipv6.method = "auto";
-      };
-
-      hotspot = lib.mkDefault {
-        connection = {
-          autoconnect = "false";
-          id = "hotspot";
-          interface-name = "wlan0";
-          type = "wifi";
-          controller = "br0";
-          port-type = "bridge";
-        };
-        wifi = {
-          band = "a";
-          channel = "165";
-          mode = "ap";
-          ssid = "${config.networking.hostName}-5G";
-        };
-        wifi-security = {
-          group = "ccmp";
-          key-mgmt = "wpa-psk";
-          pairwise = "ccmp";
-          proto = "rsn";
-          psk = "12345678";
-        };
-      };
-    };
-
     nat = {
       enable = true;
       internalInterfaces = [
