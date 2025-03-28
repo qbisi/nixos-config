@@ -24,6 +24,7 @@
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
     "${self}/config/desktop.nix"
+    "${self}/config/nettools.nix"
   ];
 
   networking = {
@@ -33,12 +34,6 @@
     networkmanager.enable = true;
     firewall.allowedUDPPorts = [
       5355 # LLMNR
-    ];
-  };
-
-  nix.settings = {
-    substituters = [
-      "ssh://root@${self.vars.hostIP.x79}?ssh-key=/run/agenix/id_ed25519"
     ];
   };
 

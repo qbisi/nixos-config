@@ -88,10 +88,12 @@
       ];
       allowedTCPPorts = [
         22
-        53
+        # hija dns, use fakeip
+        # otherwise sniff_override on remote
+        # 53
       ];
       allowedUDPPorts = [
-        53
+        # 53
         123
       ];
     };
