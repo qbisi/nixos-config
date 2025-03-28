@@ -17,6 +17,7 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
+    "${self}/config/proxy/dae.nix"
   ];
 
   hardware = {
@@ -74,6 +75,8 @@
       ];
     };
   };
+
+  systemd.network.wait-online.enable = false;
 
   nix.buildMachines = with self.vars.buildMachines; [
     ft
