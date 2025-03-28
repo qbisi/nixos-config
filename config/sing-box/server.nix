@@ -46,6 +46,10 @@ in
     MemoryMax = "200M";
   };
   services.sing-box.enable = true;
+  services.sing-box.rule_set = [
+    "geoip-cn"
+    "geosite-cn"
+  ];
   services.sing-box.settings = {
     dns = {
       servers = [ { address = "tls://1.1.1.1"; } ];
@@ -184,24 +188,6 @@ in
     ];
     route = {
       final = "direct";
-      rule_set = (
-        lib.forEach
-          [
-            "geoip-cn"
-            "geosite-cn"
-          ]
-          (v: {
-            download_detour = "direct";
-            format = "binary";
-            tag = v;
-            type = "remote";
-            url =
-              let
-                prefix = builtins.elemAt (lib.splitString "-" v) 0;
-              in
-              "https://raw.githubusercontent.com/1715173329/sing-${prefix}/rule-set/${v}.srs";
-          })
-      );
       rules = [
         {
           outbound = "dns-out";

@@ -36,6 +36,20 @@ in
 
     services.sing-box.enable = true;
 
+    services.sing-box.rule_packages = with pkgs; [
+      sing-geoip-enhanced
+      sing-geosite-enhanced
+    ];
+
+    services.sing-box.rule_set = [
+      "geoip-cn"
+      "geoip-telegram"
+      "geosite-gfw"
+      "geosite-cn"
+      "geosite-steam"
+      "geosite-openai"
+    ];
+
     services.sing-box.outbounds = {
       selector = [
         { tag = "direct"; }
@@ -133,6 +147,9 @@ in
     };
 
     services.sing-box.settings = {
+      log = {
+        level = "error";
+      };
       dns = {
         rules = [
           {
@@ -154,6 +171,9 @@ in
           enabled = true;
           path = "";
           store_fakeip = false;
+          # Store rejected DNS response cache in the cache file
+          store_rdrc = false;
+          rdrc_timeout = "7d";
         };
         clash_api = {
           default_mode = "Rule";
@@ -179,33 +199,8 @@ in
           type = "tproxy";
         }
       ];
-      log = {
-        level = "error";
-      };
       route = {
         final = "final";
-        rule_set = (
-          lib.forEach
-            [
-              "geoip-cn"
-              "geoip-telegram"
-              "geosite-cn"
-              "geosite-gfw"
-              "geosite-steam"
-              # "geosite-category-ai-chat-!cn"
-            ]
-            (v: {
-              download_detour = "proxy";
-              format = "binary";
-              tag = v;
-              type = "remote";
-              url =
-                let
-                  prefix = builtins.elemAt (lib.splitString "-" v) 0;
-                in
-                "https://raw.githubusercontent.com/1715173329/sing-${prefix}/rule-set/${v}.srs";
-            })
-        );
         rules = [
           {
             outbound = "dns-out";
@@ -248,12 +243,12 @@ in
             ];
             outbound = "direct";
           }
-          # {
-          #   rule_set = [
-          #     "geosite-category-ai-chat-!cn"
-          #   ];
-          #   outbound = "ai";
-          # }
+          {
+            rule_set = [
+              "geosite-openai"
+            ];
+            outbound = "ai";
+          }
           {
             domain_keyword = [ "libgen" ];
             domain_suffix = [

@@ -7,9 +7,13 @@
 }:
 with lib;
 let
-  cfg = config.services.sing-box.outbounds;
+  inherit (self.lib) genTag;
+  cfg = config.services.sing-box;
+  sing-ruleset = pkgs.symlinkJoin {
+    name = "sing-ruleset";
+    paths = cfg.rule_packages;
+  };
   settingsFormat = pkgs.formats.json { };
-  genTag = list: args: (concatStringsSep "-" (remove "" (forEach list (x: args.${x} or ""))));
   selectorOpts =
     { config, ... }:
     {
@@ -36,7 +40,7 @@ let
         interrupt_exist_connections = mkEnableOption "interrupt exist connections";
       };
       config = {
-        outbounds = forEach (filter (x: elem config.tag x.group or [ ]) cfg.other) (x: x.tag);
+        outbounds = forEach (filter (x: elem config.tag x.group or [ ]) cfg.outbounds.other) (x: x.tag);
       };
     };
   commonOpts =
@@ -201,9 +205,20 @@ in
 {
   options = {
     services.sing-box = {
+      rule_packages = mkOption {
+        type = types.listOf types.package;
+        default = [
+          pkgs.sing-geoip
+          pkgs.sing-geosite
+        ];
+      };
+      rule_set = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+      };
       outbounds = {
         selector = mkOption {
-          type = with types; listOf (submodule selectorOpts);
+          type = types.listOf (types.submodule selectorOpts);
           default = [ ];
         };
         other = mkOption {
@@ -211,19 +226,19 @@ in
           default = [ ];
         };
         direct = mkOption {
-          type = with types; listOf (submodule directOpts);
+          type = types.listOf (types.submodule directOpts);
           default = [ ];
         };
         socks = mkOption {
-          type = with types; listOf (submodule socksOpts);
+          type = types.listOf (types.submodule socksOpts);
           default = [ ];
         };
         vless = mkOption {
-          type = with types; listOf (submodule vlessOpts);
+          type = types.listOf (types.submodule vlessOpts);
           default = [ ];
         };
         hysteria2 = mkOption {
-          type = with types; listOf (submodule hysteria2Opts);
+          type = types.listOf (types.submodule hysteria2Opts);
           default = [ ];
         };
       };
@@ -235,9 +250,15 @@ in
     environment.systemPackages = [ config.services.sing-box.package ];
 
     services.sing-box = {
-      outbounds.other = with cfg; direct ++ socks ++ vless ++ hysteria2;
+      outbounds.other = with cfg.outbounds; direct ++ socks ++ vless ++ hysteria2;
       settings = {
-        outbounds = cfg.selector ++ forEach cfg.other (x: removeAttrs x [ "group" ]);
+        outbounds = cfg.outbounds.selector ++ forEach cfg.outbounds.other (x: removeAttrs x [ "group" ]);
+        route.rule_set = lib.forEach cfg.rule_set (v: {
+          type = "local";
+          tag = v;
+          format = "binary";
+          path = "${sing-ruleset}/share/sing-box/rule-set/${v}.srs";
+        });
       };
     };
   };
