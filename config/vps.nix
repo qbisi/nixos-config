@@ -92,7 +92,8 @@
     };
     path = with pkgs; [ vnstat ];
     script = ''
-      OUTPUT=$(vnstat -i eth0 --alert 1 3 m tx 100 GB 2>&1 || true)
+      set +e
+      OUTPUT=$(vnstat -i eth0 --alert 1 3 m tx 100 GB 2>&1)
       RETVAL=$?
 
       echo "$OUTPUT"
@@ -103,24 +104,5 @@
           exit $RETVAL
       fi
     '';
-    onFailure = [ "stop-sing-box.service" ];
   };
-
-  systemd.services.stop-sing-box = {
-    after = [ "vnstat-alert.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-    };
-    path = with pkgs; [ systemd ];
-    script = ''
-      systemctl stop sing-box.service
-    '';
-  };
-
-  nix.settings = {
-    substituters = lib.mkForce [
-      "https://cache.nixos.org/"
-    ];
-  };
-
 }
