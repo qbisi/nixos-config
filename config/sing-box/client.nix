@@ -133,17 +133,6 @@ in
           ]
         ];
       };
-
-      other = [
-        {
-          tag = "block";
-          type = "block";
-        }
-        {
-          tag = "dns-out";
-          type = "dns";
-        }
-      ];
     };
 
     services.sing-box.settings = {
@@ -151,10 +140,11 @@ in
         level = "error";
       };
       dns = {
+        final = "alidns";
         rules = [
           {
-            rule_set = [ "geosite-cn" ];
-            server = "alidns";
+            rule_set = [ "geosite-gfw" ];
+            server = "fakeip";
           }
         ];
         servers = [
@@ -163,7 +153,16 @@ in
             detour = "direct";
             tag = "alidns";
           }
+          {
+            address = "fakeip";
+            tag = "fakeip";
+          }
         ];
+        fakeip = {
+          enabled = true;
+          inet4_range = "198.18.0.0/15";
+          inet6_range = "fc00::/18";
+        };
       };
       experimental = {
         cache_file = {
@@ -184,17 +183,24 @@ in
       };
       inbounds = [
         {
+          listen = "192.168.100.1";
+          listen_port = 53;
+          type = "direct";
+        }
+        {
+          listen = "192.168.200.1";
+          listen_port = 53;
+          type = "direct";
+        }
+        {
           listen = "::";
           listen_port = 1080;
-          sniff = true;
           tag = "mixed-in";
           type = "mixed";
         }
         {
           listen = "::";
           listen_port = 60000;
-          sniff = true;
-          sniff_override_destination = true;
           tag = "tproxy-in";
           type = "tproxy";
         }
@@ -203,14 +209,19 @@ in
         final = "final";
         rules = [
           {
-            outbound = "dns-out";
-            protocol = "dns";
+            action = "sniff";
           }
           {
+            protocol = "dns";
+            action = "hijack-dns";
+          }
+          {
+            action = "route";
             clash_mode = "global";
             outbound = "final";
           }
           {
+            action = "route";
             ip_cidr = [
               "172.16.0.1/12"
               "10.0.0.0/8"
@@ -218,6 +229,7 @@ in
             outbound = "direct-eth0";
           }
           {
+            action = "route";
             type = "logical";
             mode = "and";
             rules = [
@@ -233,6 +245,7 @@ in
             outbound = "game";
           }
           {
+            action = "route";
             domain_suffix = [
               "steamcontent.com"
               "sharepoint.com"
@@ -244,12 +257,14 @@ in
             outbound = "direct";
           }
           {
+            action = "route";
             rule_set = [
               "geosite-openai"
             ];
             outbound = "ai";
           }
           {
+            action = "route";
             domain_keyword = [ "libgen" ];
             domain_suffix = [
               "mikanani.me"

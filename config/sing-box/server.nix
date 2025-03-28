@@ -62,6 +62,9 @@ in
       "geosite-cn"
     ];
     settings = {
+      log = {
+        level = "error";
+      };
       dns = {
         servers = [ { address = "tls://1.1.1.1"; } ];
       };
@@ -86,8 +89,6 @@ in
             enabled = true;
             padding = false;
           };
-          sniff = true;
-          sniff_override_destination = true;
           tcp_multi_path = true;
           tls = {
             enabled = true;
@@ -115,8 +116,6 @@ in
         {
           listen = "127.0.0.1";
           listen_port = 8001;
-          sniff = true;
-          sniff_override_destination = true;
           transport = {
             service_name = "grpc";
             type = "grpc";
@@ -127,8 +126,6 @@ in
         {
           listen = "127.0.0.1";
           listen_port = 8000;
-          sniff = true;
-          sniff_override_destination = true;
           transport = {
             early_data_header_name = "Sec-WebSocket-Protocol";
             max_early_data = 2048;
@@ -143,8 +140,6 @@ in
           type = "hysteria2";
           listen = "::";
           listen_port = 443;
-          sniff = true;
-          sniff_override_destination = true;
           up_mbps = 480;
           down_mbps = 480;
           users = [
@@ -163,18 +158,11 @@ in
           };
         }
       ];
-      log = {
-        level = "error";
-      };
       outbounds = [
         {
           domain_strategy = "ipv4_only";
           tag = "direct";
           type = "direct";
-        }
-        {
-          tag = "dns-out";
-          type = "dns";
         }
         {
           local_address = [
@@ -201,10 +189,11 @@ in
         final = "direct";
         rules = [
           {
-            outbound = "dns-out";
-            protocol = "dns";
+            action = "resolve";
+            strategy = "prefer_ipv4";
           }
           {
+            action = "route";
             mode = "or";
             outbound = "wgcf";
             rules = [
