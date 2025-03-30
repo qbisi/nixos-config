@@ -10,6 +10,7 @@
   imports = [
     self.nixosModules.default
     inputs.nixos-images.nixosModules.default
+    inputs.secrets.nixosModules.default
     inputs.daeuniverse.nixosModules.daed
   ] ++ lib.filesystem.listFilesRecursive ./common;
 
