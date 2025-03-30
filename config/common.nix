@@ -174,7 +174,7 @@
       trusted-users = [ config.users.users.admin.name ];
       warn-dirty = false;
       substituters = [
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        # "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://nix-community.cachix.org"
         "https://colmena.cachix.org"
         # "ssh://root@${self.vars.hostIP.x79}?ssh-key=/run/agenix/id_ed25519"
