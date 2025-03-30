@@ -653,11 +653,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1743360591,
-        "narHash": "sha256-Lp+Yvqvc13rpGSNQ3tTQoBpgdgjer/C6+cjtblUrGrs=",
+        "lastModified": 1743363904,
+        "narHash": "sha256-WCXV2s+GVVGIK5U9gaN+RWzN9lbv0K8JhA87ZOb0edQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "694dc0e658461939cba99b189338c3f3342f8892",
+        "rev": "a9af7ef6a217028a7e4ebd1c18a6caa924a7459a",
         "type": "github"
       },
       "original": {
@@ -691,11 +691,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1743362929,
-        "narHash": "sha256-mjYi81GM7khhaEOgYcMP/1lWz0DwcuC2+7jU10UdOBw=",
+        "lastModified": 1743368957,
+        "narHash": "sha256-z+JIQUmh+jH2WwPhfaEjduiq+TORqgPIdhbOyOWrktI=",
         "ref": "refs/heads/master",
-        "rev": "bb12a6d06b1f53be38b79686799a93be48fe5213",
-        "revCount": 15,
+        "rev": "8b2aa4ceb2de95da335ddd664f86c10a81ca2223",
+        "revCount": 16,
         "type": "git",
         "url": "ssh://git@github.com/qbisi/secrets"
       },

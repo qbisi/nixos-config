@@ -24,6 +24,11 @@
     ./nettools.nix
   ];
 
+  boot = {
+    kernelModules = [ "brutal" ];
+    extraModulePackages = [ (pkgs.tcp-brutal.override { linux = config.boot.kernelPackages.kernel; }) ];
+  };
+
   networking = {
     domain = self.vars.domain;
     nftables.enable = true;

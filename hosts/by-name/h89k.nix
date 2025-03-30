@@ -21,6 +21,10 @@
     deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
   };
 
+  boot = {
+    kernelModules = [ "ledtrig-netdev" ];
+  };
+
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
     "${self}/config/desktop.nix"

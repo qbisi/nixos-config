@@ -10,6 +10,11 @@
     ./nettools.nix
   ];
 
+  boot = {
+    kernelModules = [ "brutal" ];
+    extraModulePackages = [ (pkgs.tcp-brutal.override { linux = config.boot.kernelPackages.kernel; }) ];
+  };
+
   networking = {
     useDHCP = false;
     useNetworkd = true;
@@ -49,7 +54,10 @@
 
     firewall = {
       enable = true;
-      trustedInterfaces = [ "br0" "wg0" ];
+      trustedInterfaces = [
+        "br0"
+        "wg0"
+      ];
       extraInputRules = ''
         ip saddr { ${self.vars.hostIP.mac}, ${self.vars.hostIP.x79} } counter accept
       '';
