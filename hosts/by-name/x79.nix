@@ -18,7 +18,8 @@
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
     "${self}/config/nettools.nix"
-    "${self}/config/hydra.nix"
+    # "${self}/config/hydra.nix"
+    "${self}/config/jupyter.nix"
   ];
 
   hardware = {
