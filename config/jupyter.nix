@@ -9,11 +9,13 @@
 {
   networking.firewall.allowedTCPPorts = [ 8000 ];
 
-  systemd.services.jupyterhub = {
-    serviceConfig = {
-      CacheDirectory = "jupyterhub";
-    };
-  };
+  services.jupyterhub.jupyterlabEnv = pkgs.python3.withPackages (
+    p: with p; [
+      jupyterhub
+      jupyterlab
+      python-lsp-server
+    ]
+  );
 
   services.jupyterhub = {
     enable = true;
@@ -49,8 +51,9 @@
             OMP_NUM_THREADS = "1";
             VIRTUAL_ENV = "$HOME";
             SHELL = "${pkgs.bash}/bin/bash";
-            PATH = "$PATH:${lib.getBin pkgs.glibc}/bin:${env}/bin";
+            PATH = "$PATH:${env}/bin";
           };
+          logo64 = "${env}/${env.sitePackages}/firedrake/icons/logo-64x64.png";
           language = "python";
         };
     };
