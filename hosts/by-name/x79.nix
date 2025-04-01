@@ -65,7 +65,7 @@
     defaultGateway = {
       address = "172.16.4.254";
       interface = "eth1";
-      metric = 10;
+      metric = 100;
     };
 
     interfaces.eth1.ipv4 = {
@@ -89,27 +89,8 @@
       ];
     };
 
-    firewall = {
-      allowedUDPPorts = [ 51820 ];
-    };
-
     wireguard = {
       enable = true;
-      interfaces = {
-        wg0 = {
-          ips = [ "192.168.200.2/24" ];
-          listenPort = 51820;
-          privateKeyFile = config.age.secrets."wg-x79".path;
-          peers = [
-            {
-              publicKey = self.vars.wgkey.h88k;
-              allowedIPs = [ "0.0.0.0/0" ];
-              endpoint = "${self.vars.hostIP.h88k}:51820";
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-      };
     };
   };
 

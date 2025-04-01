@@ -38,8 +38,7 @@
       internalIPs = [
         "10.0.0.0/8"
         "172.16.0.0/12"
-        "192.168.100.0/24"
-        "192.168.200.0/24"
+        "192.168.0.0/16"
       ];
       allowedTCPPorts = [
         22
@@ -50,6 +49,7 @@
       allowedUDPPorts = [
         # 53
         123
+        51820
       ];
     };
 
@@ -96,12 +96,11 @@
     ];
   };
 
-  systemd.network.wait-online.enable = false;
-
   systemd.network.networks."40-br0" = {
     matchConfig.Name = "br0";
     networkConfig = {
       DHCPServer = "yes";
+      # RequiredForOnline = "no";
     };
     dhcpServerConfig = {
       EmitDNS = "yes";

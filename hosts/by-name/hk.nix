@@ -21,7 +21,13 @@
 
   virtualisation.hypervGuest.enable = true;
 
-  networking.hostName = "hk";
+  networking = {
+    hostName = "hk";
+    useDHCP = false;
+    useNetworkd = true;
+    interfaces.eth0.useDHCP = true;
+    wireguard.enable = true;
+  };
 
   swapDevices = [
     {

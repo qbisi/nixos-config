@@ -76,8 +76,6 @@
     };
   };
 
-  systemd.network.wait-online.enable = false;
-
   nix.buildMachines = with self.vars.buildMachines; [
     ft
     x79

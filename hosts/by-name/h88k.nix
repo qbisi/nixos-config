@@ -80,76 +80,53 @@
     };
   };
 
-  environment.etc."rclone-mnt.conf".text = ''
-    [x79]
-    type = sftp
-    host = ${self.vars.hostIP.x79}
-    user = root
-    key_file = ${config.age.secrets.id_ed25519.path}
-
-    [data]
-    type = union
-    action_policy = all
-    create_policy = all
-    search_policy = ff
-    upstreams = /.data x79:/gigatf:ro
-  '';
-
   networking = {
     hostName = "h88k";
     bridges.br0.interfaces = [
       "eth1"
       "eth2"
     ];
-    networkmanager.ensureProfiles.profiles = {
-      eth0 = {
-        connection = {
-          id = "eth0";
-          interface-name = "eth0";
-          type = "ethernet";
-        };
-        ipv4 = {
-          address1 = "${self.vars.hostIP.h88k}/23,172.16.4.254";
-          dns = "223.5.5.5;";
-          method = "manual";
-          route1 = "172.16.0.0/12,172.16.4.254";
-        };
-        ipv6 = {
-          method = "auto";
-        };
-      };
-    };
     nat.internalInterfaces = [ "wg0" ];
-    firewall = {
-      allowedUDPPorts = [ 51820 ];
-    };
-    wireguard = {
-      enable = true;
-      interfaces = {
-        wg0 = {
-          ips = [ "192.168.200.1/24" ];
-          listenPort = 51820;
-          privateKeyFile = config.age.secrets.wg-h88k.path;
-          peers = [
-            {
-              publicKey = self.vars.wgkey.x79;
-              allowedIPs = [ "192.168.200.2/32" ];
-            }
-            {
-              publicKey = self.vars.wgkey.ft;
-              allowedIPs = [ "192.168.200.3/32" ];
-            }
-            {
-              publicKey = self.vars.wgkey.sl1;
-              allowedIPs = [ "192.168.200.101/32" ];
-              endpoint = "${self.vars.hostIP.sl1}:51820";
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-      };
+    wireguard.enable = true;
+    interfaces.eth0.ipv4 = {
+      addresses = [
+        {
+          address = self.vars.hosts.h88k.ip;
+          prefixLength = 23;
+        }
+      ];
+      routes = [
+        {
+          address = "10.0.0.0";
+          via = "172.16.4.254";
+          prefixLength = 12;
+        }
+        {
+          address = "172.16.0.0";
+          prefixLength = 16;
+          via = "172.16.4.254";
+        }
+      ];
     };
   };
+  #   networkmanager.ensureProfiles.profiles = {
+  #     eth0 = {
+  #       connection = {
+  #         id = "eth0";
+  #         interface-name = "eth0";
+  #         type = "ethernet";
+  #       };
+  #       ipv4 = {
+  #         address1 = "${self.vars.hostIP.h88k}/23,172.16.4.254";
+  #         dns = "223.5.5.5;";
+  #         method = "manual";
+  #         route1 = "172.16.0.0/12,172.16.4.254";
+  #       };
+  #       ipv6 = {
+  #         method = "auto";
+  #       };
+  #     };
+  #   };
 
   environment.systemPackages = with pkgs; [
     minicom

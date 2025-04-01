@@ -36,11 +36,6 @@
     hostName = "ft";
     useDHCP = false;
     useNetworkd = true;
-    defaultGateway = {
-      address = "10.0.5.1";
-      interface = "eth0";
-      metric = 10;
-    };
     interfaces.eth0.ipv4 = {
       routes = [
         {
@@ -62,27 +57,22 @@
       ];
     };
 
-    firewall = {
-      allowedUDPPorts = [ 51820 ];
-    };
-
     wireguard = {
       enable = true;
-      interfaces = {
-        wg0 = {
-          ips = [ "192.168.200.3/24" ];
-          listenPort = 51820;
-          privateKeyFile = config.age.secrets."wg-ft".path;
-          peers = [
-            {
-              publicKey = self.vars.wgkey.h88k;
-              allowedIPs = [ "0.0.0.0/0" ];
-              endpoint = "${self.vars.hostIP.h88k}:51820";
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-      };
+      interfaces.wg0.peers = lib.mkForce [
+        {
+          publicKey = self.vars.hosts.h88k.wgpub;
+          allowedIPs = [ "0.0.0.0/0" ];
+          endpoint = "${self.vars.hosts.h88k.ip}:51820";
+          persistentKeepalive = 25;
+        }
+        {
+          publicKey = self.vars.hosts.x79.wgpub;
+          allowedIPs = [ "192.168.200.2/32" ];
+          endpoint = "${self.vars.hosts.x79.ip}:51820";
+          persistentKeepalive = 25;
+        }
+      ];
     };
   };
 
