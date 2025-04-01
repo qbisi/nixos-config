@@ -139,8 +139,8 @@ in
               type filter hook prerouting priority mangle; policy accept;
               iifname "lo" mark != ${fwmark} return
               iifname { ${ifaceSet} } fib saddr type != local fib daddr type != local jump setmark
-              mark ${fwmark} meta protocol ip meta l4proto { tcp, udp } tproxy ip to 127.0.0.1:${port} accept
-              mark ${fwmark} meta protocol ip6 meta l4proto { tcp, udp } tproxy ip6 to [::1]:${port} accept
+              mark ${fwmark} meta protocol ip meta l4proto tcp tproxy ip to 127.0.0.1:${port} accept
+              mark ${fwmark} meta protocol ip6 meta l4proto tcp tproxy ip6 to [::1]:${port} accept
             } 
             chain setmark {
               meta mark set ct mark
@@ -178,6 +178,31 @@ in
           FirewallMark = cfg.fwmark;
           Priority = 32762;
           Table = 233;
+          IPProtocol = "tcp";
+          Family = "both";
+        }
+      ];
+    };
+    systemd.network.networks."tun" = {
+      matchConfig.Name = "tun0";
+      routes = [
+        {
+          Gateway = "172.18.0.2";
+          Destination = "0.0.0.0/0";
+          Table = 234;
+        }
+        {
+          Gateway = "fdfe:dcba:9876::2";
+          Destination = "::/0";
+          Table = 234;
+        }
+      ];
+      routingPolicyRules = [
+        {
+          FirewallMark = cfg.fwmark;
+          Priority = 32761;
+          Table = 234;
+          IPProtocol = "udp";
           Family = "both";
         }
       ];

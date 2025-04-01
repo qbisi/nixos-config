@@ -139,6 +139,12 @@
               publicKey = self.vars.wgkey.ft;
               allowedIPs = [ "192.168.200.3/32" ];
             }
+            {
+              publicKey = self.vars.wgkey.sl1;
+              allowedIPs = [ "192.168.200.101/32" ];
+              endpoint = "${self.vars.hostIP.sl1}:51820";
+              persistentKeepalive = 25;
+            }
           ];
         };
       };

@@ -168,11 +168,11 @@ in
         cache_file = {
           cache_id = "";
           enabled = true;
-          path = "";
-          store_fakeip = false;
+          path = "cache.db";
+          store_fakeip = true;
           # Store rejected DNS response cache in the cache file
-          store_rdrc = false;
-          rdrc_timeout = "7d";
+          store_rdrc = true;
+          rdrc_timeout = "1d";
         };
         clash_api = {
           default_mode = "Rule";
@@ -182,6 +182,17 @@ in
         };
       };
       inbounds = [
+        {
+          type = "tun";
+          tag = "tun-in";
+          interface_name = "tun0";
+          address = [
+            "172.18.0.1/30"
+            "fdfe:dcba:9876::1/126"
+          ];
+          mtu = 9000;
+          auto_route = false;
+        }
         {
           listen = "::";
           listen_port = 1080;
@@ -198,6 +209,13 @@ in
       route = {
         final = "final";
         rules = [
+          {
+            action = "route";
+            network = [ "udp" ];
+            port = [ 51820 ];
+            ip_cidr = [ self.vars.hostIP.sl1 ];
+            outbound = "hysteria2-sl1.qbisi.cc-wwan0";
+          }
           {
             action = "sniff";
           }
