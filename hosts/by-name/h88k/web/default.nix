@@ -10,17 +10,13 @@
   services = {
     alist = {
       enable = true;
-      settings = {
-        jwt_secret = {
-          _secret = config.age.secrets.jwt.path;
-        };
-      };
+      settings = { };
     };
   };
 
   networking = {
     domain = self.vars.domain;
-    tproxy.groups = ["acme"];
+    tproxy.groups = [ "acme" ];
     firewall = {
       allowedTCPPorts = [
         443

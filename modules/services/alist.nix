@@ -58,15 +58,15 @@ in
         type = lib.types.submodule {
           freeformType = settingsFormat.type;
           options = {
-            jwt_secret = lib.mkOption {
-              type = lib.types.attrsOf lib.types.path;
-              example = {
-                _secret = "/run/secrets/alist-jwt";
-              };
-              description = ''
-                The secret used to sign the JWT token, should be a random string.
-              '';
-            };
+            # jwt_secret = lib.mkOption {
+            #   type = lib.types.attrsOf lib.types.path;
+            #   example = {
+            #     _secret = "/run/secrets/alist-jwt";
+            #   };
+            #   description = ''
+            #     The secret used to sign the JWT token, should be a random string.
+            #   '';
+            # };
             database = {
               type = lib.mkOption {
                 type = lib.types.enum [
