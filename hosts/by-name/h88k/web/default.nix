@@ -16,6 +16,7 @@
 
   networking = {
     domain = self.vars.domain;
+    # acme get confused by hijacked sing-box dns response
     tproxy.groups = [ "acme" ];
     firewall = {
       allowedTCPPorts = [
