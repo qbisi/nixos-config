@@ -17,6 +17,7 @@
     "${inputs.nixos-images}/devices/by-name/nixos-aarch64-uefi.nix"
     "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
     "${self}/config/vps.nix"
+    ./web/hydra.nix
   ];
 
   boot = {
