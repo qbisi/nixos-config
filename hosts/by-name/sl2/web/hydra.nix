@@ -8,12 +8,13 @@
 {
 
   services.nginx = {
-    virtualHosts."${config.networking.fqdn}" = {
+    virtualHosts."hydra.${config.networking.fqdn}" = {
       addSSL = true;
       useACMEHost = config.networking.domain;
       locations = {
         "/" = {
-          proxyPass = "http://127.0.0.1:3000/";
+          proxyPass = "http://127.0.0.1:3000";
+          recommendedProxySettings = true;
         };
       };
     };
@@ -24,7 +25,7 @@
     listenHost = "127.0.0.1";
     hydraURL = "https://hydra.${config.networking.fqdnOrHostName}";
     useSubstitutes = true;
-    notificationSender = self.vars.user.mail;
+    notificationSender = "hydra@localhost"; # e-mail of hydra service
     extraConfig = ''
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
     '';
@@ -38,8 +39,8 @@
 
   nix = {
     settings = {
-      max-jobs = 4;
-      cores = 6;
+      max-jobs = 2;
+      cores = 2;
       auto-optimise-store = true;
       allowed-uris = [
         "github:"
