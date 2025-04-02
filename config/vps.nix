@@ -45,20 +45,6 @@
     };
   };
 
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = lib.mkDefault self.vars.user.mail;
-    defaults.server = "https://acme.zerossl.com/v2/DV90";
-    defaults.extraLegoFlags = [
-      "--eab"
-    ];
-    certs."${config.networking.domain}" = {
-      domain = "*.${config.networking.domain}";
-      dnsProvider = "cloudflare";
-      environmentFile = "/run/keys/acme";
-    };
-  };
-
   services.nginx = {
     enable = true;
     group = "acme";
