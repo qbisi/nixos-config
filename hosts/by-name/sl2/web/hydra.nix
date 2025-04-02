@@ -26,6 +26,8 @@
     hydraURL = "https://hydra.${config.networking.fqdnOrHostName}";
     useSubstitutes = true;
     notificationSender = "hydra@localhost"; # e-mail of hydra service
+    minimumDiskFreeEvaluator = 20;
+    minimumDiskFree = 20;
     extraConfig = ''
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
     '';
