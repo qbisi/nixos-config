@@ -202,46 +202,9 @@ in
           tag = "direct";
           type = "direct";
         }
-        {
-          local_address = [
-            "172.16.0.2/32"
-            "2606:4700:110:8f3f:34c1:705c:6bb6:b69f/128"
-          ];
-          mtu = 1280;
-          peer_public_key = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
-          private_key = {
-            _secret = "/run/keys/sing-wgcf";
-          };
-          reserved = [
-            115
-            252
-            141
-          ];
-          server = "162.159.192.123";
-          server_port = 2506;
-          tag = "wgcf";
-          type = "wireguard";
-        }
       ];
       route = {
         final = "direct";
-        rules = [
-          {
-            action = "route";
-            mode = "or";
-            outbound = "wgcf";
-            rules = [
-              { ip_version = 6; }
-              {
-                rule_set = [
-                  "geoip-cn"
-                  "geosite-cn"
-                ];
-              }
-            ];
-            type = "logical";
-          }
-        ];
       };
     };
   };

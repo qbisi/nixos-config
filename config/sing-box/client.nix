@@ -34,7 +34,7 @@ in
 
     users.groups.proxy.members = [ config.users.users.admin.name ];
 
-    networking.tproxy.groups = ["proxy"];
+    networking.tproxy.groups = [ "proxy" ];
 
     services.sing-box.enable = true;
 
@@ -217,6 +217,9 @@ in
           }
           {
             action = "resolve";
+            domain_suffix = [
+              self.vars.domain
+            ];
           }
           {
             action = "sniff";

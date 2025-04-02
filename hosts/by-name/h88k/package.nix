@@ -83,6 +83,11 @@
     ];
     nat.internalInterfaces = [ "wg0" ];
     wireguard.enable = true;
+    defaultGateway = {
+      address = "172.16.4.254";
+      interface = "eth0";
+      metric = 100;
+    };
     interfaces = {
       eth0.ipv4 = {
         addresses = [
