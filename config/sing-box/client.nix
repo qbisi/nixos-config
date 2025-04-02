@@ -13,7 +13,6 @@ let
     "sg1"
     "hk"
     "sl1"
-    "sl2"
   ];
   domain = self.vars.domain;
   uuid = {
