@@ -54,7 +54,7 @@
       useACMEHost = config.networking.domain;
       locations = {
         "/" = {
-          proxyPass = "http://localhost:3000";
+          return = "403";
         };
       };
     };
