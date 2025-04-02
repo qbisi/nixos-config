@@ -55,5 +55,15 @@
         };
       };
     };
+
+    virtualHosts."jellyfin.${config.networking.fqdn}" = {
+      addSSL = true;
+      useACMEHost = config.networking.fqdn;
+      locations = {
+        "/" = {
+          proxyPass = "http://localhost:8096";
+        };
+      };
+    };
   };
 }
