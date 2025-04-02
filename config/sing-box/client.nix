@@ -34,6 +34,8 @@ in
 
     users.groups.proxy.members = [ config.users.users.admin.name ];
 
+    networking.tproxy.groups = ["proxy"];
+
     services.sing-box.enable = true;
 
     services.sing-box.rule_packages = with pkgs; [
@@ -186,10 +188,7 @@ in
           type = "tun";
           tag = "tun-in";
           interface_name = "tun0";
-          address = [
-            "172.18.0.1/30"
-            "fdfe:dcba:9876::1/126"
-          ];
+          address = config.systemd.network.networks.tun0.address;
           mtu = 9000;
           auto_route = false;
         }
@@ -217,6 +216,9 @@ in
             outbound = "hysteria2-sl1.qbisi.cc-wwan0";
           }
           {
+            action = "resolve";
+          }
+          {
             action = "sniff";
           }
           {
@@ -231,7 +233,7 @@ in
           {
             action = "route";
             ip_cidr = [
-              "172.16.0.1/12"
+              "172.16.0.0/12"
               "10.0.0.0/8"
             ];
             outbound = "direct-eth0";

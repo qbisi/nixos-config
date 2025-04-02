@@ -5,5 +5,6 @@
       "wg0"
       "tun0"
     ];
+    anyInterface = true;
   };
 }

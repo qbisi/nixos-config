@@ -17,6 +17,7 @@ let
   portsToNftSet = ports: concatStringsSep ", " (map (x: toString x) ports);
   tcpSet = portsToNftSet cfg.allowedTCPPorts;
   udpSet = portsToNftSet cfg.allowedUDPPorts;
+  groupSets = concatStringsSep ", " cfg.groups;
 in
 {
   options = {
@@ -32,10 +33,10 @@ in
         '';
       };
 
-      group = mkOption {
-        type = types.str;
-        default = "proxy";
-        example = "root";
+      groups = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        example = [ "proxy" ];
         description = ''
           The group for local proxy server to bypass the tproxy table.
         '';
@@ -123,7 +124,7 @@ in
     };
     networking.nftables = {
       preCheckRuleset = ''
-        sed 's/skgid ${cfg.group}/skgid nogroup/g' -i ruleset.conf
+        sed 's/skgid { ${groupSets} }/skgid nogroup/g' -i ruleset.conf
       '';
       tables = {
         proxy = {
@@ -132,7 +133,7 @@ in
           content = ''
             chain output {
              type route hook output priority mangle; policy accept;
-             skgid ${cfg.group} return
+             skgid { ${groupSets} } return
              fib saddr type local fib daddr type != local jump setmark
             }
             chain prerouting {
@@ -183,8 +184,12 @@ in
         }
       ];
     };
-    systemd.network.networks."tun" = {
+    systemd.network.networks."tun0" = {
       matchConfig.Name = "tun0";
+      address = [
+        "172.18.0.1/30"
+        "fdfe:dcba:9876::1/126"
+      ];
       routes = [
         {
           Gateway = "172.18.0.2";

@@ -21,16 +21,11 @@
     "${self}/config/desktop.nix"
     "${self}/config/nas.nix"
     "${self}/config/nettools.nix"
+    ./web
   ];
 
-  services.vlmcsd = {
-    enable = true;
-    disconnectClients = true;
-    openFirewall = true;
-  };
-
   hardware = {
-    deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
+    deviceTree.dtsFile = lib.mkForce ./rk3588-hinlink-h88k.dts;
   };
 
   disko.bootImage.partLabel = "nvme";
@@ -88,45 +83,37 @@
     ];
     nat.internalInterfaces = [ "wg0" ];
     wireguard.enable = true;
-    interfaces.eth0.ipv4 = {
-      addresses = [
-        {
-          address = self.vars.hosts.h88k.ip;
-          prefixLength = 23;
-        }
-      ];
-      routes = [
-        {
-          address = "10.0.0.0";
-          via = "172.16.4.254";
-          prefixLength = 12;
-        }
-        {
-          address = "172.16.0.0";
-          prefixLength = 16;
-          via = "172.16.4.254";
-        }
-      ];
+    interfaces = {
+      eth0.ipv4 = {
+        addresses = [
+          {
+            address = self.vars.hosts.h88k.ip;
+            prefixLength = 23;
+          }
+        ];
+        routes = [
+          {
+            address = "10.0.0.0";
+            via = "172.16.4.254";
+            prefixLength = 12;
+          }
+          {
+            address = "172.16.0.0";
+            prefixLength = 16;
+            via = "172.16.4.254";
+          }
+        ];
+      };
     };
   };
-  #   networkmanager.ensureProfiles.profiles = {
-  #     eth0 = {
-  #       connection = {
-  #         id = "eth0";
-  #         interface-name = "eth0";
-  #         type = "ethernet";
-  #       };
-  #       ipv4 = {
-  #         address1 = "${self.vars.hostIP.h88k}/23,172.16.4.254";
-  #         dns = "223.5.5.5;";
-  #         method = "manual";
-  #         route1 = "172.16.0.0/12,172.16.4.254";
-  #       };
-  #       ipv6 = {
-  #         method = "auto";
-  #       };
-  #     };
-  #   };
+
+  services = {
+    vlmcsd = {
+      enable = true;
+      disconnectClients = true;
+      openFirewall = true;
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     minicom

@@ -18,7 +18,7 @@
   disko.bootImage.partLabel = "nvme";
 
   hardware = {
-    deviceTree.dtsFile = lib.mkForce ./dts/rk3588-hinlink-h88k.dts;
+    deviceTree.dtsFile = lib.mkForce ./rk3588-hinlink-h88k.dts;
   };
 
   boot = {
