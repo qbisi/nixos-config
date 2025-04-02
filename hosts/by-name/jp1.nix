@@ -32,7 +32,6 @@
     useNetworkd = true;
     interfaces.eth0.useDHCP = true;
     interfaces.eth1.useDHCP = true;
-    wireguard.enable = true;
   };
 
   swapDevices = [

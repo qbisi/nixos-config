@@ -82,7 +82,6 @@
       "eth2"
     ];
     nat.internalInterfaces = [ "wg0" ];
-    wireguard.enable = true;
     defaultGateway = {
       address = "172.16.4.254";
       interface = "eth0";
