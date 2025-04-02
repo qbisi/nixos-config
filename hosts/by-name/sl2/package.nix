@@ -8,7 +8,6 @@
 }:
 {
   deployment = {
-    targetHost = "132.226.16.187";
     buildOnTarget = true;
     tags = [ "vps" ];
   };
