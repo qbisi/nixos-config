@@ -635,11 +635,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1743315132,
-        "narHash": "sha256-6hl6L/tRnwubHcA4pfUUtk542wn2Om+D4UnDhlDW9BE=",
+        "lastModified": 1743448293,
+        "narHash": "sha256-bmEPmSjJakAp/JojZRrUvNcDX2R5/nuX6bm+seVaGhs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "52faf482a3889b7619003c0daec593a1912fddc1",
+        "rev": "77b584d61ff80b4cef9245829a6f1dfad5afdfa3",
         "type": "github"
       },
       "original": {
@@ -748,11 +748,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1743545047,
-        "narHash": "sha256-a42+UpfFepJs2XMvvii1wV4TWeWaXjD7oYztIKjGCAQ=",
+        "lastModified": 1743583662,
+        "narHash": "sha256-HiqW/4lebPVyYyGwegHSEyNfuU7ZJUfEVX0S/JVsrp4=",
         "ref": "refs/heads/master",
-        "rev": "c692588e8a263eb028dc19fc56331d16850ddf31",
-        "revCount": 24,
+        "rev": "40b4984bd29e353a37965458957344376ba1cafa",
+        "revCount": 25,
         "type": "git",
         "url": "ssh://git@github.com/qbisi/secrets"
       },

@@ -12,9 +12,7 @@
         enable = true;
         addKeysToAgent = "yes";
         serverAliveInterval = 60;
-        matchBlocks = self.lib.genAttrs' (lib.attrsToList self.vars.hostIP) (host: {
-          hostname = host.value;
-        });
+        matchBlocks = lib.mapAttrs (_: v: { hostname = v.ip; }) self.vars.hosts;
       };
     }
 
