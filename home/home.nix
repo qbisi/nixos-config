@@ -46,7 +46,7 @@ in
 
   home.packages = with pkgs; [
     gh
-    # yazi
+    yazi
     fd
     ripgrep
     tldr
@@ -62,7 +62,7 @@ in
     nix-index.enable = true;
     direnv = {
       enable = true;
-      nix-direnv.enable = false;
+      nix-direnv.enable = true;
     };
     tmux = {
       shortcut = "a";
