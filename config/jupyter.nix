@@ -35,6 +35,8 @@
               matplotlib
               ipykernel
               ipympl
+              vtk
+              pkgs.gmsh
             ]
           );
         in
