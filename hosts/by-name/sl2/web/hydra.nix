@@ -8,7 +8,7 @@
 {
 
   services.nginx = {
-    virtualHosts."hydra.${config.networking.fqdn}" = {
+    virtualHosts."hydra.${config.networking.domain}" = {
       addSSL = true;
       useACMEHost = config.networking.domain;
       locations = {
@@ -23,7 +23,7 @@
   services.hydra = {
     enable = true;
     listenHost = "127.0.0.1";
-    hydraURL = "https://hydra.${config.networking.fqdnOrHostName}";
+    hydraURL = "https://hydra.${config.networking.domain}";
     useSubstitutes = true;
     notificationSender = "hydra@localhost"; # e-mail of hydra service
     minimumDiskFreeEvaluator = 20;

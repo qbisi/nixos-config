@@ -16,6 +16,7 @@
     "${inputs.nixos-images}/devices/by-name/nixos-aarch64-uefi.nix"
     "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
     ./web/hydra.nix
+    ./web/attic.nix
   ];
 
   boot = {
