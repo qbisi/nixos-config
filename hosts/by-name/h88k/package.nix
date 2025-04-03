@@ -75,7 +75,10 @@
     };
   };
 
-  services.mptcpd.enable = true;
+  services.mptcpd = {
+    enable = true;
+    extraMptcpdFlags = [ "--notify-flags=existing,skip_link_local,skip_loopback,check_route" ];
+  };
 
   networking = {
     hostName = "h88k";

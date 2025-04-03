@@ -18,6 +18,7 @@
           id = "wwan0";
           interface-name = "cdc-wdm0";
           type = "gsm";
+          mptcp-flags = 1;
         };
         ipv4.method = "auto";
         ipv6.method = "auto";
