@@ -71,6 +71,8 @@
     passwordFile = "/run/keys/ddclient";
   };
 
+  services.mptcpd.enable = true;
+
   services.vnstat.enable = true;
 
   systemd.services.vnstat-alert = {

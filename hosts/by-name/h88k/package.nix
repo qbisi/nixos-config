@@ -75,6 +75,8 @@
     };
   };
 
+  services.mptcpd.enable = true;
+
   networking = {
     hostName = "h88k";
     bridges.br0.interfaces = [
