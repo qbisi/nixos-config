@@ -38,6 +38,11 @@
     port = 8080;
   };
 
+  # services.sonarr = {
+  #   enable = true;
+  #   openFirewall = true;
+  # };
+
   fileSystems = {
     "/srv/samba/private/data" = {
       device = "/data";
