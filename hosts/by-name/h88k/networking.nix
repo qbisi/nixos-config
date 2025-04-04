@@ -136,19 +136,10 @@
       '';
       checkReversePath = false;
       interfaces = {
-        "wwan0" = {
-          allowedTCPPorts = [
-            5201
-          ];
-          allowedUDPPorts = [
-            5201
-          ];
-        };
         "eth0" = {
           allowedTCPPorts = [
             53
             1080
-            9090 # metacubexd
           ];
           allowedUDPPorts = [
             53
