@@ -34,14 +34,18 @@
     kernelModules = [ "ledtrig-netdev" ];
   };
 
-  system.activationScripts = {
-    led-netdev = ''
-      echo "wwan0" > /sys/class/leds/blue:net/device_name
-      echo 1 > /sys/class/leds/blue:net/link
-      echo 1 > /sys/class/leds/blue:net/rx
-      echo 1 > /sys/class/leds/blue:net/tx
-    '';
-  };
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "hinlink-h88k-led-udev-rules";
+      destination = "/etc/udev/rules.d/99-hinlink-h88k-led.rules";
+      text = ''
+        ACTION=="add", SUBSYSTEM=="leds", KERNEL=="blue:net", ATTR{device_name}="wwan0"
+        ACTION=="add", SUBSYSTEM=="leds", KERNEL=="blue:net", ATTR{link}="1"
+        ACTION=="add", SUBSYSTEM=="leds", KERNEL=="blue:net", ATTR{rx}="1"
+        ACTION=="add", SUBSYSTEM=="leds", KERNEL=="blue:net", ATTR{tx}="1"
+      '';
+    })
+  ];
 
   fileSystems = {
     "/gigatf" = {
