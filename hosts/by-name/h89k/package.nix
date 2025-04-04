@@ -28,7 +28,6 @@
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
     "${self}/config/desktop.nix"
-    "${self}/config/nettools.nix"
   ];
 
   networking = {

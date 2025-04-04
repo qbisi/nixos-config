@@ -17,7 +17,6 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-phytium-uefi.nix"
-    "${self}/config/nettools.nix"
   ];
 
   boot = {

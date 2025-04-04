@@ -20,7 +20,6 @@
     "${self}/config/router.nix"
     "${self}/config/desktop.nix"
     "${self}/config/nas.nix"
-    "${self}/config/nettools.nix"
     ./web
   ];
 

@@ -8,7 +8,6 @@
 {
   imports = [
     ./sing-box/client.nix
-    ./nettools.nix
   ];
 
   boot.kernelModules = [ "brutal" ];
