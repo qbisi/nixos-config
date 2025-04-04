@@ -11,10 +11,7 @@
     ./nettools.nix
   ];
 
-  boot = {
-    kernelModules = [ "brutal" ];
-    extraModulePackages = [ (pkgs.tcp-brutal.override { linux = config.boot.kernelPackages.kernel; }) ];
-  };
+  boot.kernelModules = [ "brutal" ];
 
   networking = {
     useDHCP = false;
