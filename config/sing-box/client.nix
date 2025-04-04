@@ -57,7 +57,6 @@ in
         { tag = "direct"; }
         {
           tag = "proxy";
-          # default = "reality-jp1.qbisi.cc-eth0";
         }
         { tag = "game"; }
         { tag = "ai"; }
@@ -67,27 +66,7 @@ in
         }
       ];
 
-      direct = cartesianProduct' {
-        bind_interface = [
-          "eth0"
-          "wwan0"
-          "wlan0"
-        ];
-        group = [
-          [
-            "direct"
-            "final"
-            "game"
-            "proxy"
-          ]
-        ];
-      };
-
       vless = cartesianProduct' {
-        # bind_interface = [
-        #   "eth0"
-        #   "wwan0"
-        # ];
         tcp_multi_path = true;
         inherit uuid;
         tls = forEach vps (v: {
@@ -136,6 +115,23 @@ in
           ]
         ];
       };
+
+      direct = cartesianProduct' {
+        bind_interface = [
+          "eth0"
+          "wwan0"
+          "wlan0"
+        ];
+        group = [
+          [
+            "direct"
+            "final"
+            "game"
+            "proxy"
+          ]
+        ];
+      };
+
     };
 
     services.sing-box.settings = {
