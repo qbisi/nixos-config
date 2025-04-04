@@ -71,7 +71,14 @@
     passwordFile = "/run/keys/ddclient";
   };
 
-  services.mptcpd.enable = true;
+  services.mptcpd = {
+    enable = true;
+    extraMptcpdFlags = [
+      "--path-manager=sspi"
+      "--addr-flags=signal"
+      "--notify-flags=existing,skip_link_local,skip_loopback,check_route"
+    ];
+  };
 
   services.vnstat.enable = true;
 
