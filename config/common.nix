@@ -169,13 +169,15 @@
 
     settings = {
       # auto-optimise-store = true;
+      warn-dirty = false;
+      # Whether to accept nix configuration from a flake without prompting.
+      accept-flake-config = true;
       experimental-features = [
         "nix-command"
         "flakes"
-        "pipe-operators"
+        # "pipe-operators"
       ];
       trusted-users = [ config.users.users.admin.name ];
-      warn-dirty = false;
       substituters = [
         # "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://nix-community.cachix.org"

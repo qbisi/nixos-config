@@ -15,9 +15,7 @@
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-aarch64-uefi.nix"
     "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
-    ./web/hydra.nix
-    ./web/attic.nix
-  ];
+  ] ++ lib.filesystem.listFilesRecursive ./web;
 
   boot = {
     initrd.availableKernelModules = [
@@ -46,6 +44,14 @@
     enable = true;
     group = "acme";
     defaultSSLListenPort = 443;
+  };
+
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+      dates = "weekly";
+    };
   };
 
   system.stateVersion = "25.05";
