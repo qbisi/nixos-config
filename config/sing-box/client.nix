@@ -32,7 +32,7 @@ in
       MemoryMax = "400M";
     };
 
-    users.groups.proxy.members = [ config.users.users.admin.name ];
+    users.groups.proxy = { };
 
     networking.tproxy.groups = [ "proxy" ];
 

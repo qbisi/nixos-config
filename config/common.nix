@@ -129,6 +129,8 @@
     # '';
   };
 
+  networking.tproxy.users = [ config.users.users.admin.name ];
+
   users.users = {
     admin = {
       inherit (self.vars.user) name hashedPassword;

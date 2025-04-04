@@ -17,6 +17,7 @@ let
   portsToNftSet = ports: concatStringsSep ", " (map (x: toString x) ports);
   tcpSet = portsToNftSet cfg.allowedTCPPorts;
   udpSet = portsToNftSet cfg.allowedUDPPorts;
+  userSets = concatStringsSep ", " cfg.users;
   groupSets = concatStringsSep ", " cfg.groups;
 in
 {
@@ -30,6 +31,15 @@ in
         example = 60080;
         description = ''
           The local port that tproxy forward to and proxy server listen on.   
+        '';
+      };
+
+      users = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        example = [ "root" ];
+        description = ''
+          The users for local proxy server to bypass the tproxy table.
         '';
       };
 
@@ -124,6 +134,7 @@ in
     };
     networking.nftables = {
       preCheckRuleset = ''
+        sed 's/skuid { ${userSets} }/skuid nobody/g' -i ruleset.conf
         sed 's/skgid { ${groupSets} }/skgid nogroup/g' -i ruleset.conf
       '';
       tables = {
@@ -133,6 +144,7 @@ in
           content = ''
             chain output {
              type route hook output priority mangle; policy accept;
+             skuid { ${userSets} } return
              skgid { ${groupSets} } return
              fib saddr type local fib daddr type != local jump setmark
             }
