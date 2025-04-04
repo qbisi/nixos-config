@@ -17,9 +17,9 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
-    "${self}/config/router.nix"
     "${self}/config/desktop.nix"
     "${self}/config/nas.nix"
+    ./networking.nix
     ./web
   ];
 
@@ -50,51 +50,6 @@
         "dropcacheonclose=false"
         "category.create=mfs"
       ];
-    };
-  };
-
-  services.mptcpd = {
-    enable = true;
-    extraMptcpdFlags = [
-      "--path-manager=sspi"
-      "--addr-flags=subflow"
-      "--notify-flags=existing,skip_link_local,skip_loopback,check_route"
-    ];
-  };
-
-  networking = {
-    hostName = "h88k";
-    bridges.br0.interfaces = [
-      "eth1"
-      "eth2"
-    ];
-    nat.internalInterfaces = [ "wg0" ];
-    defaultGateway = {
-      address = "172.16.4.254";
-      interface = "eth0";
-      metric = 100;
-    };
-    interfaces = {
-      eth0.ipv4 = {
-        addresses = [
-          {
-            address = self.vars.hosts.h88k.ip;
-            prefixLength = 23;
-          }
-        ];
-        routes = [
-          {
-            address = "10.0.0.0";
-            via = "172.16.4.254";
-            prefixLength = 12;
-          }
-          {
-            address = "172.16.0.0";
-            prefixLength = 16;
-            via = "172.16.4.254";
-          }
-        ];
-      };
     };
   };
 
