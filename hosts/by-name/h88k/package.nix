@@ -30,23 +30,6 @@
 
   disko.bootImage.partLabel = "nvme";
 
-  boot = {
-    kernelModules = [ "ledtrig-netdev" ];
-  };
-
-  services.udev.packages = [
-    (pkgs.writeTextFile {
-      name = "hinlink-h88k-led-udev-rules";
-      destination = "/etc/udev/rules.d/99-hinlink-h88k-led.rules";
-      text = ''
-        ACTION=="add", SUBSYSTEM=="leds", KERNEL=="blue:net", ATTR{device_name}="wwan0"
-        ACTION=="add", SUBSYSTEM=="leds", KERNEL=="blue:net", ATTR{link}="1"
-        ACTION=="add", SUBSYSTEM=="leds", KERNEL=="blue:net", ATTR{rx}="1"
-        ACTION=="add", SUBSYSTEM=="leds", KERNEL=="blue:net", ATTR{tx}="1"
-      '';
-    })
-  ];
-
   fileSystems = {
     "/gigatf" = {
       device = "/dev/disk/by-uuid/e64827a8-9986-42da-8364-a958dcd129d4";
@@ -68,14 +51,6 @@
         "dropcacheonclose=false"
         "category.create=mfs"
       ];
-    };
-  };
-
-  system.activationScripts = {
-    mergerfs = {
-      text = ''
-        mkdir -p /.data
-      '';
     };
   };
 
