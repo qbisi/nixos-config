@@ -77,7 +77,11 @@
 
   services.mptcpd = {
     enable = true;
-    extraMptcpdFlags = [ "--notify-flags=existing,skip_link_local,skip_loopback,check_route" ];
+    extraMptcpdFlags = [
+      "--path-manager=sspi"
+      "--addr-flags=subflow"
+      "--notify-flags=existing,skip_link_local,skip_loopback,check_route"
+    ];
   };
 
   networking = {

@@ -57,7 +57,7 @@ in
         { tag = "direct"; }
         {
           tag = "proxy";
-          default = "reality-jp1.qbisi.cc-eth0";
+          # default = "reality-jp1.qbisi.cc-eth0";
         }
         { tag = "game"; }
         { tag = "ai"; }
@@ -84,10 +84,11 @@ in
       };
 
       vless = cartesianProduct' {
-        bind_interface = [
-          "eth0"
-          "wwan0"
-        ];
+        # bind_interface = [
+        #   "eth0"
+        #   "wwan0"
+        # ];
+        tcp_multi_path = true;
         inherit uuid;
         tls = forEach vps (v: {
           server_name = "${v}.${domain}";

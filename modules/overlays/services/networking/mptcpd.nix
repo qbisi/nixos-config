@@ -24,7 +24,10 @@ in
       extraMptcpdFlags = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [ ];
-        example = [ "--notify-flags=existing,skip_link_local,skip_loopback,check_route" ];
+        example = [
+          "--addr-flags=subflow"
+          "--notify-flags=existing,skip_link_local,skip_loopback,check_route"
+        ];
         description = ''
           Additional flags to pass to mptcpd commands. See "man 8 mptcpd" for more information.
         '';
