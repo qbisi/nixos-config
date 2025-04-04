@@ -31,28 +31,6 @@
     fzf
   ];
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      X11Forwarding = true;
-    };
-    knownHosts = {
-      ft = {
-        extraHostNames = [ self.vars.hostIP.ft ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMaB38zfFByF9iolK5iJou7qjCmxtIFWreYMr/dKqeJp";
-      };
-      x79 = {
-        extraHostNames = [ self.vars.hostIP.x79 ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB6hQrT6/2Kmr7dpAHUapxsv2t/uRF+GDehDwekj28mg";
-      };
-      mac = {
-        extraHostNames = [ self.vars.hostIP.mac ];
-        publicKey = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEYDL2Cb4lQ/NKRch7cekOdgmFlmT4tdDnv5r9VoGpss156tKamTa5dW7apjKqA1R2xTePyb7dVwzki1q0W/W9M=";
-      };
-    };
-  };
-
   programs.nh = {
     enable = true;
     flake = "/home/${config.users.users.admin.name}/nixos-config";
@@ -182,7 +160,7 @@
         # "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://nix-community.cachix.org"
         "https://colmena.cachix.org"
-        # "ssh://root@${self.vars.hostIP.x79}?ssh-key=/run/agenix/id_ed25519"
+        # "ssh://root@${self.vars.hosts.x79.ip}?ssh-key=/run/agenix/id_ed25519"
       ];
       builders-use-substitutes = true;
       fallback = true;

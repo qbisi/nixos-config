@@ -57,7 +57,7 @@
     interfaces.eth0.ipv4 = {
       addresses = [
         {
-          address = self.vars.hostIP.ody;
+          address = self.vars.hosts.ody.ip;
           prefixLength = 23;
         }
       ];

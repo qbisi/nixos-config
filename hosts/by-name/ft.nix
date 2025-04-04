@@ -51,7 +51,7 @@
       ];
       addresses = [
         {
-          address = self.vars.hostIP.ft;
+          address = self.vars.hosts.ft.ip;
           prefixLength = 24;
         }
       ];

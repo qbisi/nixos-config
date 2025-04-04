@@ -205,13 +205,13 @@ in
       route = {
         final = "final";
         rules = [
-          {
-            action = "route";
-            network = [ "udp" ];
-            port = [ 51820 ];
-            ip_cidr = [ self.vars.hostIP.sl1 ];
-            outbound = "hysteria2-sl1.qbisi.cc-wwan0";
-          }
+          # {
+          #   action = "route";
+          #   network = [ "udp" ];
+          #   port = [ 51820 ];
+          #   ip_cidr = [ self.vars.hosts.sl1.ip ];
+          #   outbound = "hysteria2-sl1.qbisi.cc-wwan0";
+          # }
           {
             action = "resolve";
             domain_suffix = [

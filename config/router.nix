@@ -60,7 +60,7 @@
         "wg0"
       ];
       extraInputRules = ''
-        ip saddr { ${self.vars.hostIP.mac}, ${self.vars.hostIP.x79} } counter accept
+        ip saddr { ${self.vars.hosts.mac.ip}, ${self.vars.hosts.x79.ip} } counter accept
       '';
       checkReversePath = false;
       interfaces = {

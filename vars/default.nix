@@ -9,7 +9,7 @@ in
         system = "aarch64-linux";
         sshUser = "root";
         sshKey = "/run/agenix/hydra_ed25519";
-        hostName = vars.hostIP."ft";
+        hostName = vars.hosts.ft.ip;
         maxJobs = 4;
         supportedFeatures = [
           "big-parallel"
@@ -22,7 +22,7 @@ in
         system = "x86_64-linux";
         sshUser = "root";
         sshKey = "/run/agenix/hydra_ed25519";
-        hostName = vars.hostIP."x79";
+        hostName = vars.hosts.x79.ip;
         maxJobs = 4;
         supportedFeatures = [
           "big-parallel"

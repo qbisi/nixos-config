@@ -71,7 +71,7 @@
     interfaces.eth1.ipv4 = {
       addresses = [
         {
-          address = self.vars.hostIP.x79;
+          address = self.vars.hosts.x79.ip;
           prefixLength = 23;
         }
       ];
