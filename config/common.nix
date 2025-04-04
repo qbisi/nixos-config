@@ -146,6 +146,7 @@
     };
 
     settings = {
+      keep-outputs = true;
       # auto-optimise-store = true;
       warn-dirty = false;
       # Whether to accept nix configuration from a flake without prompting.
