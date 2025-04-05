@@ -20,8 +20,7 @@
     "${self}/config/desktop.nix"
     "${self}/config/nas.nix"
     ./networking.nix
-    ./web
-  ];
+  ] ++ self.lib.listNixFilesRecursive ./web;
 
   hardware = {
     deviceTree.dtsFile = lib.mkForce ./rk3588-hinlink-h88k.dts;
