@@ -18,7 +18,8 @@
 
   services.nginx = {
     enable = true;
-    virtualHosts."cache.${config.networking.domain}" = {
+    virtualHosts."harmonia" = {
+      serverName = lib.mkDefault "cache.${config.services.nginx.serverName}";
       addSSL = true;
       useACMEHost = config.networking.domain;
       locations = {

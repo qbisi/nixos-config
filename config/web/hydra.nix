@@ -9,7 +9,8 @@
 
   services.nginx = {
     enable = true;
-    virtualHosts."hydra.${config.networking.domain}" = {
+    virtualHosts."hydra" = {
+      serverName = lib.mkDefault "hydra.${config.services.nginx.serverName}";
       addSSL = true;
       useACMEHost = config.networking.domain;
       locations = {
@@ -24,7 +25,7 @@
   services.hydra = {
     enable = true;
     listenHost = "127.0.0.1";
-    hydraURL = "https://hydra.${config.networking.domain}";
+    hydraURL = "https://${config.services.nginx.virtualHosts.hydra.serverName}";
     useSubstitutes = true;
     notificationSender = "hydra@localhost"; # e-mail of hydra service
     minimumDiskFreeEvaluator = 20;

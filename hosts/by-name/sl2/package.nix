@@ -15,13 +15,19 @@
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-aarch64-uefi.nix"
     "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
-  ] ++ self.lib.listNixFilesRecursive ./web;
+    "${self}/config/web/alist.nix"
+    "${self}/config/web/attic.nix"
+    "${self}/config/web/harmonia.nix"
+    "${self}/config/web/hydra.nix"
+  ];
 
   boot = {
     initrd.availableKernelModules = [
       "virtio_scsi"
     ];
   };
+
+  services.nginx.serverName = config.networking.domain;
 
   networking = {
     hostName = "sl2";

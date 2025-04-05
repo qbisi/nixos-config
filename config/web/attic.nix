@@ -9,7 +9,8 @@
 {
   services.nginx = {
     enable = true;
-    virtualHosts."attic.${config.networking.domain}" = {
+    virtualHosts."attic" = {
+      serverName = lib.mkDefault "attic.${config.services.nginx.serverName}";
       addSSL = true;
       useACMEHost = config.networking.domain;
       locations = {
