@@ -19,8 +19,9 @@
     "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
     "${self}/config/desktop.nix"
     "${self}/config/nas.nix"
+    "${self}/config/web/alist.nix"
     ./networking.nix
-  ] ++ self.lib.listNixFilesRecursive ./web;
+  ];
 
   hardware = {
     deviceTree.dtsFile = lib.mkForce ./rk3588-hinlink-h88k.dts;
