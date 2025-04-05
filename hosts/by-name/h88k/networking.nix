@@ -49,6 +49,7 @@
 
   networking = {
     hostName = "h88k";
+    domain = self.vars.domain;
     useDHCP = false;
     useNetworkd = true;
     networkmanager.enable = true;
@@ -109,6 +110,8 @@
 
     tproxy = {
       enable = true;
+      # acme get confused by hijacked sing-box dns response
+      groups = [ "acme" ];
       internalIPs = [
         "10.0.0.0/8"
         "172.16.0.0/12"

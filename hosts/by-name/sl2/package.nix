@@ -40,12 +40,6 @@
     };
   };
 
-  services.nginx = {
-    enable = true;
-    group = "acme";
-    defaultSSLListenPort = 443;
-  };
-
   nix = {
     gc = {
       automatic = true;

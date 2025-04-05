@@ -17,6 +17,7 @@
   };
 
   services.nginx = {
+    enable = true;
     virtualHosts."cache.${config.networking.domain}" = {
       addSSL = true;
       useACMEHost = config.networking.domain;

@@ -44,7 +44,6 @@
 
   services.nginx = {
     enable = true;
-    group = "acme";
     defaultSSLListenPort = 8443;
     virtualHosts."${config.networking.fqdn}" = {
       addSSL = true;

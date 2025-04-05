@@ -22,6 +22,7 @@
   };
 
   services.nginx = {
+    enable = true;
     virtualHosts."drive.${config.networking.fqdn}" = {
       addSSL = true;
       useACMEHost = config.networking.domain;

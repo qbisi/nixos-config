@@ -23,8 +23,6 @@
 
   services.nginx = {
     enable = true;
-    group = "acme";
-    defaultSSLListenPort = 443;
     virtualHosts."drive.${config.networking.domain}" = {
       addSSL = true;
       useACMEHost = config.networking.domain;

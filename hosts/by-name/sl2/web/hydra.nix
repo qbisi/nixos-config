@@ -8,6 +8,7 @@
 {
 
   services.nginx = {
+    enable = true;
     virtualHosts."hydra.${config.networking.domain}" = {
       addSSL = true;
       useACMEHost = config.networking.domain;
