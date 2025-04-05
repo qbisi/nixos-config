@@ -18,22 +18,13 @@
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
     # "${self}/config/hydra.nix"
-    "${self}/config/jupyter.nix"
+    # "${self}/config/jupyter.nix"
   ];
 
   hardware = {
+    graphics.enable = true;
     enableRedistributableFirmware = true;
     cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
-    graphics = {
-      enable = true;
-      # Fixup for opengl not found sshing from non-nixos system
-      extraPackages = [
-        (pkgs.runCommand "mesa_glxindirect" { } (''
-          mkdir -p $out/lib
-          ln -s ${pkgs.mesa}/lib/libGLX_mesa.so.0 $out/lib/libGLX_indirect.so.0
-        ''))
-      ];
-    };
   };
 
   boot = {
