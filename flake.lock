@@ -748,11 +748,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1743768403,
-        "narHash": "sha256-DWo++46eNN0knLn1Uuv9Y8NpDB9VUm7p93JpEoKOj7Q=",
+        "lastModified": 1743828097,
+        "narHash": "sha256-cPv/ACF2Q+XwdEpPn0KMZmIIOuOS0XUADXOmcZ/xXhU=",
         "ref": "refs/heads/master",
-        "rev": "11c6c2e8286475a14dc5de05d6f41bdf5cc899fb",
-        "revCount": 34,
+        "rev": "bcf30470f128256706276043c2f2287694a61ed1",
+        "revCount": 36,
         "type": "git",
         "url": "ssh://git@github.com/qbisi/secrets"
       },

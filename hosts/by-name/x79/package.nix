@@ -17,8 +17,9 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
-    # "${self}/config/hydra.nix"
     # "${self}/config/jupyter.nix"
+    "${self}/config/web/harmonia.nix"
+    "${self}/config/web/hydra.nix"
   ];
 
   hardware = {
@@ -50,8 +51,11 @@
 
   networking = {
     hostName = "x79";
+    domain = self.vars.domain;
     useDHCP = false;
     useNetworkd = true;
+    nftables.enable = true;
+    
     defaultGateway = {
       address = "172.16.4.254";
       interface = "eth1";
@@ -116,10 +120,6 @@
       ft
       mac
     ];
-    sshServe = {
-      enable = true;
-      keys = config.users.users.root.openssh.authorizedKeys.keys;
-    };
   };
 
   system.stateVersion = "24.11";

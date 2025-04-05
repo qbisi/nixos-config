@@ -55,12 +55,6 @@
     networkmanager.enable = true;
     nftables.enable = true;
 
-    hosts = {
-      "${self.vars.hosts.h88k.ip}" = lib.mapAttrsToList (
-        _: v: v.serverName
-      ) config.services.nginx.virtualHosts;
-    };
-
     defaultGateway = {
       address = "172.16.4.254";
       interface = "eth0";

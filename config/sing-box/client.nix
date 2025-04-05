@@ -31,6 +31,10 @@ in
       Group = "proxy";
       MemoryMax = "400M";
     };
+  
+    systemd.services.systemd-resolved.serviceConfig = {
+      Group = "proxy";
+    };
 
     users.groups.proxy = { };
 
@@ -139,7 +143,7 @@ in
         level = "error";
       };
       dns = {
-        final = "alidns";
+        final = "system";
         rules = [
           {
             rule_set = [ "geosite-gfw" ];
@@ -149,8 +153,12 @@ in
         servers = [
           {
             address = "223.5.5.5";
-            detour = "direct";
+            detour = "direct-auto";
             tag = "alidns";
+          }
+          {
+            address = "local";
+            tag = "system";
           }
           {
             address = "fakeip";

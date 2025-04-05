@@ -42,9 +42,13 @@
   };
 
   nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+      dates = "weekly";
+    };
+    
     settings = {
-      max-jobs = 2;
-      cores = 2;
       auto-optimise-store = true;
       allowed-uris = [
         "github:"

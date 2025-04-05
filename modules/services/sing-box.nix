@@ -250,7 +250,16 @@ in
     environment.systemPackages = [ config.services.sing-box.package ];
 
     services.sing-box = {
-      outbounds.other = with cfg.outbounds; direct ++ socks ++ vless ++ hysteria2;
+      outbounds = {
+        direct = [
+          {
+            tag = "direct-auto";
+            tcp_multi_path = true;
+          }
+        ];
+        other = with cfg.outbounds; direct ++ socks ++ vless ++ hysteria2;
+      };
+      
       settings = {
         outbounds = cfg.outbounds.selector ++ forEach cfg.outbounds.other (x: removeAttrs x [ "group" ]);
         route.rule_set = lib.forEach cfg.rule_set (v: {
