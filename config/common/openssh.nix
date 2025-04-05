@@ -9,10 +9,10 @@
 {
   programs.ssh = {
     extraConfig = ''
-      Match user root
+      Match localuser root
           IdentityFile ${config.age.secrets.id_ed25519.path}
 
-      Match user hydra-queue-runner
+      Match localuser hydra-queue-runner
           IdentityFile ${config.age.secrets.hydra_ed25519.path}
     '';
 
