@@ -56,7 +56,9 @@
     nftables.enable = true;
 
     hosts = {
-      "${self.vars.hosts.h88k.ip}" = builtins.attrNames config.services.nginx.virtualHosts;
+      "${self.vars.hosts.h88k.ip}" = lib.mapAttrsToList (
+        _: v: v.serverName
+      ) config.services.nginx.virtualHosts;
     };
 
     defaultGateway = {

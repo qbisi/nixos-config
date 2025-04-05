@@ -23,7 +23,8 @@
 
   services.nginx = {
     enable = true;
-    virtualHosts."drive.${config.networking.fqdn}" = {
+    virtualHosts."drive" = {
+      serverName = lib.mkDefault "drive.${config.services.nginx.serverName}";
       addSSL = true;
       useACMEHost = config.networking.domain;
       locations = {
