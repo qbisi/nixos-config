@@ -23,6 +23,8 @@
           "192.168."
           "127."
         ];
+      
+      listNixFilesRecursive = dir: lib.filter (p: lib.hasSuffix ".nix" p) (lib.filesystem.listFilesRecursive dir);
     };
   };
 }

@@ -8,10 +8,10 @@
           "services/networking/mptcpd.nix"
           "services/networking/nat.nix"
           "services/networking/nat-nftables.nix"
-          "${self}/modules/default.nix"
+          __curPos.file
         ];
 
-        imports = lib.filesystem.listFilesRecursive ./.;
+        imports = self.lib.listNixFilesRecursive ./.;
       };
     };
   };

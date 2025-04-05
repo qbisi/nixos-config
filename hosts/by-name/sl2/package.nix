@@ -15,7 +15,7 @@
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-aarch64-uefi.nix"
     "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
-  ] ++ lib.filesystem.listFilesRecursive ./web;
+  ] ++ self.lib.listNixFilesRecursive ./web;
 
   boot = {
     initrd.availableKernelModules = [
