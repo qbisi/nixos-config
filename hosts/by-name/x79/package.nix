@@ -113,8 +113,8 @@
 
   nix = {
     settings = {
-      max-jobs = 4;
-      cores = 6;
+      max-jobs = 2;
+      cores = 12;
     };
     buildMachines = with self.vars.buildMachines; [
       ft

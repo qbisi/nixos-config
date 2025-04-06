@@ -10,7 +10,7 @@ in
         sshUser = "root";
         sshKey = "/run/agenix/hydra_ed25519";
         hostName = vars.hosts.ft.ip;
-        maxJobs = 4;
+        maxJobs = 2;
         supportedFeatures = [
           "big-parallel"
           "kvm"
@@ -23,7 +23,7 @@ in
         sshUser = "root";
         sshKey = "/run/agenix/hydra_ed25519";
         hostName = vars.hosts.x79.ip;
-        maxJobs = 4;
+        maxJobs = 2;
         supportedFeatures = [
           "big-parallel"
           "kvm"
