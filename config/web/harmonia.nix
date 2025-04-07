@@ -9,10 +9,10 @@
 {
   services.harmonia = {
     enable = true;
-    signKeyPaths = [ config.age.secrets.harmonia.path ];
+    signKeyPaths = [ config.age.secrets."harmonia-${config.networking.hostName}".path ];
     settings = {
       bind = "unix:/run/harmonia/socket";
-      priority = 41;
+      priority = 30;
     };
   };
 
