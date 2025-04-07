@@ -51,7 +51,7 @@
 
   networking = {
     hostName = "x79";
-    domain = self.vars.domain;
+    domain = "csrc.eu.org";
     useDHCP = false;
     useNetworkd = true;
     nftables.enable = true;

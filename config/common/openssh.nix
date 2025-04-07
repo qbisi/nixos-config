@@ -10,10 +10,10 @@
   programs.ssh = {
     extraConfig = ''
       Match localuser root
-          IdentityFile ${config.age.secrets.id_ed25519.path}
+          IdentityFile ${config.age.secrets.id_ed25519.path or "~/.ssh/id_ed25519"}
 
       Match localuser hydra-queue-runner
-          IdentityFile ${config.age.secrets.hydra_ed25519.path}
+          IdentityFile ${config.age.secrets.hydra_ed25519.path or "~/.ssh/id_ed25519"}
     '';
 
     knownHosts = lib.mapAttrs (_: value: {

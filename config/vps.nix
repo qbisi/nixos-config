@@ -21,13 +21,13 @@
 
   imports = [
     ./sing-box/server.nix
-    ./nettools.nix
   ];
 
   boot.kernelModules = [ "brutal" ];
 
   networking = {
     domain = self.vars.domain;
+    useNetworkd = true;
     nftables.enable = true;
     firewall = {
       allowedTCPPorts = [

@@ -28,10 +28,6 @@
 
   networking = {
     hostName = "jp1";
-    useDHCP = false;
-    useNetworkd = true;
-    interfaces.eth0.useDHCP = true;
-    interfaces.eth1.useDHCP = true;
   };
 
   swapDevices = [

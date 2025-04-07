@@ -31,9 +31,6 @@
 
   networking = {
     hostName = "sl1";
-    useDHCP = false;
-    useNetworkd = true;
-    interfaces.eth0.useDHCP = true;
   };
 
   swapDevices = [

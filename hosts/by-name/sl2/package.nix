@@ -32,9 +32,7 @@
   networking = {
     hostName = "sl2";
     domain = self.vars.domain;
-    useDHCP = false;
     useNetworkd = true;
-    interfaces.eth0.useDHCP = true;
     firewall = {
       allowedTCPPorts = [
         80

@@ -23,9 +23,6 @@
 
   networking = {
     hostName = "hk";
-    useDHCP = false;
-    useNetworkd = true;
-    interfaces.eth0.useDHCP = true;
   };
 
   swapDevices = [
