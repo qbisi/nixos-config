@@ -19,7 +19,7 @@
     "${self}/config/web/attic.nix"
     "${self}/config/web/harmonia.nix"
     "${self}/config/web/hydra.nix"
-  ];
+  ] ++ self.lib.listNixFilesRecursive ./web;
 
   boot = {
     initrd.availableKernelModules = [

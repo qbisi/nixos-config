@@ -31,6 +31,10 @@ in
 
     services.nginx = {
       group = "acme";
+      virtualHosts.fallback = {
+        rejectSSL = true;
+        default = true;
+      };
     };
   };
 }

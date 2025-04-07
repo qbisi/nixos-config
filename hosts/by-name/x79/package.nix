@@ -44,10 +44,7 @@
     ];
   };
 
-  services.resolved.fallbackDns = [
-    "223.5.5.5"
-    "114.114.114.114"
-  ];
+  services.nginx.serverName = "csrc.eu.org";
 
   networking = {
     hostName = "x79";
@@ -55,7 +52,7 @@
     useDHCP = false;
     useNetworkd = true;
     nftables.enable = true;
-    
+
     defaultGateway = {
       address = "172.16.4.254";
       interface = "eth1";

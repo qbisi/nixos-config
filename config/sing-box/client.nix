@@ -224,6 +224,7 @@ in
             action = "resolve";
             domain_suffix = [
               self.vars.domain
+              "csrc.eu.org"
             ];
           }
           {
