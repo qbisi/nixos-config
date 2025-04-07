@@ -10,9 +10,9 @@
   services.nginx = {
     enable = true;
     virtualHosts."attic" = {
-      serverName = lib.mkDefault "attic.${config.services.nginx.serverName}";
+      serverName = "attic.csrc.eu.org";
       addSSL = true;
-      useACMEHost = config.networking.domain;
+      useACMEHost = "csrc.eu.org";
       locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:8080";

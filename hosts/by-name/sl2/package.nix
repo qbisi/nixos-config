@@ -16,7 +16,6 @@
     "${inputs.nixos-images}/devices/by-name/nixos-aarch64-uefi.nix"
     "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
     "${self}/config/web/alist.nix"
-    "${self}/config/web/attic.nix"
     "${self}/config/web/harmonia.nix"
     "${self}/config/web/hydra.nix"
   ] ++ self.lib.listNixFilesRecursive ./web;

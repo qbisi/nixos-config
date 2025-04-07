@@ -12,7 +12,7 @@
     signKeyPaths = [ config.age.secrets."harmonia-${config.networking.hostName}".path ];
     settings = {
       bind = "unix:/run/harmonia/socket";
-      priority = 30;
+      priority = 41;
     };
   };
 
