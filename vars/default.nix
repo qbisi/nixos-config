@@ -33,9 +33,9 @@ in
       };
       mac = {
         system = "aarch64-darwin";
-        sshUser = vars.hosts.mac.ip;
+        sshUser = vars.user.name;
         sshKey = "/run/agenix/hydra_ed25519";
-        hostName = "mac";
+        hostName = vars.hosts.mac.ip;
         maxJobs = 1;
         supportedFeatures = [
           "big-parallel"
