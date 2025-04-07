@@ -66,6 +66,11 @@ in
               default = null;
               description = ''
                 The secret used to sign the JWT token, should be a random string.
+
+                This setting is optional. However, please note that if `mutableConfig`
+                is set to false and this option is not configured, Alist will generate
+                a different `jwt_secret` each time it restarts.
+                This may affect the functionality of the `sign` feature as well as session persistence.
               '';
             };
             database = {
@@ -160,6 +165,8 @@ in
             };
           };
         };
+        # Remove jwt_secret to let Alist generate a random one.
+        apply = s: if s.jwt_secret == null then lib.removeAttrs s [ "jwt_secret" ] else s;
         default = { };
         description = ''
           The alist configuration, see <https://alist.nn.ci/config/configuration.html>
@@ -207,10 +214,10 @@ in
         + ''
           mv /run/alist/new "${cfg.stateDir}/config.json"
         ''
-        + lib.optionalString (cfg.settings.scheme.cert_file != null) ''
+        + lib.optionalString (cfg.settings.scheme.cert_file or null != null) ''
           export ALIST_CERT_FILE="''${CREDENTIALS_DIRECTORY}/tls-cert"
         ''
-        + lib.optionalString (cfg.settings.scheme.key_file != null) ''
+        + lib.optionalString (cfg.settings.scheme.key_file or null != null) ''
           export ALIST_KEY_FILE="''${CREDENTIALS_DIRECTORY}/tls-key"
         '';
       serviceConfig =
