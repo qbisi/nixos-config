@@ -154,14 +154,6 @@ in
                   Unix socket file permission, set to the appropriate permissions, like `0644`.
                 '';
               };
-              cert_file = lib.mkOption {
-                type = lib.types.nullOr lib.types.path;
-                default = null;
-              };
-              key_file = lib.mkOption {
-                type = lib.types.nullOr lib.types.path;
-                default = null;
-              };
             };
           };
         };
@@ -214,10 +206,10 @@ in
         + ''
           mv /run/alist/new "${cfg.stateDir}/config.json"
         ''
-        + lib.optionalString (cfg.settings.scheme.cert_file or null != null) ''
+        + lib.optionalString ((cfg.settings.scheme.cert_file or null) != null) ''
           export ALIST_CERT_FILE="''${CREDENTIALS_DIRECTORY}/tls-cert"
         ''
-        + lib.optionalString (cfg.settings.scheme.key_file or null != null) ''
+        + lib.optionalString ((cfg.settings.scheme.key_file or null) != null) ''
           export ALIST_KEY_FILE="''${CREDENTIALS_DIRECTORY}/tls-key"
         '';
       serviceConfig =
@@ -246,8 +238,12 @@ in
           RuntimeDirectory = "alist";
           WorkingDirectory = cfg.stateDir;
           LoadCredential =
-            lib.optional (cfg.settings.scheme.cert_file != null) "tls-cert:${cfg.settings.scheme.cert_file}"
-            ++ lib.optional (cfg.settings.scheme.key_file != null) "tls-key:${cfg.settings.scheme.key_file}";
+            lib.optional (
+              (cfg.settings.scheme.cert_file or null) != null
+            ) "tls-cert:${cfg.settings.scheme.cert_file}"
+            ++ lib.optional (
+              (cfg.settings.scheme.key_file or null) != null
+            ) "tls-key:${cfg.settings.scheme.key_file}";
 
           # Hardening
           PrivateTmp = true;
