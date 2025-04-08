@@ -50,7 +50,6 @@ in
     fd
     ripgrep
     tldr
-    dfu
     # cachix
     nixfmt-rfc-style
     nixpkgs-review
