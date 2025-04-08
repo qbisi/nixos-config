@@ -7,6 +7,16 @@
   ...
 }:
 {
+  security.acme = {
+    certs."csrc.eu.org" = {
+      extraDomainNames = [
+        "*.csrc.eu.org"
+      ];
+      dnsProvider = "cloudflare";
+      environmentFile = config.age.secrets.acme.path or "/run/keys/acme";
+    };
+  };
+
   services.nginx = {
     enable = true;
     virtualHosts."attic" = {
