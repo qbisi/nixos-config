@@ -60,7 +60,7 @@ in
   programs = {
     nh = {
       enable = true;
-      flake = "/home/${config.users.users.admin.name}/nixos-config";
+      flake = "$HOME/nixos-config";
     };
     nix-index.enable = true;
     direnv = {
