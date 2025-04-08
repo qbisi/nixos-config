@@ -27,11 +27,16 @@ let
 in
 {
   config = {
-    systemd.services.sing-box.serviceConfig = {
-      Group = "proxy";
-      MemoryMax = "400M";
+    systemd.services.sing-box = {
+      before = [
+        "systemd-networkd.service"
+      ];
+      serviceConfig = {
+        Group = "proxy";
+        MemoryMax = "400M";
+      };
     };
-  
+
     systemd.services.systemd-resolved.serviceConfig = {
       Group = "proxy";
     };
