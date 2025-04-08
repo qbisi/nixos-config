@@ -46,6 +46,10 @@
 
   services.nginx.serverName = "csrc.eu.org";
 
+  services.resolved.fallbackDns = [
+    "223.5.5.5%eth1"
+  ];
+
   networking = {
     hostName = "x79";
     domain = "csrc.eu.org";
