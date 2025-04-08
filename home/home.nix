@@ -58,8 +58,11 @@ in
     nix-update
     lazygit
   ];
-
   programs = {
+    nh = {
+      enable = true;
+      flake = "/home/${config.users.users.admin.name}/nixos-config";
+    };
     nix-index.enable = true;
     direnv = {
       enable = true;

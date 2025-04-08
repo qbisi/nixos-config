@@ -31,11 +31,6 @@
     fzf
   ];
 
-  programs.nh = {
-    enable = true;
-    flake = "/home/${config.users.users.admin.name}/nixos-config";
-  };
-
   programs.nix-ld = {
     enable = true;
     package = pkgs.nix-ld-rs;
