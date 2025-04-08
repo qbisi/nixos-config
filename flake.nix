@@ -1,13 +1,4 @@
 {
-  nixConfig = {
-    substituters = [
-      "https://cache.qbisi.cc"
-    ];
-    trusted-public-keys = [
-      "cache.qbisi.cc:agX2YjzMlHUdRAbrzSBh8P42b9J00VYs/FndKjWmnfI="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-images.url = "github:qbisi/nixos-images";
