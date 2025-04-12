@@ -30,6 +30,7 @@
     notificationSender = "hydra@localhost"; # e-mail of hydra service
     minimumDiskFreeEvaluator = 20;
     minimumDiskFree = 20;
+    extraEnv = config.networking.proxy.envVars;
     extraConfig = ''
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
     '';
