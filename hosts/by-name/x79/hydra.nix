@@ -42,6 +42,30 @@
     ];
   };
 
+  systemd.services.hydra-update-gc-roots = {
+    serviceConfig = {
+      onSuccess = [
+        "attic-upload.service"
+      ];
+    };
+    startAt = lib.mkForce "12:00";
+  };
+
+  systemd.services.attic-upload = {
+    path = [
+      pkgs.attic-client
+      pkgs.bash
+    ];
+    environment = config.networking.proxy.envVars;
+    script = ''
+      find /nix/var/nix/gcroots/hydra -type f -exec \
+        bash -c 'attic push nur-fem "/nix/store/$(basename "$1")"' _ {} \;
+    '';
+    serviceConfig = {
+      User = "qbisi";
+    };
+  };
+
   nix = {
     gc = {
       automatic = true;
