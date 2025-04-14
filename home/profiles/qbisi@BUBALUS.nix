@@ -1,5 +1,5 @@
 {
-lib,
+  lib,
   config,
   pkgs,
   self,
@@ -8,5 +8,5 @@ lib,
 {
   imports = [ ./qbisi.nix ];
 
-	services.vscode-server.enable =lib.mkForce false;
+  services.vscode-server.enable = lib.mkForce false;
 }
