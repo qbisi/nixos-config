@@ -43,11 +43,9 @@
   };
 
   systemd.services.hydra-update-gc-roots = {
-    serviceConfig = {
-      onSuccess = [
-        "attic-upload.service"
-      ];
-    };
+    onSuccess = [
+      "attic-upload.service"
+    ];
     startAt = lib.mkForce "12:00";
   };
 
