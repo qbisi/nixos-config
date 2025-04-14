@@ -294,6 +294,7 @@ in
               "mikanani.me"
               "nixos.org"
               "sing-box.sagernet.org"
+              "attic.csrc.eu.org"
             ];
             rule_set = [
               "geoip-telegram"
