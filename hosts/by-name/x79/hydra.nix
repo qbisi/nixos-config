@@ -54,7 +54,7 @@
       pkgs.attic-client
       pkgs.bash
     ];
-    environment = config.networking.proxy.envVars;
+    # environment = config.networking.proxy.envVars;
     script = ''
       find /nix/var/nix/gcroots/hydra -type f -exec \
         bash -c 'attic push nur-fem "/nix/store/$(basename "$1")"' _ {} \;
