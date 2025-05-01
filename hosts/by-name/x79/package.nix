@@ -29,6 +29,9 @@
   };
 
   boot = {
+    binfmt.emulatedSystems = [
+      "aarch64-linux"
+    ];
     kernelParams = [
       "console=tty1"
     ];
