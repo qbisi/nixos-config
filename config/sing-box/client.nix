@@ -76,7 +76,8 @@ in
       ];
 
       vless = cartesianProduct' {
-        tcp_multi_path = true;
+        # tcp_multi_path = true;
+        bind_interface = "wwan0";
         inherit uuid;
         tls = forEach vps (v: {
           server_name = "${v}.${domain}";
