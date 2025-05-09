@@ -6,8 +6,7 @@
   ...
 }:
 let
-  inherit (self.lib) cartesianProduct';
-  inherit (lib) forEach;
+  inherit (lib) forEach cartesianProduct';
   vps = [
     "jp1"
     "sg1"
@@ -98,7 +97,7 @@ in
         tag =
           config:
           "reality-"
-          + self.lib.genTag [
+          + lib.genTag [
             "server"
             "bind_interface"
           ] config;

@@ -18,7 +18,7 @@
     "${self}/config/web/alist.nix"
     "${self}/config/web/harmonia.nix"
     "${self}/config/web/hydra.nix"
-  ] ++ self.lib.listNixFilesRecursive ./web;
+  ] ++ lib.listNixFilesRecursive ./web;
 
   boot = {
     initrd.availableKernelModules = [

@@ -27,7 +27,7 @@
                   publicKey = v.wgpub;
                   allowedIPs = [ "${v.wgip}/32" ];
                 }
-                // (lib.optionalAttrs (!(self.lib.isPrivateIP v.ip)) {
+                // (lib.optionalAttrs (!(lib.isPrivateIP v.ip)) {
                   endpoint = "${v.ip}:51820";
                   persistentKeepalive = 25;
                 })

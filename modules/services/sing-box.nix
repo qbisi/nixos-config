@@ -7,7 +7,6 @@
 }:
 with lib;
 let
-  inherit (self.lib) genTag;
   cfg = config.services.sing-box;
   sing-ruleset = pkgs.symlinkJoin {
     name = "sing-ruleset";
@@ -50,7 +49,7 @@ let
         type = with types; either str (functionTo str);
         default =
           config:
-          genTag [
+          lib.genTag [
             "type"
             "server"
             "bind_interface"

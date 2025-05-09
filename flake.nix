@@ -50,41 +50,47 @@
     };
   };
   outputs =
-    inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-
-      imports = [
-        inputs.flake-parts.flakeModules.easyOverlay
-        ./home
-        ./hosts
-        ./modules
-        ./lib
-        ./vars
-      ];
-
-      perSystem =
-        {
-          config,
-          lib,
-          pkgs,
-          ...
-        }:
-        {
-          formatter = pkgs.nixfmt-rfc-style;
-
-          overlayAttrs = config.legacyPackages;
-
-          legacyPackages = lib.makeScope pkgs.newScope (
-            self:
-            lib.packagesFromDirectoryRecursive {
-              inherit (self) callPackage;
-              directory = ./pkgs;
-            }
-          );
+    { nixpkgs, flake-parts, ... }@inputs:
+    inputs.flake-parts.lib.mkFlake
+      {
+        inherit inputs;
+        specialArgs = {
+          lib = nixpkgs.lib.extend (l: _: (import ./lib.nix l));
         };
-    };
+      }
+      {
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+
+        imports = [
+          flake-parts.flakeModules.easyOverlay
+          ./home
+          ./hosts
+          ./modules
+          ./vars
+        ];
+
+        perSystem =
+          {
+            config,
+            lib,
+            pkgs,
+            ...
+          }:
+          {
+            formatter = pkgs.nixfmt-rfc-style;
+
+            overlayAttrs = config.legacyPackages;
+
+            legacyPackages = lib.makeScope pkgs.newScope (
+              self:
+              lib.packagesFromDirectoryRecursive {
+                inherit (self) callPackage;
+                directory = ./pkgs;
+              }
+            );
+          };
+      };
 }

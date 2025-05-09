@@ -11,7 +11,7 @@
           __curPos.file
         ];
 
-        imports = self.lib.listNixFilesRecursive ./.;
+        imports = lib.listNixFilesRecursive ./.;
       };
     };
   };
