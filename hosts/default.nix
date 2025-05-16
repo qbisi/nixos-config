@@ -11,7 +11,7 @@
         path: _:
         lib.nixosSystem {
           specialArgs = {
-            inherit inputs self;
+            inherit inputs self lib;
           };
           modules = [
             path
@@ -40,7 +40,7 @@
           nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
           machinesFile = "/etc/nix/machines";
           specialArgs = {
-            inherit inputs self;
+            inherit inputs self lib;
           };
         };
       };
