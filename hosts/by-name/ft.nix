@@ -35,25 +35,47 @@
     hostName = "ft";
     useDHCP = false;
     useNetworkd = true;
-    interfaces.eth0.ipv4 = {
-      routes = [
-        {
-          address = "172.16.0.0";
-          prefixLength = 16;
-          via = "10.0.5.1";
-        }
-        {
-          address = "10.0.0.0";
-          prefixLength = 12;
-          via = "10.0.5.1";
-        }
-      ];
-      addresses = [
-        {
-          address = self.vars.hosts.ft.ip;
-          prefixLength = 24;
-        }
-      ];
+    interfaces = {
+      eth0.ipv4 = {
+        routes = [
+          {
+            address = "172.16.0.0";
+            prefixLength = 16;
+            via = "10.0.5.1";
+          }
+          {
+            address = "10.0.0.0";
+            prefixLength = 12;
+            via = "10.0.5.1";
+          }
+        ];
+        addresses = [
+          {
+            address = "10.0.5.125";
+            prefixLength = 24;
+          }
+        ];
+      };
+      eth1.ipv4 = {
+        routes = [
+          {
+            address = "172.16.0.0";
+            prefixLength = 16;
+            via = "172.16.4.254";
+          }
+          {
+            address = "10.0.0.0";
+            prefixLength = 12;
+            via = "172.16.4.254";
+          }
+        ];
+        addresses = [
+          {
+            address = "172.16.5.125";
+            prefixLength = 23;
+          }
+        ];
+      };
     };
 
     wireguard = {

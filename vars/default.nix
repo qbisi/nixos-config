@@ -18,19 +18,6 @@ in
           "benchmark"
         ];
       };
-      h88k = {
-        system = "aarch64-linux";
-        sshUser = "root";
-        sshKey = "/run/agenix/hydra_ed25519";
-        hostName = vars.hosts.h88k.ip;
-        maxJobs = 1;
-        supportedFeatures = [
-          "big-parallel"
-          "kvm"
-          "nixos-test"
-          "benchmark"
-        ];
-      };
       x79 = {
         system = "x86_64-linux";
         sshUser = "root";
