@@ -45,6 +45,8 @@ in
   };
 
   home.packages = with pkgs; [
+    eza
+    bat
     gh
     yazi
     fd

@@ -5,7 +5,7 @@
     sessionVariables = {
       NOSYSZSHRC = 1;
     };
-    initExtra = ''
+    initContent = ''
       # custom zsh title in xterm
       DISABLE_AUTO_TITLE="true" 
       case $TERM in xterm*)
