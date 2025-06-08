@@ -59,6 +59,9 @@
     useDHCP = false;
     useNetworkd = true;
     nftables.enable = true;
+    firewall.extraInputRules = ''
+      ip saddr { ${self.vars.hosts.ft.ip}, ${self.vars.hosts.h88k.ip} } counter accept
+    '';
 
     defaultGateway = {
       address = "172.16.4.254";
