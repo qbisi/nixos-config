@@ -99,7 +99,7 @@ in
   };
 
   services.vscode-server = {
-    enable = true;
+    enable = false;
     enableFHS = false;
     installPath = "$HOME/.vscode-server";
   };
