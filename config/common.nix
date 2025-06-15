@@ -7,6 +7,10 @@
   ...
 }:
 {
+  nixpkgs.config.permittedInsecurePackages = [
+    "alist-3.45.0"
+  ];
+
   imports = [
     self.nixosModules.default
     inputs.nixos-images.nixosModules.default
