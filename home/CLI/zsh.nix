@@ -4,6 +4,7 @@
     enable = true;
     sessionVariables = {
       NOSYSZSHRC = 1;
+      PYTHONPATH = "$HOME/.nix-profile/${pkgs.python3.sitePackages}";
     };
     initContent = ''
       # custom zsh title in xterm
