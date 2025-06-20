@@ -9,7 +9,7 @@
     qbisicwate@gmail.com namespaces="git" ${self.vars.user.authorizedKeys}
   '';
 
-  programs.git-credential-oauth.enable = true;
+  # programs.git-credential-oauth.enable = true;
 
   programs.git = {
     enable = true;
