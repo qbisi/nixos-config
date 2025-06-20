@@ -10,6 +10,7 @@
   ];
 
   home.sessionVariables = { 
+    MESA_GLSL_VERSION_OVERRIDE = 330;
     http_proxy = "http://127.0.0.1:1080";
     https_proxy = "http://127.0.0.1:1080";
   };
