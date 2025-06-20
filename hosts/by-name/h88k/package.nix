@@ -65,6 +65,7 @@
     minicom
     rclone
     mergerfs
+    rkdeveloptool
   ];
 
   nix.buildMachines = with self.vars.buildMachines; [

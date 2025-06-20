@@ -62,7 +62,17 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.wl-clipboard ];
+  environment.systemPackages = with pkgs; [
+    wl-clipboard
+    chromium
+    mpv
+    obs-studio
+    telegram-desktop
+    vscodium
+    glmark2
+    vulkan-tools
+    mesa-demos
+  ];
 
   systemd.sleep.extraConfig = lib.mkDefault ''
     # disable hibernation
