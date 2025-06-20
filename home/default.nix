@@ -11,6 +11,7 @@
       config,
       pkgs,
       lib,
+      inputs',
       system,
       ...
     }:
@@ -21,7 +22,7 @@
           (inputs.home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             extraSpecialArgs = {
-              inherit inputs self system;
+              inherit inputs' inputs self system;
             };
             modules = [
               path

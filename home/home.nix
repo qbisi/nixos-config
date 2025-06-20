@@ -2,13 +2,11 @@
   config,
   pkgs,
   inputs,
+  inputs',
   system,
   self,
   ...
 }:
-let
-  extensions = inputs.nix-vscode-extensions.extensions.${system};
-in
 {
   imports = [
     ./CLI/bash.nix
@@ -58,6 +56,11 @@ in
     nix-output-monitor
     nix-update
     lazygit
+    duf
+    python3
+    tracexec
+    hydra-check
+    agenix-cli
   ];
   programs = {
     nh = {
