@@ -5,6 +5,10 @@
   ...
 }:
 {
+  home.file.".ssh/allowed_signers".text = ''
+    qbisicwate@gmail.com namespaces="git" ${self.vars.user.authorizedKeys}
+  '';
+
   programs.git = {
     enable = true;
     userName = self.vars.user.name;
@@ -17,6 +21,9 @@
       post-receive = ./post-receive;
     };
     extraConfig = {
+      gpg.format = "ssh";
+      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+      user.signingkey = "/etc/ssh/authorized_keys.d/qbisi";
       url = {
         "git@github.com" = {
           insteadOf = "github.com";
