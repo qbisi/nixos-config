@@ -66,6 +66,7 @@
     rclone
     mergerfs
     rkdeveloptool
+    myrktop
   ];
 
   nix.buildMachines = with self.vars.buildMachines; [
