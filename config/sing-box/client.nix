@@ -27,9 +27,6 @@ in
 {
   config = {
     systemd.services.sing-box = {
-      before = [
-        "systemd-networkd.service"
-      ];
       serviceConfig = {
         Group = "proxy";
         MemoryMax = "400M";
@@ -148,7 +145,7 @@ in
         level = "error";
       };
       dns = {
-        final = "system";
+        final = "alidns";
         rules = [
           {
             rule_set = [ "geosite-gfw" ];
@@ -161,10 +158,10 @@ in
             detour = "direct-auto";
             tag = "alidns";
           }
-          {
-            address = "local";
-            tag = "system";
-          }
+          # {
+          #   address = "local";
+          #   tag = "system";
+          # }
           {
             address = "fakeip";
             tag = "fakeip";
