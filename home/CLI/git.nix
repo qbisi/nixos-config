@@ -9,6 +9,8 @@
     qbisicwate@gmail.com namespaces="git" ${self.vars.user.authorizedKeys}
   '';
 
+  programs.git-credential-oauth.enable = true;
+
   programs.git = {
     enable = true;
     userName = self.vars.user.name;
@@ -29,6 +31,14 @@
           insteadOf = "github.com";
         };
       };
+      sendemail = {
+        smtpEncryption = "tls";
+        smtpServer = "smtp.gmail.com";
+        smtpUser = "qbisicwate";
+        smtpServerPort = 587;
+        suppresscc = "self";
+      };
+
       # armbian build workaround new limitations imposed by CVE-2022-24765 fix in git,
       # otherwise  "fatal: unsafe repository"
       safe.directory = "/home/${self.vars.user.name}/build";
