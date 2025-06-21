@@ -15,6 +15,8 @@
       wayland.enable = true;
     };
 
+    onedrive.enable = true;
+
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -55,9 +57,15 @@
       type = "fcitx5";
       fcitx5.plasma6Support = true;
       fcitx5.waylandFrontend = true;
-      fcitx5.addons = [
-        pkgs.qt6Packages.fcitx5-chinese-addons
-        pkgs.fcitx5-pinyin-zhwiki
+      fcitx5.addons = with pkgs; [
+        fcitx5-chinese-addons
+        fcitx5-pinyin-zhwiki
+        (fcitx5-rime.override {
+          rimeDataPkgs = [
+            rime-data
+            rime-ice
+          ];
+        })
       ];
     };
   };
@@ -72,6 +80,7 @@
     glmark2
     vulkan-tools
     mesa-demos
+    onedrivegui
   ];
 
   systemd.sleep.extraConfig = lib.mkDefault ''
