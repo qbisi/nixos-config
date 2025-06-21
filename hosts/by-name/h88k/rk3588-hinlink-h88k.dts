@@ -294,6 +294,13 @@
 	status = "okay";
 };
 
+&hdmi0_sound {
+	status = "okay";
+};
+
+&i2s5_8ch {
+	status = "okay";
+};
 
 &hdptxphy0 {
 	status = "okay";
@@ -312,6 +319,14 @@
 };
 
 &hdmi1 {
+	status = "okay";
+};
+
+&hdmi1_sound {
+	status = "okay";
+};
+
+&i2s6_8ch {
 	status = "okay";
 };
 
