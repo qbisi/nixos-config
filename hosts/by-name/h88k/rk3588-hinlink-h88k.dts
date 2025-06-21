@@ -983,12 +983,3 @@
 		remote-endpoint = <&hdmi1_in_vp1>;
 	};
 };
-
-//&cluster1_opp_table {
-//    /delete-node/ opp-2400000000;
-//};
-//
-//&cluster2_opp_table {
-//    /delete-node/ opp-2400000000;
-//};
-
