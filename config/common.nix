@@ -7,6 +7,8 @@
   ...
 }:
 {
+  nixpkgs.config.allowUnfree = true;
+
   nixpkgs.config.permittedInsecurePackages = [
     "alist-3.45.0"
   ];
