@@ -34,6 +34,7 @@
       CACHIX_AUTH_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.cachix.path} 2>/dev/null)";
       GITHUB_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.github.path} 2>/dev/null)";
       NIXPKGS_ALLOW_UNFREE = "1";
+      NIXOS_OZONE_WL = "1";
     };
 
     shellAliases = {
@@ -61,6 +62,7 @@
     tracexec
     hydra-check
     agenix-cli
+    nil
   ];
   programs = {
     nh = {
