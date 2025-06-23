@@ -76,15 +76,12 @@
     mpv
     obs-studio
     telegram-desktop
-    vscode
     glmark2
     vulkan-tools
     mesa-demos
     onedrivegui
     element-desktop
     obsidian
-    inkscape-with-extensions
-    gimp3-with-plugins
   ];
 
   systemd.sleep.extraConfig = lib.mkDefault ''
