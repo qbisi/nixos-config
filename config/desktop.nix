@@ -83,6 +83,8 @@
     onedrivegui
     element-desktop
     obsidian
+    inkscape-with-extensions
+    gimp3-with-plugins
   ];
 
   systemd.sleep.extraConfig = lib.mkDefault ''
