@@ -81,7 +81,6 @@
     mesa-demos
     onedrivegui
     element-desktop
-    obsidian
   ];
 
   systemd.sleep.extraConfig = lib.mkDefault ''
