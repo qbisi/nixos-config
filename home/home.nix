@@ -63,7 +63,9 @@
     hydra-check
     agenix-cli
     nil
+    tectonic
   ];
+
   programs = {
     nh = {
       enable = true;
