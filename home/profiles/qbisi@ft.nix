@@ -2,5 +2,5 @@
 {
   imports = [ ./qbisi.nix ];
 
-  programs.ssh.matchBlocks."github.com".proxyJump = "x79,hk";
+  programs.ssh.matchBlocks."github.com".proxyJump = "sl2";
 }
