@@ -25,6 +25,8 @@
     htop
     fastfetch
     rsync
+    usbutils
+    pciutils
   ];
 
   programs.nix-ld = {
