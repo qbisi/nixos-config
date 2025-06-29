@@ -12,7 +12,7 @@
       "builder"
       "dev"
     ];
-    buildOnTarget = true;
+    buildOnTarget = false;
   };
 
   imports = [
@@ -61,17 +61,17 @@
           {
             address = "172.16.0.0";
             prefixLength = 16;
-            via = "172.16.4.254";
+            via = "172.16.6.254";
           }
           {
             address = "10.0.0.0";
             prefixLength = 12;
-            via = "172.16.4.254";
+            via = "172.16.6.254";
           }
         ];
         addresses = [
           {
-            address = "172.16.5.125";
+            address = "172.16.7.125";
             prefixLength = 23;
           }
         ];
