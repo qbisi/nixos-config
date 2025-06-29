@@ -23,11 +23,8 @@
     home-manager
     tree
     htop
-    neofetch
+    fastfetch
     rsync
-    usbutils
-    pciutils
-    fzf
   ];
 
   programs.nix-ld = {
