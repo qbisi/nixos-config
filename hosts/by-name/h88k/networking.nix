@@ -8,6 +8,7 @@
 {
   imports = [
     "${self}/config/sing-box/client.nix"
+    "${self}/config/web/openlist.nix"
   ];
 
   boot.kernelModules = [ "brutal" ];

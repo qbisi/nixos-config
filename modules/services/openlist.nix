@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.services.alist;
+  cfg = config.services.openlist;
   settingsFormat = pkgs.formats.json { };
 in
 {
@@ -15,25 +15,25 @@ in
   };
 
   options = {
-    services.alist = {
-      enable = lib.mkEnableOption "alist, a file list program";
-      debug = lib.mkEnableOption "debug mode of alist";
+    services.openlist = {
+      enable = lib.mkEnableOption "openlist, a file list program";
+      debug = lib.mkEnableOption "debug mode of openlist";
 
       user = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
-        description = "Alist user name. If this is not set, a user named `alist` will be created.";
+        description = "Alist user name. If this is not set, a user named `openlist` will be created.";
       };
 
       group = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
-        description = "Alist group name. If this is not set, a group named `alist` will be created.";
+        description = "Alist group name. If this is not set, a group named `openlist` will be created.";
       };
 
       stateDir = lib.mkOption {
         type = lib.types.str;
-        default = "/var/lib/alist";
+        default = "/var/lib/openlist";
         description = "Alist stores data and config file in this directory.";
       };
 
@@ -48,11 +48,11 @@ in
         default = [ ];
         example = [ "--dev" ];
         description = ''
-          Extra flags passed to the alist command.
+          Extra flags passed to the openlist command.
         '';
       };
 
-      package = lib.mkPackageOption pkgs "alist" { };
+      package = lib.mkPackageOption pkgs "openlist" { };
 
       settings = lib.mkOption {
         type = lib.types.submodule {
@@ -61,7 +61,7 @@ in
             jwt_secret = lib.mkOption {
               type = lib.types.nullOr (lib.types.attrsOf lib.types.path);
               example = {
-                _secret = "/run/secrets/alist-jwt";
+                _secret = "/run/secrets/openlist-jwt";
               };
               default = null;
               description = ''
@@ -89,13 +89,13 @@ in
                 type = lib.types.nullOr (lib.types.attrsOf lib.types.path);
                 default = null;
                 example = {
-                  _secret = "/run/secrets/alist-db-password";
+                  _secret = "/run/secrets/openlist-db-password";
                 };
                 description = "Database password";
               };
               db_file = lib.mkOption {
                 type = lib.types.str;
-                default = "/var/lib/alist/data.db";
+                default = "/var/lib/openlist/data.db";
                 description = "Location where to store the database. This is only used by sqlite3.";
               };
               dsn = lib.mkOption {
@@ -161,7 +161,7 @@ in
         apply = s: if s.jwt_secret == null then lib.removeAttrs s [ "jwt_secret" ] else s;
         default = { };
         description = ''
-          The alist configuration, see <https://alist.nn.ci/config/configuration.html>
+          The openlist configuration, see <https://openlist.nn.ci/config/configuration.html>
           for possible options.
 
           Options containing secret data should be set to an attribute set
@@ -174,37 +174,37 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.alist.settings = {
+    services.openlist.settings = {
       # Let Alist read tls-related configurations from environment variables
       force = false;
-      # systemd.services.alist.serviceConfig.PrivateTmp
+      # systemd.services.openlist.serviceConfig.PrivateTmp
       temp_dir = "/tmp";
     };
 
-    # Alist may store files in local paths, so make the alist user permanent.
-    users.users.alist = lib.mkIf (cfg.user == null) {
+    # Alist may store files in local paths, so make the openlist user permanent.
+    users.users.openlist = lib.mkIf (cfg.user == null) {
       description = "Alist user";
       isSystemUser = true;
-      group = if (cfg.group == null) then "alist" else cfg.group;
+      group = if (cfg.group == null) then "openlist" else cfg.group;
     };
-    users.groups.alist = lib.mkIf (cfg.group == null) { };
+    users.groups.openlist = lib.mkIf (cfg.group == null) { };
 
-    systemd.services.alist = {
+    systemd.services.openlist = {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       # If mutableConfig is true, overwrite the contents of cfg.settings to the existing configuration
       preStart =
-        utils.genJqSecretsReplacementSnippet cfg.settings "/run/alist/new"
+        utils.genJqSecretsReplacementSnippet cfg.settings "/run/openlist/new"
         + lib.optionalString cfg.mutableConfig ''
           if [ -e "${cfg.stateDir}/config.json" ]; then
-            cp "${cfg.stateDir}/config.json" /run/alist/old
-            ${lib.getExe pkgs.jq} -s '.[0] * .[1]' /run/alist/old /run/alist/new > /run/alist/result
-            mv /run/alist/result /run/alist/new
-            rm -f /run/alist/old
+            cp "${cfg.stateDir}/config.json" /run/openlist/old
+            ${lib.getExe pkgs.jq} -s '.[0] * .[1]' /run/openlist/old /run/openlist/new > /run/openlist/result
+            mv /run/openlist/result /run/openlist/new
+            rm -f /run/openlist/old
           fi
         ''
         + ''
-          mv /run/alist/new "${cfg.stateDir}/config.json"
+          mv /run/openlist/new "${cfg.stateDir}/config.json"
         ''
         + lib.optionalString ((cfg.settings.scheme.cert_file or null) != null) ''
           export ALIST_CERT_FILE="''${CREDENTIALS_DIRECTORY}/tls-cert"
@@ -230,12 +230,12 @@ in
               ++ cfg.extraFlags
             );
           Type = "simple";
-          User = if cfg.user == null then "alist" else cfg.user;
-          Group = if cfg.group == null then "alist" else cfg.group;
+          User = if cfg.user == null then "openlist" else cfg.user;
+          Group = if cfg.group == null then "openlist" else cfg.group;
           Restart = "on-failure";
           RestartSec = "10s";
-          StateDirectory = "alist";
-          RuntimeDirectory = "alist";
+          StateDirectory = "openlist";
+          RuntimeDirectory = "openlist";
           WorkingDirectory = cfg.stateDir;
           LoadCredential =
             lib.optional (
