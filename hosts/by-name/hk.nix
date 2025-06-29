@@ -9,7 +9,7 @@
 {
   deployment = {
     buildOnTarget = true;
-    tags = [ "vps" ];
+    tags = [ "vps" "!cn" ];
   };
 
   imports = [

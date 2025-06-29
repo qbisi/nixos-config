@@ -9,7 +9,10 @@
 {
   deployment = {
     buildOnTarget = true;
-    tags = [ "server" ];
+    tags = [
+      "server"
+      "!cn"
+    ];
   };
 
   imports = [

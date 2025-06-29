@@ -156,7 +156,7 @@
         # "https://colmena.cachix.org"
         "https://nix-community.cachix.org"
         # "ssh://root@${self.vars.hosts.x79.ip}?ssh-key=/run/agenix/id_ed25519"
-      ] ++ lib.optionals (!(builtins.elem "vps" config.deployment.tags)) [
+      ] ++ lib.optionals (!(builtins.elem "!cn" config.deployment.tags)) [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
       ];
       builders-use-substitutes = true;
