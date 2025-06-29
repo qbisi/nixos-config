@@ -16,7 +16,6 @@
     inputs.nixos-images.nixosModules.default
     inputs.nur-fem.nixosModules.default
     inputs.secrets.nixosModules.default
-    inputs.daeuniverse.nixosModules.daed
   ] ++ lib.listNixFilesRecursive ./common;
 
   time.timeZone = "Asia/Shanghai";

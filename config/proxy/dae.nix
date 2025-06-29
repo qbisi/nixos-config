@@ -7,6 +7,10 @@
   ...
 }:
 {
+
+  imports = [
+    inputs.daeuniverse.nixosModules.daed
+  ];
   # services.dae = {
   #   enable = true;
 
