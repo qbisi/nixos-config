@@ -50,11 +50,7 @@
 
   networking = {
     hostName = "h88k";
-    domain = self.vars.domain;
-    useDHCP = false;
-    useNetworkd = true;
     networkmanager.enable = true;
-    nftables.enable = true;
 
     hosts = {
       "${self.vars.hosts.h88k.ip}" = [

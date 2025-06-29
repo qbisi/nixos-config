@@ -56,9 +56,6 @@
   networking = {
     hostName = "x79";
     domain = "csrc.eu.org";
-    useDHCP = false;
-    useNetworkd = true;
-    nftables.enable = true;
     firewall.extraInputRules = ''
       ip saddr { ${self.vars.hosts.ft.ip}, ${self.vars.hosts.h88k.ip} } counter accept
     '';

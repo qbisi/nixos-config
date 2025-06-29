@@ -32,9 +32,6 @@
   services.nginx.serverName = config.networking.domain;
 
   networking = {
-    hostName = "sl2";
-    domain = self.vars.domain;
-    useNetworkd = true;
     firewall = {
       allowedTCPPorts = [
         80

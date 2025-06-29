@@ -60,6 +60,13 @@
     };
   };
 
+  networking = {
+    domain = lib.mkDefault "qbisi.cc";
+    useDHCP = false;
+    useNetworkd = true;
+    nftables.enable = true;
+  };
+
   networking.tproxy.users = [ config.users.users.admin.name ];
 
   users.defaultUserShell = pkgs.zsh;

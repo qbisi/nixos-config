@@ -33,8 +33,6 @@
 
   networking = {
     hostName = "ft";
-    useDHCP = false;
-    useNetworkd = true;
     interfaces = {
       eth0.ipv4 = {
         routes = [

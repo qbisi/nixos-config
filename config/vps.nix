@@ -26,9 +26,6 @@
   boot.kernelModules = [ "brutal" ];
 
   networking = {
-    domain = self.vars.domain;
-    useNetworkd = true;
-    nftables.enable = true;
     firewall = {
       allowedTCPPorts = [
         80

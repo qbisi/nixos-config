@@ -40,11 +40,7 @@
 
   networking = {
     hostName = "ody";
-    domain = self.vars.domain;
-    useDHCP = false;
-    useNetworkd = true;
     networkmanager.enable = true;
-    nftables.enable = true;
     nameservers = [
       "223.5.5.5"
     ];
