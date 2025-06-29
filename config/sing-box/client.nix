@@ -223,6 +223,14 @@ in
           #   outbound = "hysteria2-sl1.qbisi.cc-wwan0";
           # }
           {
+            action = "route";
+            domain_suffix = [
+              config.networking.fqdn
+            ];
+            override_address = "127.0.0.1";
+            outbound = "direct-auto";
+          }
+          {
             action = "resolve";
             domain_suffix = [
               self.vars.domain
