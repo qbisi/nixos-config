@@ -16,6 +16,7 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-jwipc-e88a.nix"
+    "${self}/config/desktop.nix"
   ];
 
   disko.bootImage.partLabel = "nvme";
