@@ -66,10 +66,31 @@
       metric = 100;
     };
 
+    interfaces.eth0.ipv4 = {
+      addresses = [
+        {
+          address = "172.16.7.125";
+          prefixLength = 23;
+        }
+      ];
+      routes = [
+        {
+          address = "10.0.0.0";
+          via = "172.16.6.254";
+          prefixLength = 12;
+        }
+        {
+          address = "172.16.0.0";
+          prefixLength = 16;
+          via = "172.16.6.254";
+        }
+      ];
+    };
+
     interfaces.eth1.ipv4 = {
       addresses = [
         {
-          address = self.vars.hosts.x79.ip;
+          address = "172.16.5.125";
           prefixLength = 23;
         }
       ];
