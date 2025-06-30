@@ -635,9 +635,9 @@
 	i2c-scl-falling-time-ns = <15>;
 	status = "okay";
 
-	es8316: audio-codec@11 {
+	es8316: audio-codec@10 {
 		compatible = "everest,es8316";
-		reg = <0x11>;
+		reg = <0x10>;
 		clocks = <&cru I2S0_8CH_MCLKOUT>;
 		clock-names = "mclk";
 		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
@@ -999,6 +999,10 @@
 	status = "okay";
 	pinctrl-0 = <&hdmi_pwren_gpio &hdmim0_tx0_hpd &hdmim2_tx0_scl &hdmim2_tx0_sda>;
 	enable-gpios = <&gpio3 RK_PD3 GPIO_ACTIVE_HIGH>;
+};
+
+&hdmi0_sound {
+	status = "okay";
 };
 
 &hdptxphy0 {
