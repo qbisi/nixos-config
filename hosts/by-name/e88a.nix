@@ -22,6 +22,16 @@
 
   hardware = {
     deviceTree.dtsFile = lib.mkForce "${self}/dts/rk3588-jwipc-e88a.dts";
+    firmware = lib.mkForce [
+      (pkgs.armbian-firmware.override {
+        filters = [
+          "arm/mali/*"
+          "rt*"
+          "mediatek/*"
+          "regulatory.db"
+        ];
+      })
+    ];
   };
 
   networking = {
@@ -31,6 +41,7 @@
       5355 # LLMNR
     ];
     bridges.br0.interfaces = [ "eth1" ];
+    interfaces.eth0.useDHCP = true;
     interfaces.br0.ipv4.addresses = lib.mkForce [
       {
         address = "192.168.101.1";
