@@ -31,6 +31,22 @@
 		};
 	};
 
+	leds {
+		compatible = "gpio-leds";
+
+		disk {
+			label = "green:disk";
+			gpios = <&gpio3 RK_PA4 GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "disk-activity";
+		};
+
+		work {
+			label = "red:work";
+			gpios = <&gpio3 RK_PA1 GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "heartbeat";
+		};
+	};
+
 	vcc12v_dcin: vcc12v-dcin {
 		compatible = "regulator-fixed";
 		regulator-always-on;
@@ -671,6 +687,23 @@
 		regulator-state-mem {
 			regulator-off-in-suspend;
 		};
+	};
+};
+
+&i2c8 {
+	clock-frequency = <150000>;
+	pinctrl-0 = <&i2c8m2_xfer>;
+	status = "okay";
+
+	gpio_ca953x@73 {
+		compatible = "nxp,pca9538";
+		reg = <0x73>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		interrupt-controller;
+		#interrupt-cells = <2>;
+		interrupt-parent = <&gpio4>;
+		interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
 	};
 };
 
