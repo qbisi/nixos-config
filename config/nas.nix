@@ -20,11 +20,6 @@
     };
   };
 
-  systemd.services.jellyfin.environment = {
-    http_proxy = "http://172.16.4.100:1080";
-    https_proxy = "http://172.16.4.100:1080";
-  };
-
   services.jellyfin = {
     group = "media";
     enable = true;
