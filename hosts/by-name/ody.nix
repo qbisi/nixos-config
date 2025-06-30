@@ -69,6 +69,11 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    minicom
+    rkdeveloptool
+  ];
+
   nix.buildMachines = with self.vars.buildMachines; [
     ft
     x79
