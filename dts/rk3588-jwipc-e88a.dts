@@ -372,6 +372,7 @@
 
 &i2c4 {
 	clock-frequency = <150000>;
+	pinctrl-0 = <&i2c4m2_xfer>;
 	status = "okay";
 
 	hym8563: rtc@51 {

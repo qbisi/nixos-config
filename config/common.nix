@@ -64,7 +64,6 @@
 
   networking = {
     domain = lib.mkDefault "qbisi.cc";
-    useDHCP = false;
     useNetworkd = true;
     nftables.enable = true;
   };
