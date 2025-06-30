@@ -61,7 +61,7 @@
     python3
     tracexec
     hydra-check
-    agenix-cli
+    ragenix
     nil
     tectonic
   ];
