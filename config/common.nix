@@ -69,6 +69,8 @@
     nftables.enable = true;
   };
 
+  systemd.network.wait-online.anyInterface = true;
+
   networking.tproxy.users = [ config.users.users.admin.name ];
 
   users.defaultUserShell = pkgs.zsh;
@@ -121,14 +123,16 @@
         # "pipe-operators"
       ];
       trusted-users = [ config.users.users.admin.name ];
-      substituters = [
-        "https://cache.garnix.io"
-        # "https://colmena.cachix.org"
-        "https://nix-community.cachix.org"
-        # "ssh://root@${self.vars.hosts.x79.ip}?ssh-key=/run/agenix/id_ed25519"
-      ] ++ lib.optionals (!(builtins.elem "!cn" config.deployment.tags)) [
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
-      ];
+      substituters =
+        [
+          "https://cache.garnix.io"
+          # "https://colmena.cachix.org"
+          "https://nix-community.cachix.org"
+          # "ssh://root@${self.vars.hosts.x79.ip}?ssh-key=/run/agenix/id_ed25519"
+        ]
+        ++ lib.optionals (!(builtins.elem "!cn" config.deployment.tags)) [
+          "https://mirrors.ustc.edu.cn/nix-channels/store"
+        ];
       # builders-use-substitutes = true;
       fallback = true;
       connect-timeout = 3;
