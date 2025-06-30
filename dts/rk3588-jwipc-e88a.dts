@@ -628,6 +628,24 @@
 	};
 };
 
+&i2s0_8ch {
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2s0_lrck
+	&i2s0_mclk
+	&i2s0_sclk
+	&i2s0_sdi0
+	&i2s0_sdo0>;
+	status = "okay";
+
+	i2s0_8ch_p0: port {
+		i2s0_8ch_p0_0: endpoint {
+			dai-format = "i2s";
+			mclk-fs = <256>;
+			remote-endpoint = <&es8316_p0_0>;
+		};
+	};
+};
+
 &i2c0 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2c0m2_xfer>;
@@ -651,7 +669,6 @@
 		};
 	};
 };
-
 
 &i2c1 {
 	pinctrl-names = "default";
@@ -802,24 +819,6 @@
 	rx_delay = <0x00>;
 	tx_delay = <0x43>;
 	status = "okay";
-};
-
-&i2s0_8ch {
-	pinctrl-names = "default";
-	pinctrl-0 = <&i2s0_lrck
-	&i2s0_mclk
-	&i2s0_sclk
-	&i2s0_sdi0
-	&i2s0_sdo0>;
-	status = "okay";
-
-	i2s0_8ch_p0: port {
-		i2s0_8ch_p0_0: endpoint {
-			dai-format = "i2s";
-			mclk-fs = <256>;
-			remote-endpoint = <&es8316_p0_0>;
-		};
-	};
 };
 
 &combphy0_ps {
