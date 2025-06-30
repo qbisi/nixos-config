@@ -15,8 +15,6 @@
       wayland.enable = true;
     };
 
-    onedrive.enable = true;
-
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -79,7 +77,6 @@
     glmark2
     vulkan-tools
     mesa-demos
-    onedrivegui
     element-desktop
   ];
 
