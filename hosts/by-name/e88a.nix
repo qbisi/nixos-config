@@ -67,6 +67,10 @@
     MemoryMax = "6G";
   };
 
+  environment.variables = {
+    MESA_GLSL_VERSION_OVERRIDE = 330;
+  };
+
   environment.systemPackages = with pkgs; [
     rkdeveloptool
     myrktop
