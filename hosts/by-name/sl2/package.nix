@@ -32,6 +32,7 @@
   services.nginx.serverName = config.networking.domain;
 
   networking = {
+    domain = self.vars.domain;
     firewall = {
       allowedTCPPorts = [
         80

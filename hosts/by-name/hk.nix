@@ -9,7 +9,10 @@
 {
   deployment = {
     buildOnTarget = true;
-    tags = [ "vps" "!cn" ];
+    tags = [
+      "vps"
+      "!cn"
+    ];
   };
 
   imports = [
@@ -23,6 +26,7 @@
 
   networking = {
     hostName = "hk";
+    domain = self.vars.domain;
   };
 
   swapDevices = [

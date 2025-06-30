@@ -63,7 +63,6 @@
   };
 
   networking = {
-    domain = lib.mkDefault "qbisi.cc";
     useNetworkd = true;
     nftables.enable = true;
   };

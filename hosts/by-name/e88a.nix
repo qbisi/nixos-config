@@ -25,7 +25,6 @@
   };
 
   networking = {
-    domain = null;
     hostName = "e88a";
     networkmanager.enable = true;
     firewall.allowedUDPPorts = [

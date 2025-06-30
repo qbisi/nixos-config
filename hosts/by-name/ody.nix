@@ -38,6 +38,7 @@
 
   networking = {
     hostName = "ody";
+    domain = self.vars.domain;
     networkmanager.enable = true;
     nameservers = [
       "223.5.5.5"

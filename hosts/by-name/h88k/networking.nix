@@ -50,6 +50,7 @@
 
   networking = {
     hostName = "h88k";
+    domain = self.vars.domain;
     networkmanager.enable = true;
 
     hosts = {

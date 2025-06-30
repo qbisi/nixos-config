@@ -31,6 +31,7 @@
 
   networking = {
     hostName = "jp1";
+    domain = self.vars.domain;
   };
 
   swapDevices = [
