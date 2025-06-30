@@ -12,8 +12,10 @@
       "router"
       "dev"
     ];
-    buildOnTarget = true;
+    buildOnTarget = false;
   };
+
+  disko.bootImage.partLabel = "mmc";
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
@@ -25,10 +27,6 @@
   };
 
   boot = {
-    kernelParams = [
-      "console=tty1"
-    ];
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
     initrd.availableKernelModules = [
       "ahci"
       "xhci_pci"
@@ -77,5 +75,5 @@
     mac
   ];
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }
