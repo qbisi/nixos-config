@@ -33,6 +33,13 @@
 
   networking = {
     hostName = "ft";
+
+    defaultGateway = {
+      address = "172.16.6.254";
+      interface = "eth1";
+      metric = 100;
+    };
+
     interfaces = {
       eth0.ipv4 = {
         routes = [
@@ -81,7 +88,7 @@
       interfaces.wg0.peers = lib.mkForce [
         {
           publicKey = self.vars.hosts.h88k.wgpub;
-          allowedIPs = [ "0.0.0.0/0" ];
+          allowedIPs = [ "192.168.200.1/32" ];
           endpoint = "${self.vars.hosts.h88k.ip}:51820";
           persistentKeepalive = 25;
         }
