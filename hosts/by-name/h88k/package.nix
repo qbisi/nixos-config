@@ -60,11 +60,11 @@
     };
   };
 
-  onedrive.enable = true;
+  services.onedrive.enable = true;
 
   systemd.slices."user-1000".sliceConfig = {
-    CPUQuota="600%";
-    MemoryMax="12G";
+    CPUQuota = "600%";
+    MemoryMax = "12G";
   };
 
   environment.systemPackages = with pkgs; [
@@ -75,6 +75,19 @@
     myrktop
     onedrivegui
   ];
+
+  environment.variables = {
+    MESA_GLSL_VERSION_OVERRIDE = 330;
+    # ALSA_CONFIG_UCM2="/etc/alsa/ucm2";
+  };
+
+  environment.etc."alsa/ucm2".source = pkgs.symlinkJoin {
+    name = "ucm2-rk3588";
+    paths = [
+      "${self}/ucm2"
+      "${pkgs.alsa-ucm-conf}/share/alsa/ucm2"
+    ];
+  };
 
   nix.buildMachines = with self.vars.buildMachines; [
     ft

@@ -14,7 +14,7 @@
     inputs.secrets.nixosModules.default
   ] ++ lib.listNixFilesRecursive ./common;
 
-  nixpkgs.flake.source = inputs.nixpkgs;
+  nixpkgs.flake.source = lib.mkDefault inputs.nixpkgs;
 
   time.timeZone = "Asia/Shanghai";
 
