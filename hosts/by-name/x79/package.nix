@@ -61,8 +61,8 @@
     '';
 
     defaultGateway = {
-      address = "172.16.4.254";
-      interface = "eth1";
+      address = "172.16.6.254";
+      interface = "eth0";
       metric = 100;
     };
 
