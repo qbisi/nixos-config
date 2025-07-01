@@ -99,11 +99,6 @@
 
   nix = {
     registry = {
-      agenix.to = {
-        owner = "ryantm";
-        repo = "agenix";
-        type = "github";
-      };
       colmena.to = {
         owner = "zhaofengli";
         repo = "colmena";
