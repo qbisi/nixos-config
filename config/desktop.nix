@@ -15,12 +15,6 @@
       wayland.enable = true;
     };
 
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-    };
-
     printing.enable = true;
   };
 

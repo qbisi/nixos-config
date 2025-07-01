@@ -62,6 +62,14 @@
     };
   };
 
+  systemd.services.alsa-ucm-conf-es8316 = {
+    path = with pkgs; [ alsa-utils ];
+    script = ''
+      alsaucm -c rk3588-es8316 set _boot ""
+    '';
+    wantedBy = [ "multi-user.target" ];
+  };
+
   systemd.slices."user-1000".sliceConfig = {
     CPUQuota = "600%";
     MemoryMax = "6G";
