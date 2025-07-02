@@ -78,15 +78,22 @@
 
   environment.variables = {
     MESA_GLSL_VERSION_OVERRIDE = 330;
-    # ALSA_CONFIG_UCM2="/etc/alsa/ucm2";
+    ALSA_CONFIG_UCM2 = pkgs.symlinkJoin {
+      name = "ucm2-rk3588";
+      paths = [
+        "${self}/ucm2"
+        "${pkgs.alsa-ucm-conf}/share/alsa/ucm2"
+      ];
+    };
   };
 
-  environment.etc."alsa/ucm2".source = pkgs.symlinkJoin {
-    name = "ucm2-rk3588";
-    paths = [
-      "${self}/ucm2"
-      "${pkgs.alsa-ucm-conf}/share/alsa/ucm2"
-    ];
+  systemd.services.alsa-ucm-conf-es8388 = {
+    path = with pkgs; [ alsa-utils ];
+    environment = { inherit (config.environment.variables) ALSA_CONFIG_UCM2; };
+    script = ''
+      alsaucm -c rockchip,es8388 set _boot ""
+    '';
+    wantedBy = [ "multi-user.target" ];
   };
 
   nix.buildMachines = with self.vars.buildMachines; [

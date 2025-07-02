@@ -18,38 +18,19 @@
 		mmc2 = &sdio;
 	};
 
-	analog-sound {
-		compatible = "simple-audio-card";
+	sound {
+		compatible = "audio-graph-card";
+		label = "rockchip,es8388";
+		widgets = "Microphone", "Mic Jack",
+		"Headphone", "Headphones";
+		routing = "LINPUT2", "Mic Jack",
+		"Headphones", "LOUT1",
+		"Headphones", "ROUT1";
+		dais = <&i2s0_8ch_p0>;
+
+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&hp_detect>;
-		simple-audio-card,name = "rockchip,es8388";
-		simple-audio-card,format = "i2s";
-		simple-audio-card,mclk-fs = <256>;
-		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-		simple-audio-card,bitclock-master = <&daicpu>;
-		simple-audio-card,frame-master = <&daicpu>;
-
-		simple-audio-card,routing =
-			"Headphones", "LOUT1",
-			"Headphones", "ROUT1",
-			"LINPUT1", "Microphone Jack",
-			"RINPUT1", "Microphone Jack",
-			"LINPUT2", "Onboard Microphone",
-			"RINPUT2", "Onboard Microphone";
-		simple-audio-card,widgets =
-			"Microphone", "Microphone Jack",
-			"Microphone", "Onboard Microphone",
-			"Headphone", "Headphones";
-
-		daicpu: simple-audio-card,cpu {
-			sound-dai = <&i2s0_8ch>;
-			system-clock-frequency = <12288000>;
-		};
-
-		daicodec: simple-audio-card,codec {
-			sound-dai = <&es8388>;
-			system-clock-frequency = <12288000>;
-		};
 	};
 
 	chosen {
@@ -60,7 +41,7 @@
 		compatible = "gpio-leds";
 		pinctrl-names = "default";
 		pinctrl-0 = <&led_net_en>, <&led_sata_en>,
-			    <&led_user_en>, <&led_work_en>;
+		<&led_user_en>, <&led_work_en>;
 
 		net {
 			label = "blue:net";
@@ -267,10 +248,10 @@
 	phy-handle = <&rgmii_phy>;
 	phy-mode = "rgmii-rxid";
 	pinctrl-0 = <&gmac0_miim
-		     &gmac0_tx_bus2
-		     &gmac0_rx_bus2
-		     &gmac0_rgmii_clk
-		     &gmac0_rgmii_bus>;
+	&gmac0_tx_bus2
+	&gmac0_rx_bus2
+	&gmac0_rgmii_clk
+	&gmac0_rgmii_bus>;
 	pinctrl-names = "default";
 	rx_delay = <0x00>;
 	tx_delay = <0x43>;
@@ -420,17 +401,31 @@
 		HPVDD-supply = <&vcc_3v3_s3>;
 		PVDD-supply = <&vcc_1v8_s3>;
 		#sound-dai-cells = <0>;
+
+		port {
+			es8388_p0_0: endpoint {
+				remote-endpoint = <&i2s0_8ch_p0_0>;
+			};
+		};
 	};
 };
 
 &i2s0_8ch {
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2s0_lrck
-		     &i2s0_mclk
-		     &i2s0_sclk
-		     &i2s0_sdi0
-		     &i2s0_sdo0>;
+	&i2s0_mclk
+	&i2s0_sclk
+	&i2s0_sdi0
+	&i2s0_sdo0>;
 	status = "okay";
+
+	i2s0_8ch_p0: port {
+		i2s0_8ch_p0_0: endpoint {
+			dai-format = "i2s";
+			mclk-fs = <256>;
+			remote-endpoint = <&es8388_p0_0>;
+		};
+	};
 };
 
 &mdio0 {
@@ -585,7 +580,7 @@
 
 		pinctrl-names = "default";
 		pinctrl-0 = <&pmic_pins>, <&rk806_dvs1_null>,
-			    <&rk806_dvs2_null>, <&rk806_dvs3_null>;
+		<&rk806_dvs2_null>, <&rk806_dvs3_null>;
 
 		system-power-controller;
 
