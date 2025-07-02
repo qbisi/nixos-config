@@ -18,6 +18,7 @@
           unix_file_perm = "660";
         };
       };
+      mutableConfig = false;
     };
   };
 
