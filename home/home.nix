@@ -105,7 +105,7 @@
       '';
     };
     helix = {
-      enable = true;
+      enable = false;
       settings = {
         theme = "autumn_night_transparent";
         editor.cursor-shape = {
