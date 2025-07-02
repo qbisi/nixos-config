@@ -87,15 +87,6 @@
     };
   };
 
-  systemd.services.alsa-ucm-conf-es8388 = {
-    path = with pkgs; [ alsa-utils ];
-    environment = { inherit (config.environment.variables) ALSA_CONFIG_UCM2; };
-    script = ''
-      alsaucm -c rockchip,es8388 set _boot ""
-    '';
-    wantedBy = [ "multi-user.target" ];
-  };
-
   nix.buildMachines = with self.vars.buildMachines; [
     ft
     x79
