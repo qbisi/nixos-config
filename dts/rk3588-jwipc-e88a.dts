@@ -1000,6 +1000,10 @@
 	enable-gpios = <&gpio3 RK_PD3 GPIO_ACTIVE_HIGH>;
 };
 
+&i2s5_8ch {
+	status = "okay";
+};
+
 &hdmi0_sound {
 	status = "okay";
 };
