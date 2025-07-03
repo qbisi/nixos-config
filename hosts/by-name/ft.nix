@@ -108,8 +108,8 @@
 
   nix = {
     settings = {
-      max-jobs = 2;
-      cores = 32;
+      max-jobs = 1;
+      cores = 64;
     };
     buildMachines = with self.vars.buildMachines; [
       x79

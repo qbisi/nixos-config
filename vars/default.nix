@@ -10,7 +10,7 @@ in
         sshUser = "root";
         sshKey = "/run/agenix/hydra_ed25519";
         hostName = vars.hosts.ft.ip;
-        maxJobs = 2;
+        maxJobs = 1;
         supportedFeatures = [
           "big-parallel"
           "kvm"
