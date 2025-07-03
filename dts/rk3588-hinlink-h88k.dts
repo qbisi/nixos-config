@@ -18,19 +18,38 @@
 		mmc2 = &sdio;
 	};
 
-	sound {
-		compatible = "audio-graph-card";
-		label = "rockchip,es8388";
-		widgets = "Microphone", "Mic Jack",
-		"Headphone", "Headphones";
-		routing = "LINPUT2", "Mic Jack",
-		"Headphones", "LOUT1",
-		"Headphones", "ROUT1";
-		dais = <&i2s0_8ch_p0>;
-
-		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
+	analog-sound {
+		compatible = "simple-audio-card";
 		pinctrl-names = "default";
 		pinctrl-0 = <&hp_detect>;
+		simple-audio-card,name = "rockchip,es8388";
+		simple-audio-card,format = "i2s";
+		simple-audio-card,mclk-fs = <256>;
+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
+		simple-audio-card,bitclock-master = <&masterdai>;
+		simple-audio-card,frame-master = <&masterdai>;
+
+		simple-audio-card,routing =
+		"Headphones", "LOUT1",
+		"Headphones", "ROUT1",
+		"LINPUT1", "Microphone Jack",
+		"RINPUT1", "Microphone Jack",
+		"LINPUT2", "Onboard Microphone",
+		"RINPUT2", "Onboard Microphone";
+		simple-audio-card,widgets =
+		"Microphone", "Microphone Jack",
+		"Microphone", "Onboard Microphone",
+		"Headphone", "Headphones";
+
+		simple-audio-card,cpu {
+			sound-dai = <&i2s0_8ch>;
+			system-clock-frequency = <12288000>;
+		};
+
+		masterdai: simple-audio-card,codec {
+			sound-dai = <&es8388>;
+			system-clock-frequency = <12288000>;
+		};
 	};
 
 	chosen {
@@ -401,12 +420,6 @@
 		HPVDD-supply = <&vcc_3v3_s3>;
 		PVDD-supply = <&vcc_1v8_s3>;
 		#sound-dai-cells = <0>;
-
-		port {
-			es8388_p0_0: endpoint {
-				remote-endpoint = <&i2s0_8ch_p0_0>;
-			};
-		};
 	};
 };
 
@@ -418,14 +431,6 @@
 	&i2s0_sdi0
 	&i2s0_sdo0>;
 	status = "okay";
-
-	i2s0_8ch_p0: port {
-		i2s0_8ch_p0_0: endpoint {
-			dai-format = "i2s";
-			mclk-fs = <256>;
-			remote-endpoint = <&es8388_p0_0>;
-		};
-	};
 };
 
 &mdio0 {
