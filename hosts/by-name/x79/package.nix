@@ -66,6 +66,8 @@
       metric = 100;
     };
 
+    interfaces.eth0.wakeOnLan.enable = true;
+
     interfaces.eth0.ipv4 = {
       addresses = [
         {
