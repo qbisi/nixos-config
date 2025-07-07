@@ -77,7 +77,6 @@
   ];
 
   environment.variables = {
-    MESA_GLSL_VERSION_OVERRIDE = 330;
     ALSA_CONFIG_UCM2 = pkgs.symlinkJoin {
       name = "ucm2-rk3588";
       paths = [
