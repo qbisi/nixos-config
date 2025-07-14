@@ -69,8 +69,6 @@
     nftables.enable = true;
   };
 
-  systemd.network.wait-online.anyInterface = true;
-
   networking.tproxy.users = [ config.users.users.admin.name ];
 
   users.defaultUserShell = pkgs.zsh;

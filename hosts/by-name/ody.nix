@@ -37,8 +37,6 @@
     kernelModules = [ "kvm-intel" ];
   };
 
-  systemd.network.wait-online.anyInterface = true;
-
   networking = {
     hostName = "ody";
     domain = self.vars.domain;
@@ -49,7 +47,7 @@
     defaultGateway = {
       address = "172.16.4.254";
       interface = "eth0";
-      metric = 1000;
+      metric = 100;
     };
     interfaces.eth0.ipv4 = {
       addresses = [
