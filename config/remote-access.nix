@@ -4,13 +4,14 @@
   pkgs,
   self,
   inputs,
+  ...
 }:
 {
   networking = {
     firewall.allowedTCPPorts = [
       8443
     ];
-    allowedUDPPorts = [
+    firewall.allowedUDPPorts = [
       8443 # hy2-in
     ];
   };

@@ -19,6 +19,7 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
+    "${self}/config/remote-access.nix"
   ];
 
   hardware = {
@@ -35,6 +36,8 @@
     ];
     kernelModules = [ "kvm-intel" ];
   };
+
+  systemd.network.wait-online.anyInterface = true;
 
   networking = {
     hostName = "ody";
