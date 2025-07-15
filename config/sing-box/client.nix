@@ -73,7 +73,10 @@ in
 
       vless = cartesianProduct' {
         # tcp_multi_path = true;
-        bind_interface = "wwan0";
+        bind_interface = [
+          "eth0"
+          "wwan0"
+        ];
         inherit uuid;
         tls = forEach vps (v: {
           server_name = "${v}.${domain}";
@@ -107,7 +110,10 @@ in
       };
 
       hysteria2 = cartesianProduct' {
-        bind_interface = "wwan0";
+        bind_interface = [
+          "eth0"
+          "wwan0"
+        ];
         down_mbps = 150;
         up_mbps = 50;
         password = uuid;
@@ -191,14 +197,14 @@ in
         };
       };
       inbounds = [
-        {
-          type = "tun";
-          tag = "tun-in";
-          interface_name = "tun0";
-          address = config.systemd.network.networks.tun0.address;
-          mtu = 9000;
-          auto_route = false;
-        }
+        # {
+        #   type = "tun";
+        #   tag = "tun-in";
+        #   interface_name = "tun0";
+        #   address = config.systemd.network.networks.tun0.address;
+        #   mtu = 9000;
+        #   auto_route = false;
+        # }
         {
           listen = "::";
           listen_port = 1080;
