@@ -34,8 +34,8 @@
           port-type = "bridge";
         };
         wifi = {
-          band = "a";
-          channel = "165";
+          # band = "a";
+          # channel = "165";
           mode = "ap";
           ssid = "${config.networking.hostName}-5G";
         };
