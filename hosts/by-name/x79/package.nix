@@ -122,15 +122,12 @@
   };
 
   virtualisation = {
-    docker.enable = true;
     podman.enable = true;
-    lxd.enable = true;
   };
 
   users.users.admin.extraGroups = [
     "podman"
     "docker"
-    "lxd"
   ];
 
   systemd.services.nix-daemon.serviceConfig = {
