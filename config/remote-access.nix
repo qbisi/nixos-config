@@ -9,6 +9,7 @@
 {
   networking = {
     firewall.allowedTCPPorts = [
+      1080
       8443
       9090
     ];
