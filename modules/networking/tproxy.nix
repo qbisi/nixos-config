@@ -30,7 +30,7 @@ in
         default = 60000;
         example = 60080;
         description = ''
-          The local port that tproxy forward to and proxy server listen on.   
+          The local port that tproxy forward to and proxy server listen on.
         '';
       };
 
@@ -114,6 +114,17 @@ in
     };
   };
   config = mkIf (cfg.enable && config.networking.nftables.enable && config.networking.useNetworkd) {
+    services.sing-box.settings.inbounds = [
+      {
+        type = "tun";
+        tag = "tun-in";
+        interface_name = "tun0";
+        address = config.systemd.network.networks.tun0.address;
+        mtu = 9000;
+        auto_route = false;
+      }
+    ];
+
     networking.tproxy = {
       allowedUDPPorts = [
         67
@@ -154,7 +165,7 @@ in
               iifname { ${ifaceSet} } fib saddr type != local fib daddr type != local jump setmark
               mark ${fwmark} meta protocol ip meta l4proto tcp tproxy ip to 127.0.0.1:${port} accept
               mark ${fwmark} meta protocol ip6 meta l4proto tcp tproxy ip6 to [::1]:${port} accept
-            } 
+            }
             chain setmark {
               meta mark set ct mark
               mark ${fwmark} return
@@ -164,7 +175,7 @@ in
               ip6 daddr { ${ip6Set} } return
               tcp dport 1-65535 tcp flags & (fin|syn|rst|ack) == syn meta mark set ${fwmark}
               udp dport 1-65535 ct state new meta mark set ${fwmark}
-              ct mark set mark 
+              ct mark set mark
             }
           '';
         };
