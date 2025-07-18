@@ -15,6 +15,8 @@
     buildOnTarget = true;
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
     "${self}/config/web/harmonia.nix"
@@ -46,6 +48,8 @@
       "sr_mod"
     ];
   };
+
+  programs.steam.enable = true;
 
   services.nginx.serverName = "csrc.eu.org";
 
