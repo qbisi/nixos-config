@@ -68,7 +68,7 @@
     firewall.extraInputRules = ''
       ip saddr { ${self.vars.hosts.ft.ip}, ${self.vars.hosts.h88k.ip} } counter accept
     '';
-    firewall.allowedUDPPorts = [ 8000 ];
+    firewall.allowedTCPPorts = [ 8000 ];
 
     defaultGateway = {
       address = "172.16.6.254";
