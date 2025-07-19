@@ -16,6 +16,7 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
@@ -28,6 +29,7 @@
     graphics.enable = true;
     enableRedistributableFirmware = true;
     cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
+    nvidia.open = false;
   };
 
   boot = {
@@ -51,6 +53,8 @@
   };
 
   programs.steam.enable = true;
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   services.nginx.serverName = "csrc.eu.org";
 
