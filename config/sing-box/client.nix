@@ -60,6 +60,7 @@ in
     services.sing-box.outbounds = {
       selector = [
         { tag = "direct"; }
+        { tag = "private"; }
         {
           tag = "proxy";
         }
@@ -114,9 +115,11 @@ in
           "eth0"
           "wwan0"
         ];
+        hop_interval = "30s";
         down_mbps = 150;
         up_mbps = 50;
         password = uuid;
+        server_ports = "2080:3000";
         tls = forEach vps (v: {
           server_name = "${v}.${domain}";
         });
@@ -137,6 +140,7 @@ in
         group = [
           [
             "direct"
+            "private"
             "final"
             "game"
             "proxy"
@@ -221,13 +225,7 @@ in
       route = {
         final = "final";
         rules = [
-          # {
-          #   action = "route";
-          #   network = [ "udp" ];
-          #   port = [ 51820 ];
-          #   ip_cidr = [ self.vars.hosts.sl1.ip ];
-          #   outbound = "hysteria2-sl1.qbisi.cc-wwan0";
-          # }
+          # self
           {
             action = "route";
             domain_suffix = [
@@ -243,6 +241,15 @@ in
               "csrc.eu.org"
             ];
           }
+          # private network
+          {
+            action = "route";
+            ip_cidr = [
+              "172.16.0.0/12"
+              "10.0.0.0/8"
+            ];
+            outbound = "private";
+          }
           {
             action = "sniff";
           }
@@ -255,13 +262,19 @@ in
             clash_mode = "global";
             outbound = "final";
           }
+          # ssh
           {
             action = "route";
-            ip_cidr = [
-              "172.16.0.0/12"
-              "10.0.0.0/8"
-            ];
-            outbound = "direct-eth0";
+            network = [ "tcp" ];
+            port = [ 22 ];
+            outbound = "direct-auto";
+          }
+          # wireguard
+          {
+            action = "route";
+            network = [ "udp" ];
+            port = [ 51820 ];
+            outbound = "direct-auto";
           }
           {
             action = "route";

@@ -48,6 +48,23 @@
     ];
   };
 
+  services.sing-box.outbounds.hysteria2 = [
+    {
+      bind_interface = "wwan0";
+      down_mbps = 10;
+      up_mbps = 40;
+      password = {
+        _secret = config.age.secrets.sing-uuid.path;
+      };
+      tls.server_name = "ody.${self.vars.domain}";
+      server_port = 8443;
+      group = [
+        "private"
+      ];
+      tag = "hy2-ody-wwan0";
+    }
+  ];
+
   networking = {
     hostName = "h88k";
     domain = self.vars.domain;
@@ -121,12 +138,9 @@
       # acme get confused by hijacked sing-box dns response
       groups = [ "acme" ];
       internalIPs = [
-        "10.0.0.0/8"
-        "172.16.0.0/12"
         "192.168.0.0/16"
       ];
       allowedTCPPorts = [
-        22
         53
       ];
       allowedUDPPorts = [
@@ -135,6 +149,18 @@
         51820
       ];
     };
+
+    # wireguard = {
+    #   enable = true;
+    #   interfaces.wg0.peers = [
+    #     {
+    #       publicKey = self.vars.hosts.ody.wgpub;
+    #       allowedIPs = [ "192.168.200.4/32" ];
+    #       endpoint = "${self.vars.hosts.ody.ip}:51820";
+    #       persistentKeepalive = 25;
+    #     }
+    #   ];
+    # };
 
     firewall = {
       enable = true;

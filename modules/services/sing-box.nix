@@ -167,14 +167,6 @@ let
           type = types.nonEmptyStr;
           default = config.tls.server_name;
         };
-        server_ports = mkOption {
-          type = types.nonEmptyStr;
-          default = "2080:3000";
-        };
-        hop_interval = mkOption {
-          type = types.nonEmptyStr;
-          default = "30s";
-        };
         tls = {
           enabled = mkOption {
             type = types.bool;
@@ -258,7 +250,7 @@ in
         ];
         other = with cfg.outbounds; direct ++ socks ++ vless ++ hysteria2;
       };
-      
+
       settings = {
         outbounds = cfg.outbounds.selector ++ forEach cfg.outbounds.other (x: removeAttrs x [ "group" ]);
         route.rule_set = lib.forEach cfg.rule_set (v: {
