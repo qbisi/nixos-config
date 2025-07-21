@@ -87,9 +87,9 @@
   };
 
   nix.buildMachines = with self.vars.buildMachines; [
-    ft
-    x79
-    mac
+    # ft
+    # x79
+    # mac
   ];
 
   system.stateVersion = "24.11";
