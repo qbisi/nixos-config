@@ -9,14 +9,12 @@
     ./qbisi.nix
   ];
 
+  home.sessionVariables = rec {
+    http_proxy = "http://127.0.0.1:1080";
+    https_proxy = http_proxy;
+  };
+
   services.ssh-agent.enable = true;
 
   programs.ssh.matchBlocks."github.com".proxyJump = "sl2";
-
-  home.packages = with pkgs; [
-    corefonts
-    vista-fonts
-  ];
-
-  fonts.fontconfig.enable = true;
 }
