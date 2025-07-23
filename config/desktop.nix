@@ -62,6 +62,15 @@
     };
   };
 
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      "oeopbcgkkoapgobdbedcemjljbihmemj" # mail
+      "pfnededegaaopdmhkdmcofjmoldfiped" # proxy
+      "cimiefiiaegbelhefglklhhakcgmhkai" # plasma
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     wl-clipboard
     chromium
