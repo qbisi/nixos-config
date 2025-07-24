@@ -22,9 +22,11 @@
 
   xdg = {
     userDirs = {
-      enable = false;
-      desktop = "$HOME";
-      download = "$HOME";
+      enable = stdenv.hostPlatform.isLinux;
+      desktop = "${config.home.homeDirectory}/OneDrive/Desktop";
+      documents = "${config.home.homeDirectory}/OneDrive/Documents";
+      music = "${config.home.homeDirectory}/OneDrive/music";
+      pictures = "${config.home.homeDirectory}/OneDrive/Pictures";
       createDirectories = false;
     };
   };

@@ -81,6 +81,7 @@
     vulkan-tools
     mesa-demos
     element-desktop
+    onedrivegui
   ];
 
   systemd.sleep.extraConfig = lib.mkDefault ''

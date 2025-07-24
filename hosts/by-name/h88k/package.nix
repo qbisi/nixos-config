@@ -60,8 +60,6 @@
     };
   };
 
-  services.onedrive.enable = true;
-
   systemd.slices."user-1000".sliceConfig = {
     CPUQuota = "600%";
     MemoryMax = "12G";
