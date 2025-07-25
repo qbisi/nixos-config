@@ -36,6 +36,17 @@
     ];
   };
 
+  systemd.network.networks."40-br0" = {
+    matchConfig.Name = "br0";
+    networkConfig = {
+      DHCPServer = "yes";
+    };
+    dhcpServerConfig = {
+      EmitDNS = "yes";
+      DNS = "192.168.101.1";
+    };
+  };
+
   networking = {
     domain = self.vars.domain;
     hostName = "e88a";
@@ -70,7 +81,7 @@
           }
         ];
       };
-      br0.ipv4.addresses = lib.mkForce [
+      br0.ipv4.addresses = [
         {
           address = "192.168.101.1";
           prefixLength = 24;
