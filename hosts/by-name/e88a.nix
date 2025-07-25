@@ -51,10 +51,16 @@
     domain = self.vars.domain;
     hostName = "e88a";
     networkmanager.enable = true;
-    firewall.checkReversePath = false;
-    firewall.allowedUDPPorts = [
-      5355 # LLMNR
-    ];
+    firewall = {
+      checkReversePath = false;
+      trustedInterfaces = [
+        "br0"
+        "wg0"
+      ];
+      allowedUDPPorts = [
+        5355 # LLMNR
+      ];
+    };
     defaultGateway = {
       address = "172.16.6.254";
       interface = "eth0";
