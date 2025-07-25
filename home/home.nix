@@ -22,7 +22,7 @@
 
   xdg = {
     userDirs = {
-      enable = stdenv.hostPlatform.isLinux;
+      enable = pkgs.stdenv.hostPlatform.isLinux;
       desktop = "${config.home.homeDirectory}/OneDrive/Desktop";
       documents = "${config.home.homeDirectory}/OneDrive/Documents";
       music = "${config.home.homeDirectory}/OneDrive/music";
@@ -38,6 +38,9 @@
       GITHUB_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.github.path} 2>/dev/null)";
       NIXPKGS_ALLOW_UNFREE = "1";
       NIXOS_OZONE_WL = "1";
+      GOOGLE_DEFAULT_CLIENT_SECRET = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.google-client.path} 2>/dev/null)";
+      GOOGLE_DEFAULT_CLIENT_ID = "258187937688-1mjb8948qn4bo36tg5d4c0d93f2n12ai.apps.googleusercontent.com";
+      GOOGLE_API_KEY = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.google-api.path} 2>/dev/null)";
     };
 
     shellAliases = {
