@@ -30,7 +30,7 @@
     enable = true;
     openFirewall = true;
     group = "media";
-    port = 8080;
+    webuiPort = 8080;
   };
 
   # services.sonarr = {
