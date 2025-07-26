@@ -125,6 +125,8 @@ in
       }
     ];
 
+    networking.firewall.checkReversePath = false;
+
     networking.tproxy = {
       allowedUDPPorts = [
         67

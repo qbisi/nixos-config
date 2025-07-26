@@ -171,7 +171,6 @@
       extraInputRules = ''
         ip saddr { ${self.vars.hosts.mac.ip}, ${self.vars.hosts.x79.ip} } counter accept
       '';
-      checkReversePath = false;
       interfaces = {
         "eth0" = {
           allowedTCPPorts = [

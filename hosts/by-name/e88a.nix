@@ -52,7 +52,6 @@
     hostName = "e88a";
     networkmanager.enable = true;
     firewall = {
-      checkReversePath = false;
       trustedInterfaces = [
         "br0"
         "wg0"
