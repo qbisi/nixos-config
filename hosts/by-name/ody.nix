@@ -38,6 +38,17 @@
     kernelModules = [ "kvm-intel" ];
   };
 
+  systemd.network.networks."40-br0" = {
+    matchConfig.Name = "br0";
+    networkConfig = {
+      DHCPServer = "yes";
+    };
+    dhcpServerConfig = {
+      EmitDNS = "yes";
+      DNS = "192.168.101.1";
+    };
+  };
+
   networking = {
     hostName = "ody";
     domain = self.vars.domain;
@@ -68,6 +79,48 @@
           prefixLength = 16;
           via = "172.16.4.254";
         }
+      ];
+    };
+    bridges.br0.interfaces = [ "eth1" ];
+    firewall = {
+      trustedInterfaces = [
+        "br0"
+        "wg0"
+      ];
+      allowedUDPPorts = [
+        5355 # LLMNR
+      ];
+      extraInputRules = ''
+        ip saddr ${self.vars.hosts.mac.ip} counter accept
+      '';
+    };
+    nat = {
+      enable = true;
+      internalInterfaces = [
+        "br0"
+        "wg0"
+        "eth0"
+      ];
+      externalInterfaces = [
+        "wwan0"
+        "eth0"
+      ];
+    };
+    tproxy = {
+      enable = true;
+      internalIPs = [
+        "10.0.0.0/8"
+        "172.16.0.0/12"
+        "192.168.0.0/16"
+      ];
+      allowedTCPPorts = [
+        22
+        53
+      ];
+      allowedUDPPorts = [
+        53
+        123
+        51820
       ];
     };
   };
