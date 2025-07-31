@@ -12,7 +12,7 @@
       "builder"
       "dev"
     ];
-    buildOnTarget = false;
+    buildOnTarget = true;
   };
 
   imports = [
