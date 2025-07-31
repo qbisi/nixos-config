@@ -56,7 +56,6 @@
     fd
     ripgrep
     tldr
-    # cachix
     nixfmt-rfc-style
     nixpkgs-review
     nix-output-monitor
@@ -64,7 +63,6 @@
     lazygit
     duf
     python3
-    tracexec
     hydra-check
     ragenix
     nil
