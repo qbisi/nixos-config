@@ -12,6 +12,7 @@
       "router"
       "dev"
     ];
+    buildOnTarget = true;
   };
 
   imports = [
@@ -55,6 +56,10 @@
       trustedInterfaces = [
         "br0"
         "wg0"
+      ];
+      allowedTCPPorts = [
+        1080
+        9090
       ];
       allowedUDPPorts = [
         5355 # LLMNR
