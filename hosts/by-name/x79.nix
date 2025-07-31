@@ -22,7 +22,7 @@
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
     "${self}/config/web/harmonia.nix"
     "${self}/config/desktop.nix"
-    ./hydra.nix
+    "${self}/config/hydra.nix"
   ];
 
   hardware = {
