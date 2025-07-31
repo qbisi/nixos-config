@@ -65,6 +65,7 @@
   networking = {
     hostName = "x79";
     domain = "csrc.eu.org";
+    proxy.default = self.vars.http_proxy;
     firewall.extraInputRules = ''
       ip saddr { ${self.vars.hosts.ft.ip}, ${self.vars.hosts.h88k.ip} } counter accept
     '';

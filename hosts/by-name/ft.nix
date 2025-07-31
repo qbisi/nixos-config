@@ -33,6 +33,7 @@
 
   networking = {
     hostName = "ft";
+    proxy.default = self.vars.http_proxy;
 
     defaultGateway = {
       address = "172.16.6.254";

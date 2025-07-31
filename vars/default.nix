@@ -4,6 +4,7 @@ let
 in
 {
   flake.vars = vars // {
+    http_proxy = "http://${vars.hosts.e88a.ip}:1080";
     buildMachines = {
       ft = {
         system = "aarch64-linux";
