@@ -9,9 +9,7 @@
 {
   networking = {
     firewall.allowedTCPPorts = [
-      1080
       8443
-      9090
     ];
     firewall.allowedUDPPorts = [
       8443 # hy2-in

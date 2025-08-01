@@ -19,6 +19,7 @@
     "${inputs.nixos-images}/devices/by-name/nixos-jwipc-e88a.nix"
     "${self}/config/desktop.nix"
     "${self}/config/sing-box/client.nix"
+    "${self}/config/remote-access.nix"
   ];
 
   disko.bootImage.partLabel = "nvme";
