@@ -88,6 +88,9 @@
     hostName = "e88a";
     networkmanager.enable = true;
     firewall = {
+      extraInputRules = ''
+        ip saddr { ${self.vars.hosts.ft.ip}, ${self.vars.hosts.x79.ip} } counter accept
+      '';
       trustedInterfaces = [
         "br0"
         "wg0"
@@ -139,6 +142,7 @@
       internalInterfaces = [
         "br0"
         "wg0"
+        "eth0"
       ];
       externalInterfaces = [
         "wwan0"
