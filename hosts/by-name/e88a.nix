@@ -20,6 +20,7 @@
     "${self}/config/desktop.nix"
     "${self}/config/sing-box/client.nix"
     "${self}/config/remote-access.nix"
+    "${self}/config/nas.nix"
   ];
 
   disko.bootImage.partLabel = "nvme";
@@ -36,6 +37,39 @@
         ];
       })
     ];
+    bluetooth.enable = lib.mkForce false;
+  };
+
+  fileSystems = {
+    "/gigatf" = {
+      device = "/dev/disk/by-uuid/e64827a8-9986-42da-8364-a958dcd129d4";
+      fsType = "f2fs";
+      options = [
+        "nofail"
+        "x-systemd.wanted-by=dev-disk-by\\x2duuid-e64827a8\\x2d9986\\x2d42da\\x2d8364\\x2da958dcd129d4.device"
+        "nodev"
+        "noatime"
+      ];
+    };
+    "/.data" = {
+      device = "/dev/sda";
+      fsType = "ext4";
+      options = [
+        "nodev"
+        "noatime"
+      ];
+    };
+    "/data" = {
+      device = "/.data:/gigatf=RO";
+      fsType = "mergerfs";
+      options = [
+        "nodev"
+        "nofail"
+        "cache.files=off"
+        "dropcacheonclose=false"
+        "category.create=mfs"
+      ];
+    };
   };
 
   systemd.network.networks."40-br0" = {
@@ -142,6 +176,7 @@
   environment.systemPackages = with pkgs; [
     rkdeveloptool
     myrktop
+    mergerfs
   ];
 
   nix.buildMachines = with self.vars.buildMachines; [
