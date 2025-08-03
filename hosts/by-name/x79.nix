@@ -72,7 +72,7 @@
     firewall.allowedTCPPorts = [ 8000 ];
 
     defaultGateway = {
-      address = "172.16.6.254";
+      address = self.vars.hosts.e88a.ip;
       interface = "eth0";
       metric = 100;
     };
