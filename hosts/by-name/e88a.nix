@@ -72,6 +72,8 @@
     };
   };
 
+  virtualisation.fex.enable = true;
+
   systemd.network.networks."40-br0" = {
     matchConfig.Name = "br0";
     networkConfig = {

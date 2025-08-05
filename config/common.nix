@@ -12,9 +12,20 @@
     inputs.nixos-images.nixosModules.default
     inputs.nur-fem.nixosModules.default
     inputs.secrets.nixosModules.default
-  ] ++ lib.listNixFilesRecursive ./common;
+  ]
+  ++ lib.listNixFilesRecursive ./common;
 
-  nixpkgs.flake.source = lib.mkDefault inputs.nixpkgs;
+  nixpkgs = {
+    flake.source = lib.mkDefault inputs.nixpkgs;
+    overlays = [
+      (final: prev: {
+        pkgs-x86 = import inputs.nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+      })
+    ];
+  };
 
   time.timeZone = "Asia/Shanghai";
 
@@ -116,17 +127,16 @@
         # "pipe-operators"
       ];
       trusted-users = [ config.users.users.admin.name ];
-      substituters =
-        [
-          "https://cache.garnix.io"
-          # "https://colmena.cachix.org"
-          "https://nix-community.cachix.org"
-          "https://cache.nix4loong.cn"
-          # "ssh://root@${self.vars.hosts.x79.ip}?ssh-key=/run/agenix/id_ed25519"
-        ]
-        ++ lib.optionals (!(builtins.elem "!cn" config.deployment.tags)) [
-          "https://mirrors.ustc.edu.cn/nix-channels/store"
-        ];
+      substituters = [
+        "https://cache.garnix.io"
+        # "https://colmena.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://cache.nix4loong.cn"
+        # "ssh://root@${self.vars.hosts.x79.ip}?ssh-key=/run/agenix/id_ed25519"
+      ]
+      ++ lib.optionals (!(builtins.elem "!cn" config.deployment.tags)) [
+        "https://mirrors.ustc.edu.cn/nix-channels/store"
+      ];
       # builders-use-substitutes = true;
       fallback = true;
       connect-timeout = 3;
