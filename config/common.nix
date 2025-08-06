@@ -131,7 +131,7 @@
         "https://cache.garnix.io"
         # "https://colmena.cachix.org"
         "https://nix-community.cachix.org"
-        "https://cache.nix4loong.cn"
+        # "https://cache.nix4loong.cn"
         # "ssh://root@${self.vars.hosts.x79.ip}?ssh-key=/run/agenix/id_ed25519"
       ]
       ++ lib.optionals (!(builtins.elem "!cn" config.deployment.tags)) [
