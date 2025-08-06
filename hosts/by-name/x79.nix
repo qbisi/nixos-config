@@ -62,6 +62,22 @@
     "223.5.5.5%eth1"
   ];
 
+  systemd.services.gitwatch-lwotc = {
+    enable = true;
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    path = with pkgs; [
+      gitwatch
+      git
+      openssh
+    ];
+    script = ''
+      gitwatch "/home/qbisi/.local/share/Steam/steamapps/compatdata/268500/pfx/drive_c/users/steamuser/Documents/my games/XCOM2 War of the Chosen/XComGame/SaveData"
+    '';
+    serviceConfig.User = config.users.users.admin.name;
+  };
+
   networking = {
     hostName = "x79";
     domain = "csrc.eu.org";
