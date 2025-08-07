@@ -108,7 +108,7 @@
     defaultGateway = {
       address = "172.16.6.254";
       interface = "eth0";
-      metric = 100;
+      metric = 650;
     };
     interfaces = {
       eth0.ipv4 = {
