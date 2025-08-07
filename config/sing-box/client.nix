@@ -295,7 +295,7 @@ in
           {
             action = "route";
             domain_suffix = [
-              # "steamcontent.com"
+              "steamcontent.com"
               "sharepoint.com"
             ];
             rule_set = [
