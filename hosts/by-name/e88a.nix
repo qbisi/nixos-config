@@ -149,6 +149,7 @@
       externalInterfaces = [
         "wwan0"
         "eth0"
+        "wlan0"
       ];
     };
     tproxy = {
