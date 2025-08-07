@@ -77,6 +77,7 @@ in
         bind_interface = [
           "eth0"
           "wwan0"
+          "wlan0"
         ];
         inherit uuid;
         tls = forEach vps (v: {
