@@ -56,12 +56,12 @@
       password = {
         _secret = config.age.secrets.sing-uuid.path;
       };
-      tls.server_name = "ody.${self.vars.domain}";
+      tls.server_name = "e88a.${self.vars.domain}";
       server_port = 8443;
       group = [
         "private"
       ];
-      tag = "hy2-ody-wwan0";
+      tag = "hy2-e88a-wwan0";
     }
   ];
 
@@ -69,6 +69,31 @@
     hostName = "h88k";
     domain = self.vars.domain;
     networkmanager.enable = true;
+    networkmanager.ensureProfiles.profiles = {
+      hotspot = {
+        connection = {
+          autoconnect = "true";
+          id = "hotspot";
+          interface-name = "wlan0";
+          type = "wifi";
+          controller = "br0";
+          port-type = "bridge";
+        };
+        wifi = {
+          # band = "a";
+          # channel = "165";
+          mode = "ap";
+          ssid = "${config.networking.hostName}-5G";
+        };
+        wifi-security = {
+          group = "ccmp";
+          key-mgmt = "wpa-psk";
+          pairwise = "ccmp";
+          proto = "rsn";
+          psk = "12345678";
+        };
+      };
+    };
 
     hosts = {
       "${self.vars.hosts.h88k.ip}" = [
@@ -154,9 +179,9 @@
     #   enable = true;
     #   interfaces.wg0.peers = [
     #     {
-    #       publicKey = self.vars.hosts.ody.wgpub;
+    #       publicKey = self.vars.hosts.e88a.wgpub;
     #       allowedIPs = [ "192.168.200.4/32" ];
-    #       endpoint = "${self.vars.hosts.ody.ip}:51820";
+    #       endpoint = "${self.vars.hosts.e88a.ip}:51820";
     #       persistentKeepalive = 25;
     #     }
     #   ];
