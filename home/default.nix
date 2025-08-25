@@ -27,7 +27,7 @@
             modules = [
               path
               inputs.vscode-server.homeModules.default
-              inputs.nix-index-database.hmModules.nix-index
+              inputs.nix-index-database.homeModules.nix-index
               inputs.secrets.homeModules.default
               ./home.nix
             ];
