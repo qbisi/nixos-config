@@ -157,8 +157,8 @@ in
           content = ''
             chain output {
              type route hook output priority mangle; policy accept;
-             skuid { ${userSets} } return
-             skgid { ${groupSets} } return
+             ${optionalString (userSets != "") "skuid { ${userSets} } return"}
+             ${optionalString (groupSets != "") "skgid { ${groupSets} } return"}
              fib saddr type local fib daddr type != local jump setmark
             }
             chain prerouting {
