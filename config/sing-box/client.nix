@@ -32,7 +32,17 @@ in
       };
     };
 
-    networking.tproxy.users = [ "sing-box" "systemd-resolve" ];
+    networking.tproxy.users = [
+      "sing-box"
+      "systemd-resolve"
+    ];
+
+    services.resolved.enable = lib.mkForce false;
+
+    networking.resolvconf = {
+      enable = true;
+      useLocalResolver = true;
+    };
 
     services.sing-box.enable = true;
 
@@ -152,30 +162,31 @@ in
         final = "alidns";
         rules = [
           {
+            action = "route";
             rule_set = [ "geosite-gfw" ];
             server = "fakeip";
+          }
+          {
+            action = "route";
+            strategy = "ipv4_only";
+            server = "alidns";
           }
         ];
         servers = [
           {
-            address = "223.5.5.5";
-            detour = "direct-auto";
+            type = "udp";
             tag = "alidns";
+            server = "223.5.5.5";
+            server_port = 53;
+            detour = "direct-auto";
           }
-          # {
-          #   address = "local";
-          #   tag = "system";
-          # }
           {
-            address = "fakeip";
+            type = "fakeip";
             tag = "fakeip";
+            inet4_range = "198.18.0.0/15";
+            inet6_range = "fc00::/18";
           }
         ];
-        fakeip = {
-          enabled = true;
-          inet4_range = "198.18.0.0/15";
-          inet6_range = "fc00::/18";
-        };
       };
       experimental = {
         cache_file = {
@@ -195,14 +206,6 @@ in
         };
       };
       inbounds = [
-        # {
-        #   type = "tun";
-        #   tag = "tun-in";
-        #   interface_name = "tun0";
-        #   address = config.systemd.network.networks.tun0.address;
-        #   mtu = 9000;
-        #   auto_route = false;
-        # }
         {
           listen = "::";
           listen_port = 1080;
@@ -323,6 +326,13 @@ in
           }
         ];
       };
+      services = [
+        {
+          type = "resolved";
+          listen = "::";
+          listen_port = 53;
+        }
+      ];
     };
   };
 }
