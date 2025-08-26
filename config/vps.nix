@@ -14,9 +14,18 @@
       group = "acme";
     };
     ddclient.keyFile = /run/user/1000/agenix/ddclient;
-    "sing-uuid".keyFile = /run/user/1000/agenix/sing-uuid;
-    "sing-key".keyFile = /run/user/1000/agenix/sing-key;
-    "sing-wgcf".keyFile = /run/user/1000/agenix/sing-wgcf;
+    sing-uuid = {
+      keyFile = /run/user/1000/agenix/sing-uuid;
+      user = "sing-box";
+    };
+    sing-key = {
+      keyFile = /run/user/1000/agenix/sing-key;
+      user = "sing-box";
+    };
+    sing-wgcf = {
+      keyFile = /run/user/1000/agenix/sing-wgcf;
+      user = "sing-box";
+    };
   };
 
   imports = [

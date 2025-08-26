@@ -63,6 +63,4 @@
     username = self.vars.user.mail;
     passwordFile = config.age.secrets.ddclient.path;
   };
-
-  systemd.services.ddclient.serviceConfig.Group = "proxy";
 }

@@ -28,18 +28,11 @@ in
   config = {
     systemd.services.sing-box = {
       serviceConfig = {
-        Group = "proxy";
         MemoryMax = "400M";
       };
     };
 
-    systemd.services.systemd-resolved.serviceConfig = {
-      Group = "proxy";
-    };
-
-    users.groups.proxy = { };
-
-    networking.tproxy.groups = [ "proxy" ];
+    networking.tproxy.users = [ "sing-box" "systemd-resolve" ];
 
     services.sing-box.enable = true;
 

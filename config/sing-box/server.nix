@@ -49,7 +49,7 @@ in
       "vnstat-alert.service"
     ];
     serviceConfig = {
-      Group = "acme";
+      Group = lib.mkForce "acme";
       MemoryMax = "200M";
     };
   };

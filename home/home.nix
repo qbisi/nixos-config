@@ -66,7 +66,8 @@
     hydra-check
     ragenix
     nil
-    tectonic
+    # tectonic #broken in 2025-08-25
+    file
   ];
 
   programs = {
