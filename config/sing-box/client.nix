@@ -168,6 +168,13 @@ in
           }
           {
             action = "route";
+            domain_suffix = [
+              self.vars.domain
+            ];
+            server = "alidns";
+          }
+          {
+            action = "route";
             strategy = "ipv4_only";
             server = "alidns";
           }
