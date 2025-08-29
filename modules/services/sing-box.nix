@@ -85,7 +85,8 @@ let
           type = types.port;
           default = 1080;
         };
-      } // (commonOpts args);
+      }
+      // (commonOpts args);
       config = {
         type = "socks";
       };
@@ -153,7 +154,8 @@ let
             default = "";
           };
         };
-      } // (commonOpts args);
+      }
+      // (commonOpts args);
       config = {
         type = "vless";
       };
@@ -187,7 +189,8 @@ let
             default = [ "h3" ];
           };
         };
-      } // (commonOpts args);
+      }
+      // (commonOpts args);
       config = {
         type = "hysteria2";
       };

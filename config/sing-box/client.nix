@@ -160,22 +160,13 @@ in
       };
       dns = {
         final = "alidns";
+        strategy = "prefer_ipv4";
         rules = [
           {
-            action = "route";
             rule_set = [ "geosite-gfw" ];
             server = "fakeip";
           }
           {
-            action = "route";
-            domain_suffix = [
-              self.vars.domain
-            ];
-            server = "alidns";
-          }
-          {
-            action = "route";
-            strategy = "ipv4_only";
             server = "alidns";
           }
         ];
@@ -224,26 +215,25 @@ in
           listen_port = 60000;
           tag = "tproxy-in";
           type = "tproxy";
+          sniff = true;
+          sniff_override_destination = true;
         }
       ];
       route = {
         final = "final";
+        default_domain_resolver = "alidns";
         rules = [
-          # self
           {
-            action = "route";
-            domain_suffix = [
-              config.networking.fqdn
-            ];
-            override_address = "127.0.0.1";
-            outbound = "direct-auto";
+            action = "sniff";
           }
           {
-            action = "resolve";
-            domain_suffix = [
-              self.vars.domain
-              "csrc.eu.org"
-            ];
+            action = "hijack-dns";
+            protocol = "dns";
+          }
+          {
+            action = "route";
+            clash_mode = "global";
+            outbound = "final";
           }
           # private network
           {
@@ -253,18 +243,6 @@ in
               "10.0.0.0/8"
             ];
             outbound = "private";
-          }
-          {
-            action = "sniff";
-          }
-          {
-            protocol = "dns";
-            action = "hijack-dns";
-          }
-          {
-            action = "route";
-            clash_mode = "global";
-            outbound = "final";
           }
           # ssh
           {
@@ -280,6 +258,7 @@ in
             port = [ 51820 ];
             outbound = "direct-auto";
           }
+          # steam game
           {
             action = "route";
             type = "logical";
@@ -296,6 +275,7 @@ in
             ];
             outbound = "game";
           }
+          # direct
           {
             action = "route";
             domain_suffix = [
@@ -308,6 +288,7 @@ in
             ];
             outbound = "direct";
           }
+          # openai
           {
             action = "route";
             rule_set = [
@@ -315,6 +296,7 @@ in
             ];
             outbound = "ai";
           }
+          # proxy
           {
             action = "route";
             domain_keyword = [ "libgen" ];
