@@ -137,7 +137,7 @@
       ++ lib.optionals (!(builtins.elem "!cn" config.deployment.tags)) [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
       ];
-      # builders-use-substitutes = true;
+      builders-use-substitutes = true;
       fallback = true;
       connect-timeout = 3;
       trusted-public-keys = [
