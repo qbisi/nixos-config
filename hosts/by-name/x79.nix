@@ -54,7 +54,10 @@
 
   programs = {
     steam.enable = true;
-    ccache.enable = true;
+    ccache = {
+      enable = true;
+      owner = config.users.users.admin.name;
+    };
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
