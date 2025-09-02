@@ -52,7 +52,10 @@
     ];
   };
 
-  programs.steam.enable = true;
+  programs = {
+    steam.enable = true;
+    ccache.enable = true;
+  };
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
