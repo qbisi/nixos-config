@@ -10,10 +10,10 @@
 }:
 {
   imports = [
-    ./CLI/bash.nix
-    ./CLI/zsh.nix
-    ./CLI/git.nix
-    ./CLI/ssh.nix
+    ./zsh.nix
+    ./tmux.nix
+    ./ssh.nix
+    ./git.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -66,7 +66,6 @@
     hydra-check
     ragenix
     nil
-    # tectonic #broken in 2025-08-25
     file
   ];
 
@@ -80,55 +79,10 @@
       enable = true;
       nix-direnv.enable = true;
     };
-    tmux = {
-      shortcut = "a";
-      # aggressiveResize = true; -- Disabled to be iTerm-friendly
-      baseIndex = 1;
-      newSession = true;
-      # Stop tmux+escape craziness.
-      # escapeTime = 0;
-      # Force tmux to use /tmp for sockets (WSL2 compat)
-      secureSocket = false;
+    bash = {
       enable = true;
-      plugins = with pkgs; [
-        tmuxPlugins.better-mouse-mode
-      ];
-
-      extraConfig = ''
-        set -g status off
-        set -g set-titles on
-        set -g set-titles-string "#{USER}@#H:#{PWD}"
-
-        # Mouse works as expected
-        set-option -g mouse on
-        # easy-to-remember split pane commands
-        bind | split-window -h -c "#{pane_current_path}"
-        bind - split-window -v -c "#{pane_current_path}"
-        bind c new-window -c "#{pane_current_path}"
-      '';
-    };
-    helix = {
-      enable = false;
-      settings = {
-        theme = "autumn_night_transparent";
-        editor.cursor-shape = {
-          normal = "block";
-          insert = "bar";
-          select = "underline";
-        };
-      };
-      languages.language = [
-        {
-          name = "nix";
-          auto-format = true;
-          formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
-        }
-      ];
-      themes = {
-        autumn_night_transparent = {
-          "inherits" = "autumn_night";
-          "ui.background" = { };
-        };
+      sessionVariables = {
+        NOSYSABASHRC = 1;
       };
     };
   };

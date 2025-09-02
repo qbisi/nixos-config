@@ -20,7 +20,13 @@
       ".direnv"
     ];
     hooks = {
-      post-receive = ./post-receive;
+      post-receive =pkgs.writeShellScript "post-receive" ''
+        export GIT_WORK_TREE=..
+        git checkout -f HEAD
+
+        repo_dir=$(git rev-parse --show-toplevel)
+        repo_name=$(basename "$repo_dir")
+      '';
     };
     extraConfig = {
       gpg.format = "ssh";
