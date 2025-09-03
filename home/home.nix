@@ -32,6 +32,12 @@
   };
 
   home = {
+    homeDirectory =
+      if pkgs.stdenv.hostPlatform.isDarwin then
+        "/Users/${config.home.username}"
+      else
+        "/home/${config.home.username}";
+
     sessionVariables = {
       EDITOR = "nvim";
       CACHIX_AUTH_TOKEN = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.cachix.path} 2>/dev/null)";

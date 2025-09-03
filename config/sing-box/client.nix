@@ -32,17 +32,24 @@ in
       };
     };
 
-    networking.tproxy.users = [
-      "sing-box"
-      "systemd-resolve"
-    ];
+    networking = {
+      proxy.default = "http://127.0.0.1:1080";
+      tproxy.users = [
+        "sing-box"
+        "systemd-resolve"
+      ];
+      resolvconf = {
+        enable = true;
+        useLocalResolver = true;
+      };
+    };
+
+    programs.ssh.extraConfig = ''
+      Host *
+        ProxyCommand nc -x 127.0.0.1:1080 -X 5 %h %p
+    '';
 
     services.resolved.enable = lib.mkForce false;
-
-    networking.resolvconf = {
-      enable = true;
-      useLocalResolver = true;
-    };
 
     services.sing-box.enable = true;
 
