@@ -33,8 +33,8 @@
       gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       user.signingkey = "/etc/ssh/authorized_keys.d/qbisi";
       url = {
-        "git@github.com" = {
-          insteadOf = "github.com";
+        "git@ssh.github.com" = {
+          insteadOf = "git@github.com";
         };
       };
       sendemail = {

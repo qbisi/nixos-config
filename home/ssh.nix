@@ -10,7 +10,8 @@
     enable = true;
     enableDefaultConfig = false;
     matchBlocks = {
-      "github.com" = {
+      "ssh.github.com" = {
+        port = 443;
         user = "git";
       };
       "*" = {
