@@ -45,7 +45,7 @@ in
     };
 
     programs.ssh.extraConfig = ''
-      Host *
+      Match localuser ${config.users.users.admin.name}
         ProxyCommand nc -x 127.0.0.1:1080 -X 5 %h %p
     '';
 
