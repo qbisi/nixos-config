@@ -22,13 +22,6 @@
     ];
   };
 
-  services.resolved = {
-    dnsovertls = "opportunistic";
-    extraConfig = ''
-      DNSStubListenerExtra=0.0.0.0
-    '';
-  };
-
   systemd.network.networks."40-br0" = {
     matchConfig.Name = "br0";
     networkConfig = {
@@ -38,14 +31,6 @@
       EmitDNS = "yes";
       DNS = "192.168.100.1";
     };
-  };
-
-  systemd.network.networks."40-eth0" = {
-    matchConfig.Name = "eth0";
-    dns = [
-      "223.5.5.5"
-      "119.29.29.29"
-    ];
   };
 
   services.sing-box.outbounds.hysteria2 = [
