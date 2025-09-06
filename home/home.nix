@@ -73,6 +73,7 @@
     ragenix
     nil
     file
+    nix-tree
   ];
 
   programs = {
