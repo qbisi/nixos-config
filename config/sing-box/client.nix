@@ -170,11 +170,6 @@ in
         strategy = "prefer_ipv4";
         rules = [
           {
-            action = "predefined";
-            domain_suffix = [ config.networking.fqdn ];
-            answer = "localhost. IN A 127.0.0.1";
-          }
-          {
             rule_set = [ "geosite-gfw" ];
             server = "fakeip";
           }
@@ -246,6 +241,13 @@ in
             action = "route";
             clash_mode = "global";
             outbound = "final";
+          }
+          # self
+          {
+            action = "route";
+            domain_suffix = [ config.networking.fqdn ];
+            override_address = "127.0.0.1";
+            outbound = "direct-auto";
           }
           # private network
           {
