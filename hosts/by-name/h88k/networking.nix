@@ -80,16 +80,6 @@
       };
     };
 
-    hosts = {
-      "${self.vars.hosts.h88k.ip}" = [
-        "drive.h88k.${self.vars.domain}"
-      ];
-      "${self.vars.hosts.x79.ip}" = [
-        "cache.csrc.eu.org"
-        "hydra.csrc.eu.org"
-      ];
-    };
-
     defaultGateway = {
       address = "172.16.4.254";
       interface = "eth0";

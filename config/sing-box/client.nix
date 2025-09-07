@@ -170,6 +170,11 @@ in
         strategy = "prefer_ipv4";
         rules = [
           {
+            action = "predefined";
+            domain_suffix = [ config.networking.fqdn ];
+            answer = "localhost. IN A 127.0.0.1";
+          }
+          {
             rule_set = [ "geosite-gfw" ];
             server = "fakeip";
           }
