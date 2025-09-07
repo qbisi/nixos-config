@@ -3,52 +3,99 @@
   pkgs,
   lib,
   self,
+  inputs,
   ...
 }:
 {
+  deployment = {
+    buildOnTarget = true;
+    tags = [
+      "router"
+      "dev"
+    ];
+  };
+
   imports = [
+    "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
     "${self}/config/sing-box/client.nix"
+    "${self}/config/desktop.nix"
+    "${self}/config/nas.nix"
     "${self}/config/web/openlist.nix"
   ];
 
   boot.kernelModules = [ "brutal" ];
 
-  services.mptcpd = {
-    enable = true;
-    extraMptcpdFlags = [
-      "--path-manager=sspi"
-      "--addr-flags=subflow"
-      "--notify-flags=existing,skip_link_local,skip_loopback,check_route"
+  hardware = {
+    deviceTree.dtsFile = lib.mkForce "${self}/dts/rk3588-hinlink-h88k.dts";
+  };
+
+  disko.bootImage.partLabel = "nvme";
+
+  services = {
+    vlmcsd = {
+      enable = true;
+      disconnectClients = true;
+      openFirewall = true;
+    };
+    mptcpd = {
+      enable = true;
+      extraMptcpdFlags = [
+        "--path-manager=sspi"
+        "--addr-flags=subflow"
+        "--notify-flags=existing,skip_link_local,skip_loopback,check_route"
+      ];
+    };
+    sing-box.outbounds.hysteria2 = [
+      {
+        bind_interface = "wwan0";
+        down_mbps = 10;
+        up_mbps = 40;
+        password = {
+          _secret = config.age.secrets.sing-uuid.path;
+        };
+        tls.server_name = "e88a.${self.vars.domain}";
+        server_port = 8443;
+        group = [
+          "private"
+        ];
+        tag = "hy2-e88a-wwan0";
+      }
     ];
   };
 
-  systemd.network.networks."40-br0" = {
-    matchConfig.Name = "br0";
-    networkConfig = {
-      DHCPServer = "yes";
+  systemd = {
+    network.networks."40-br0" = {
+      matchConfig.Name = "br0";
+      networkConfig = {
+        DHCPServer = "yes";
+      };
+      dhcpServerConfig = {
+        EmitDNS = "yes";
+        DNS = "192.168.100.1";
+      };
     };
-    dhcpServerConfig = {
-      EmitDNS = "yes";
-      DNS = "192.168.100.1";
+    slices."user-1000".sliceConfig = {
+      CPUQuota = "600%";
+      MemoryMax = "12G";
     };
   };
 
-  services.sing-box.outbounds.hysteria2 = [
-    {
-      bind_interface = "wwan0";
-      down_mbps = 10;
-      up_mbps = 40;
-      password = {
-        _secret = config.age.secrets.sing-uuid.path;
+  environment = {
+    systemPackages = with pkgs; [
+      minicom
+      rkdeveloptool
+      myrktop
+    ];
+    variables = {
+      ALSA_CONFIG_UCM2 = pkgs.symlinkJoin {
+        name = "ucm2-rk3588";
+        paths = [
+          "${self}/ucm2"
+          "${pkgs.alsa-ucm-conf}/share/alsa/ucm2"
+        ];
       };
-      tls.server_name = "e88a.${self.vars.domain}";
-      server_port = 8443;
-      group = [
-        "private"
-      ];
-      tag = "hy2-e88a-wwan0";
-    }
-  ];
+    };
+  };
 
   networking = {
     hostName = "h88k";
@@ -150,18 +197,6 @@
       ];
     };
 
-    # wireguard = {
-    #   enable = true;
-    #   interfaces.wg0.peers = [
-    #     {
-    #       publicKey = self.vars.hosts.e88a.wgpub;
-    #       allowedIPs = [ "192.168.200.4/32" ];
-    #       endpoint = "${self.vars.hosts.e88a.ip}:51820";
-    #       persistentKeepalive = 25;
-    #     }
-    #   ];
-    # };
-
     firewall = {
       enable = true;
       trustedInterfaces = [
@@ -186,4 +221,6 @@
       };
     };
   };
+
+  system.stateVersion = "24.11";
 }
