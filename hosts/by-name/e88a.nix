@@ -16,18 +16,37 @@
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/by-name/nixos-jwipc-e88a.nix"
     "${self}/config/desktop.nix"
     "${self}/config/sing-box/client.nix"
     "${self}/config/remote-access.nix"
     "${self}/config/nas.nix"
   ];
 
-  disko.bootImage.partLabel = "nvme";
+  nixpkgs = {
+    system = "aarch64-linux";
+  };
+
+  disko = {
+    enableConfig = true;
+    bootImage = {
+      fileSystem = "btrfs";
+      partLabel = "nvme";
+    };
+  };
+
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [
+      "console=tty1"
+      "earlycon"
+      "net.ifnames=0"
+    ];
+    consoleLogLevel = 6;
+    loader.grub.enable = true;
+  };
 
   hardware = {
-    deviceTree.dtsFile = lib.mkForce "${self}/dts/rk3588-jwipc-e88a.dts";
-    firmware = lib.mkForce [
+    firmware = [
       (pkgs.armbian-firmware.override {
         filters = [
           "arm/mali/*"
@@ -37,6 +56,16 @@
         ];
       })
     ];
+    deviceTree = {
+      name = "rockchip/rk3588-jwipc-e88a.dtb";
+      platform = "rockchip";
+      dtsFile = "${self}/dts/rk3588-jwipc-e88a.dts";
+    };
+    serial = {
+      enable = true;
+      unit = 2;
+      baudrate = 1500000;
+    };
     bluetooth.enable = lib.mkForce false;
   };
 
@@ -71,8 +100,6 @@
       ];
     };
   };
-
-  virtualisation.fex.enable = true;
 
   systemd.network.networks."40-br0" = {
     matchConfig.Name = "br0";
