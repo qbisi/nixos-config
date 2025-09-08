@@ -112,10 +112,6 @@
       max-jobs = 1;
       cores = 60;
     };
-    buildMachines = with self.vars.buildMachines; [
-      x79
-      mac
-    ];
   };
 
   systemd.services.nix-daemon.serviceConfig = {

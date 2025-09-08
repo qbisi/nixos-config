@@ -151,8 +151,9 @@
 
     package = pkgs.nixVersions.latest;
 
-    buildMachines = {
-      ft = {
+    buildMachines = [
+      # ft
+      {
         system = "aarch64-linux";
         sshUser = "root";
         sshKey = "/run/agenix/hydra_ed25519";
@@ -164,8 +165,9 @@
           "nixos-test"
           "benchmark"
         ];
-      };
-      x79 = {
+      }
+      # x79
+      {
         system = "x86_64-linux";
         sshUser = "root";
         sshKey = "/run/agenix/hydra_ed25519";
@@ -177,8 +179,9 @@
           "nixos-test"
           "benchmark"
         ];
-      };
-      mac = {
+      }
+      # mac
+      {
         system = "aarch64-darwin";
         sshUser = self.vars.user.name;
         sshKey = "/run/agenix/hydra_ed25519";
@@ -190,7 +193,7 @@
           "nixos-test"
           "benchmark"
         ];
-      };
-    };
+      }
+    ];
   };
 }

@@ -173,10 +173,6 @@
       max-jobs = 2;
       cores = 24;
     };
-    buildMachines = with self.vars.buildMachines; [
-      ft
-      mac
-    ];
   };
 
   system.stateVersion = "24.11";
