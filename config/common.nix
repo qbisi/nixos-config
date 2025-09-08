@@ -78,32 +78,32 @@
   networking = {
     useNetworkd = true;
     nftables.enable = true;
+    tproxy.users = [ config.users.users.admin.name ];
   };
 
-  networking.tproxy.users = [ config.users.users.admin.name ];
-
-  users.defaultUserShell = pkgs.zsh;
-
-  users.users = {
-    admin = {
-      inherit (self.vars.user) name hashedPassword;
-      uid = 1000;
-      isNormalUser = true;
-      linger = true;
-      shell = pkgs.zsh;
-      extraGroups = [
-        "wheel"
-        "root"
-        "video"
-        "audio"
-      ];
-      openssh.authorizedKeys.keys = [
+  users = {
+    defaultUserShell = pkgs.zsh;
+    users = {
+      admin = {
+        inherit (self.vars.user) name hashedPassword;
+        uid = 1000;
+        isNormalUser = true;
+        linger = true;
+        shell = pkgs.zsh;
+        extraGroups = [
+          "wheel"
+          "root"
+          "video"
+          "audio"
+        ];
+        openssh.authorizedKeys.keys = [
+          self.vars.user.authorizedKeys
+        ];
+      };
+      root.openssh.authorizedKeys.keys = [
         self.vars.user.authorizedKeys
       ];
     };
-    root.openssh.authorizedKeys.keys = [
-      self.vars.user.authorizedKeys
-    ];
   };
 
   nix = {
