@@ -10,7 +10,6 @@
   imports = [
     self.nixosModules.default
     inputs.nixos-images.nixosModules.default
-    inputs.nur-fem.nixosModules.default
     inputs.secrets.nixosModules.default
   ]
   ++ lib.listNixFilesRecursive ./common;

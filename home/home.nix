@@ -100,15 +100,5 @@
     installPath = "$HOME/.vscode-server";
   };
 
-  nix.registry = {
-    nur-fem = {
-      to = {
-        owner = "qbisi";
-        repo = "nur-fem";
-        type = "github";
-      };
-    };
-  };
-
   home.stateVersion = "24.11";
 }

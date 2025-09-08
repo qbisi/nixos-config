@@ -2,7 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-images.url = "github:qbisi/nixos-images";
-    nur-fem.url = "github:qbisi/nur-fem";
     secrets.url = "git+ssh://git@github.com/qbisi/secrets";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     flake-parts = {
