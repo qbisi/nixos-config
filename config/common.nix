@@ -146,12 +146,51 @@
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
         "cache.nix4loong.cn-1:zmkwLihdSUyy6OFSVgvK3br0EaUEczLiJgDfvOmm3pA="
         "cache.csrc.eu.org-1:x5rEGDqKTfp6brF2lvevAhDtBWZFrSWx7u8EH/kL/6k="
-        "cache.qbisi.cc-1:xEChzP5k8fj+7wajY+e9IDORRTGMhViP5NaqMShGGjQ="
       ];
     };
 
     package = pkgs.nixVersions.latest;
 
-    distributedBuilds = true;
+    buildMachines = {
+      ft = {
+        system = "aarch64-linux";
+        sshUser = "root";
+        sshKey = "/run/agenix/hydra_ed25519";
+        hostName = self.vars.hosts.ft.ip;
+        maxJobs = 1;
+        supportedFeatures = [
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+          "benchmark"
+        ];
+      };
+      x79 = {
+        system = "x86_64-linux";
+        sshUser = "root";
+        sshKey = "/run/agenix/hydra_ed25519";
+        hostName = self.vars.hosts.x79.ip;
+        maxJobs = 2;
+        supportedFeatures = [
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+          "benchmark"
+        ];
+      };
+      mac = {
+        system = "aarch64-darwin";
+        sshUser = self.vars.user.name;
+        sshKey = "/run/agenix/hydra_ed25519";
+        hostName = self.vars.hosts.mac.ip;
+        maxJobs = 1;
+        supportedFeatures = [
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+          "benchmark"
+        ];
+      };
+    };
   };
 }

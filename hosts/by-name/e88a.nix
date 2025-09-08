@@ -186,11 +186,7 @@
     mergerfs
   ];
 
-  nix.buildMachines = with self.vars.buildMachines; [
-    ft
-    x79
-    mac
-  ];
+  nix.distributedBuilds = true;
 
   system.stateVersion = "25.11";
 }

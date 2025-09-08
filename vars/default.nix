@@ -5,46 +5,5 @@ in
 {
   flake.vars = vars // {
     http_proxy = "http://${vars.hosts.e88a.ip}:1080";
-    buildMachines = {
-      ft = {
-        system = "aarch64-linux";
-        sshUser = "root";
-        sshKey = "/run/agenix/hydra_ed25519";
-        hostName = vars.hosts.ft.ip;
-        maxJobs = 1;
-        supportedFeatures = [
-          "big-parallel"
-          "kvm"
-          "nixos-test"
-          "benchmark"
-        ];
-      };
-      x79 = {
-        system = "x86_64-linux";
-        sshUser = "root";
-        sshKey = "/run/agenix/hydra_ed25519";
-        hostName = vars.hosts.x79.ip;
-        maxJobs = 2;
-        supportedFeatures = [
-          "big-parallel"
-          "kvm"
-          "nixos-test"
-          "benchmark"
-        ];
-      };
-      mac = {
-        system = "aarch64-darwin";
-        sshUser = vars.user.name;
-        sshKey = "/run/agenix/hydra_ed25519";
-        hostName = vars.hosts.mac.ip;
-        maxJobs = 1;
-        supportedFeatures = [
-          "big-parallel"
-          "kvm"
-          "nixos-test"
-          "benchmark"
-        ];
-      };
-    };
   };
 }
