@@ -21,7 +21,8 @@
     "${self}/config/web/openlist.nix"
     "${self}/config/web/harmonia.nix"
     "${self}/config/web/hydra.nix"
-  ] ++ lib.listNixFilesRecursive ./web;
+    "${self}/config/web/attic.nix"
+  ];
 
   boot = {
     initrd.availableKernelModules = [
