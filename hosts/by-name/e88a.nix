@@ -134,11 +134,11 @@
     };
     defaultGateway = {
       address = "172.16.6.254";
-      interface = "eth0";
-      metric = 650;
+      interface = "eth1";
+      metric = 100;
     };
     interfaces = {
-      eth0.ipv4 = {
+      "${config.networking.defaultGateway.interface}".ipv4 = {
         routes = [
           {
             address = "172.16.0.0";
@@ -165,17 +165,17 @@
         }
       ];
     };
-    bridges.br0.interfaces = [ "eth1" ];
+    bridges.br0.interfaces = [ "eth0" ];
     nat = {
       enable = true;
       internalInterfaces = [
         "br0"
         "wg0"
-        "eth0"
+        "enP4p65s0"
       ];
       externalInterfaces = [
         "wwan0"
-        "eth0"
+        "enP4p65s0"
         "wlan0"
       ];
     };

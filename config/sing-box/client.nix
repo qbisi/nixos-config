@@ -85,7 +85,7 @@ in
       vless = cartesianProduct' {
         # tcp_multi_path = true;
         bind_interface = [
-          "eth0"
+          config.networking.defaultGateway.interface
           "wwan0"
           "wlan0"
         ];
@@ -123,7 +123,7 @@ in
 
       hysteria2 = cartesianProduct' {
         bind_interface = [
-          "eth0"
+          config.networking.defaultGateway.interface
           "wwan0"
         ];
         hop_interval = "30s";
@@ -144,7 +144,7 @@ in
 
       direct = cartesianProduct' {
         bind_interface = [
-          "eth0"
+          config.networking.defaultGateway.interface
           "wwan0"
           "wlan0"
         ];
