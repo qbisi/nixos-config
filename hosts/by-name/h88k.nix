@@ -16,20 +16,57 @@
   };
 
   imports = [
-    "${inputs.nixos-images}/devices/by-name/nixos-hinlink-h88k.nix"
     "${self}/config/sing-box/client.nix"
     "${self}/config/desktop.nix"
     "${self}/config/nas.nix"
     "${self}/config/web/openlist.nix"
   ];
 
-  boot.kernelModules = [ "brutal" ];
-
-  hardware = {
-    deviceTree.dtsFile = lib.mkForce "${self}/dts/rk3588-hinlink-h88k.dts";
+  nixpkgs = {
+    system = "aarch64-linux";
   };
 
-  disko.bootImage.partLabel = "nvme";
+  disko = {
+    enableConfig = true;
+    bootImage = {
+      fileSystem = "btrfs";
+      partLabel = "nvme";
+    };
+  };
+
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [
+      "console=tty1"
+      "earlycon"
+      "net.ifnames=0"
+    ];
+    consoleLogLevel = 6;
+    loader.grub.enable = true;
+  };
+
+  hardware = {
+    firmware = [
+      (pkgs.armbian-firmware.override {
+        filters = [
+          "arm/mali/*"
+          "rt*"
+          "mediatek/*"
+          "regulatory.db"
+        ];
+      })
+    ];
+    deviceTree = {
+      name = "rockchip/rk3588-hinlink-h88k.dtb";
+      platform = "rockchip";
+      dtsFile = "${self}/dts/rk3588-hinlink-h88k.dts";
+    };
+    serial = {
+      enable = true;
+      unit = 2;
+      baudrate = 1500000;
+    };
+  };
 
   services = {
     vlmcsd = {
