@@ -68,7 +68,6 @@
     nix-update
     lazygit
     duf
-    python3
     hydra-check
     ragenix
     nil

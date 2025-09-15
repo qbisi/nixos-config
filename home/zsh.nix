@@ -4,11 +4,10 @@
     enable = true;
     sessionVariables = {
       NOSYSZSHRC = 1;
-      PYTHONPATH = "$HOME/.nix-profile/${pkgs.python3.sitePackages}";
     };
     initContent = ''
       # custom zsh title in xterm
-      DISABLE_AUTO_TITLE="true" 
+      DISABLE_AUTO_TITLE="true"
       case $TERM in xterm*)
           precmd () {print -Pn "\e]0;%n@%m: %~\a"}
           ;;
