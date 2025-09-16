@@ -171,11 +171,11 @@
       internalInterfaces = [
         "br0"
         "wg0"
-        "enP4p65s0"
+        "eth1"
       ];
       externalInterfaces = [
+        "eth1"
         "wwan0"
-        "enP4p65s0"
         "wlan0"
       ];
     };
