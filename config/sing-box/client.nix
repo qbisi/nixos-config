@@ -313,12 +313,13 @@ in
           # proxy
           {
             action = "route";
-            domain_keyword = [ "libgen" ];
+            domain_keyword = [
+              "libgen"
+              "gitlab"
+            ];
             domain_suffix = [
-              "mikanani.me"
-              "nixos.org"
-              "sing-box.sagernet.org"
-              "attic.csrc.eu.org"
+              ".me"
+              ".org"
             ];
             rule_set = [
               "geoip-telegram"
