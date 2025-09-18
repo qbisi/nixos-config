@@ -9,6 +9,7 @@
       Bind = [
         "/home"
         "/nix/store"
+        "/run/current-system/sw/bin/nix:/usr/bin/nix"
       ];
     };
     networkConfig = {
