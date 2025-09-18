@@ -23,6 +23,7 @@
     "${self}/config/web/harmonia.nix"
     "${self}/config/desktop.nix"
     "${self}/config/hydra.nix"
+    "${self}/config/container/debian.nix"
   ];
 
   hardware = {
