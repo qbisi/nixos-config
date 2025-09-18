@@ -10,6 +10,7 @@
         "/home"
         "/nix/store"
         "/run/current-system/sw/bin/nix:/usr/bin/nix"
+        "/etc/nix/nix.conf"
       ];
     };
     networkConfig = {

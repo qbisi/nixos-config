@@ -40,7 +40,10 @@
     kernelParams = [
       "console=tty1"
     ];
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [
+      "ext4"
+      "kvm-intel"
+    ];
     initrd.availableKernelModules = [
       "ehci_pci"
       "ahci"
