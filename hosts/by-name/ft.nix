@@ -112,6 +112,7 @@
       max-jobs = 1;
       cores = 60;
     };
+    distributedBuilds = true;
   };
 
   systemd.services.nix-daemon.serviceConfig = {
