@@ -203,6 +203,13 @@
     MemoryMax = "6G";
   };
 
+  nix = {
+    settings = {
+      max-jobs = 1;
+      cores = 6;
+    };
+  };
+
   environment.variables = {
     MESA_GLSL_VERSION_OVERRIDE = 330;
   };
