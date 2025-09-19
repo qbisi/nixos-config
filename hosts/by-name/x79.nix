@@ -176,7 +176,7 @@
       max-jobs = 2;
       cores = 24;
     };
-    # distributedBuilds = true;
+    distributedBuilds = true;
   };
 
   system.stateVersion = "24.11";

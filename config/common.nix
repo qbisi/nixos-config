@@ -150,13 +150,12 @@
 
     package = pkgs.nixVersions.latest;
 
-    buildMachines = [
-      # ft
+    buildMachines = lib.filter (p: p.hostName != config.networking.hostName) [
       {
         system = "aarch64-linux";
         sshUser = "root";
         sshKey = "/run/agenix/hydra_ed25519";
-        hostName = self.vars.hosts.ft.ip;
+        hostName = "ft";
         maxJobs = 1;
         supportedFeatures = [
           "big-parallel"
@@ -165,12 +164,11 @@
           "benchmark"
         ];
       }
-      # x79
       {
         system = "x86_64-linux";
         sshUser = "root";
         sshKey = "/run/agenix/hydra_ed25519";
-        hostName = self.vars.hosts.x79.ip;
+        hostName = "x79";
         maxJobs = 2;
         supportedFeatures = [
           "big-parallel"
@@ -179,12 +177,11 @@
           "benchmark"
         ];
       }
-      # mac
       {
         system = "aarch64-darwin";
         sshUser = self.vars.user.name;
         sshKey = "/run/agenix/hydra_ed25519";
-        hostName = self.vars.hosts.mac.ip;
+        hostName = "mac";
         maxJobs = 1;
         supportedFeatures = [
           "big-parallel"
