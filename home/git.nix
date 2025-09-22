@@ -20,7 +20,7 @@
       ".direnv"
     ];
     hooks = {
-      post-receive =pkgs.writeShellScript "post-receive" ''
+      post-receive = pkgs.writeShellScript "post-receive" ''
         export GIT_WORK_TREE=..
         git checkout -f HEAD
 
@@ -47,7 +47,10 @@
 
       # armbian build workaround new limitations imposed by CVE-2022-24765 fix in git,
       # otherwise  "fatal: unsafe repository"
-      safe.directory = "/home/${self.vars.user.name}/build";
+      safe.directory = [
+        "${config.home.homeDirectory}/build"
+        "${config.home.homeDirectory}/build/cache/sources/debootstrap-debian-devel"
+      ];
 
       receive.denyCurrentBranch = "warn";
     };
