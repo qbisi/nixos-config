@@ -19,7 +19,6 @@
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
-    "${self}/config/remote-access.nix"
     "${self}/config/sing-box/client.nix"
   ];
 
@@ -52,14 +51,22 @@
   networking = {
     hostName = "ody";
     domain = self.vars.domain;
-    networkmanager.enable = true;
-    nameservers = [
-      "223.5.5.5"
-    ];
+    networkmanager = {
+      enable = true;
+      unmanaged = [ "wlan0" ];
+    };
     defaultGateway = {
       address = "172.16.4.254";
       interface = "eth0";
       metric = 100;
+    };
+    wireless = {
+      enable = true;
+      networks = {
+        "csrc" = {
+          pskRaw = "70f2e33aa583cedb1fdb4e5cfff1ab2ffc13976d63f585290ca1c475ed5c9584";
+        };
+      };
     };
     interfaces.eth0.ipv4 = {
       addresses = [
@@ -132,5 +139,5 @@
 
   nix.distributedBuilds = true;
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
