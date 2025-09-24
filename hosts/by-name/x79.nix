@@ -156,6 +156,10 @@
       lm_sensors
       (python-env.override {
         extraLibs = with python3Packages; [
+          scipy
+          pyvista
+          ipykernel
+          notebook
           fenics-dolfinx
         ];
       })
