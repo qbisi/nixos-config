@@ -154,6 +154,11 @@
   environment = {
     systemPackages = with pkgs; [
       lm_sensors
+      (python-env.override {
+        extraLibs = with python3Packages; [
+          fenics-dolfinx
+        ];
+      })
     ];
   };
 
