@@ -115,7 +115,10 @@
   networking = {
     domain = self.vars.domain;
     hostName = "e88a";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      unmanaged = [ "wlan0" ];
+    };
     firewall = {
       extraInputRules = ''
         ip saddr { ${self.vars.hosts.ft.ip}, ${self.vars.hosts.x79.ip} } counter accept
@@ -136,6 +139,14 @@
       address = "172.16.6.254";
       interface = "eth1";
       metric = 100;
+    };
+    wireless = {
+      enable = true;
+      networks = {
+        "csrc" = {
+          pskRaw = "70f2e33aa583cedb1fdb4e5cfff1ab2ffc13976d63f585290ca1c475ed5c9584";
+        };
+      };
     };
     interfaces = {
       "${config.networking.defaultGateway.interface}".ipv4 = {
