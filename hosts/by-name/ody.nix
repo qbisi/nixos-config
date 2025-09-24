@@ -12,13 +12,14 @@
       "router"
       "dev"
     ];
-    buildOnTarget = false;
+    buildOnTarget = true;
   };
 
   disko.bootImage.partLabel = "mmc";
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
+    "${self}/config/desktop.nix"
     "${self}/config/sing-box/client.nix"
   ];
 
