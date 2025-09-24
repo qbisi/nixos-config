@@ -94,11 +94,15 @@
         "br0"
         "wg0"
       ];
+      allowedTCPPorts = [
+        1080
+        9090
+      ];
       allowedUDPPorts = [
         5355 # LLMNR
       ];
       extraInputRules = ''
-        ip saddr ${self.vars.hosts.mac.ip} counter accept
+        ip saddr {${self.vars.hosts.mac.ip}, ${self.vars.hosts.x79.ip}} counter accept
       '';
     };
     nat = {
@@ -111,6 +115,7 @@
       externalInterfaces = [
         "wwan0"
         "eth0"
+        "wlan0"
       ];
     };
     tproxy = {
