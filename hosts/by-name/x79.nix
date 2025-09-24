@@ -97,8 +97,8 @@
     firewall.allowedTCPPorts = [ 8000 ];
 
     defaultGateway = {
-      address = self.vars.hosts.e88a.ip;
-      interface = "eth0";
+      address = self.vars.hosts.ody.ip;
+      interface = "eth1";
       metric = 100;
     };
 
