@@ -47,10 +47,10 @@
 
       # armbian build workaround new limitations imposed by CVE-2022-24765 fix in git,
       # otherwise  "fatal: unsafe repository"
-      safe.directory = [
-        "${config.home.homeDirectory}/build"
-        "${config.home.homeDirectory}/build/cache/sources/debootstrap-debian-devel"
-      ];
+      # safe.directory = [
+      #   "${config.home.homeDirectory}/build"
+      #   "${config.home.homeDirectory}/build/*"
+      # ];
 
       receive.denyCurrentBranch = "warn";
     };
