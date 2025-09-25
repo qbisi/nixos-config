@@ -11,8 +11,8 @@
         "/nix/store"
         "/run/current-system/sw/bin/nix:/usr/bin/nix"
         "/etc/nix/nix.conf"
-        "/proc/sys/fs/binfmt_misc"
-        "/run/binfmt"
+        # "/proc/sys/fs/binfmt_misc"
+        # "/run/binfmt"
       ];
     };
     networkConfig = {
