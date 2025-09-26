@@ -102,7 +102,7 @@
     installPath = "$HOME/.vscode-server";
   };
 
-  nix.registry = {
+  nix.registry = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
     nixpkgs.to = {
       type = "path";
       path = config.nixpkgs.flake.src;
