@@ -75,6 +75,7 @@
     nil
     file
     nix-tree
+    patchelf
   ];
 
   programs = {
