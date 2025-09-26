@@ -164,7 +164,7 @@
         ];
         addresses = [
           {
-            address = "172.16.7.250";
+            address = self.vars.hosts.e88a.ip;
             prefixLength = 23;
           }
         ];
