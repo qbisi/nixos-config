@@ -136,7 +136,7 @@
       ];
     };
     defaultGateway = {
-      address = "172.16.6.254";
+      address = "172.16.4.254";
       interface = "eth1";
       metric = 100;
     };
@@ -154,12 +154,12 @@
           {
             address = "172.16.0.0";
             prefixLength = 16;
-            via = "172.16.6.254";
+            via = "172.16.4.254";
           }
           {
             address = "10.0.0.0";
             prefixLength = 12;
-            via = "172.16.6.254";
+            via = "172.16.4.254";
           }
         ];
         addresses = [
