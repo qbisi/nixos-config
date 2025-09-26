@@ -102,5 +102,12 @@
     installPath = "$HOME/.vscode-server";
   };
 
+  nix.registry = {
+    nixpkgs.to = {
+      type = "path";
+      path = config.nixpkgs.flake.src;
+    };
+  };
+
   home.stateVersion = "24.11";
 }
