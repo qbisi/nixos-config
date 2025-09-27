@@ -35,7 +35,9 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackagesFor pkgs.linux_rockchip64_6_15;
+    initrd.availableKernelModules = lib.mkForce [ ];
     kernelParams = [
       "console=tty1"
       "earlycon"
@@ -137,7 +139,7 @@
     };
     defaultGateway = {
       address = "172.16.4.254";
-      interface = "eth1";
+      interface = "eth0";
       metric = 100;
     };
     wireless = {
@@ -176,16 +178,16 @@
         }
       ];
     };
-    bridges.br0.interfaces = [ "eth0" ];
+    bridges.br0.interfaces = [ "eth1" ];
     nat = {
       enable = true;
       internalInterfaces = [
         "br0"
         "wg0"
-        "eth1"
+        "eth0"
       ];
       externalInterfaces = [
-        "eth1"
+        "eth0"
         "wwan0"
         "wlan0"
       ];
