@@ -124,13 +124,8 @@
       myrktop
     ];
     variables = {
-      ALSA_CONFIG_UCM2 = pkgs.symlinkJoin {
-        name = "ucm2-rk3588";
-        paths = [
-          "${self}/ucm2"
-          "${pkgs.alsa-ucm-conf}/share/alsa/ucm2"
-        ];
-      };
+      MESA_GLSL_VERSION_OVERRIDE = 330;
+      ALSA_CONFIG_UCM2 = pkgs.alsa-ucm-conf-rk3588;
     };
   };
 
