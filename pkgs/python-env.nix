@@ -37,6 +37,8 @@ buildEnv {
               ln -s "${python.executable}" "$out/bin/$prg"
             else
               makeWrapper "$path/bin/$prg" "$out/bin/$prg" \
+                --set NIX_PYTHONPREFIX "$out" \
+                --set NIX_PYTHONEXECUTABLE "$out/bin/${python.executable}" \
                 --set NIX_PYTHONPATH ${pythonPath}
             fi
           fi
