@@ -155,7 +155,7 @@
         extraLibs = with python3Packages; [
           scipy
           pyvista
-          ipykernel
+          ipywidgets
           notebook
           fenics-dolfinx
         ];
