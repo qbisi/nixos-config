@@ -225,7 +225,7 @@
 
   environment.variables = {
     MESA_GLSL_VERSION_OVERRIDE = 330;
-    ALSA_CONFIG_UCM2 = pkgs.alsa-ucm-conf-rk3588;
+    ALSA_CONFIG_UCM2 = "${pkgs.alsa-ucm-conf-rk3588}/share/alsa/ucm2";
   };
 
   environment.systemPackages = with pkgs; [
