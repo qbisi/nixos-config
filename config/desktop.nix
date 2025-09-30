@@ -15,7 +15,12 @@
       wayland.enable = true;
     };
 
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        brlaser
+      ];
+    };
   };
 
   programs.system-config-printer.enable = true;
