@@ -180,7 +180,7 @@
   nix = {
     settings = {
       max-jobs = 2;
-      cores = 24;
+      cores = 12;
     };
     distributedBuilds = true;
   };
