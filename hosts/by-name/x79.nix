@@ -23,6 +23,7 @@
     "${self}/config/web/harmonia.nix"
     "${self}/config/desktop.nix"
     "${self}/config/hydra.nix"
+    "${self}/config/nas.nix"
     "${self}/config/container/debian.nix"
   ];
 
@@ -50,6 +51,18 @@
       "sd_mod"
       "sr_mod"
     ];
+  };
+
+  fileSystems = {
+    "/data" = {
+      device = "/dev/disk/by-uuid/b599ceb0-36ac-4309-98e0-ad37fca219e5";
+      fsType = "btrfs";
+      options = [
+        "nodev"
+        "nofail"
+        "noatime"
+      ];
+    };
   };
 
   programs = {
