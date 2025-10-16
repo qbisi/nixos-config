@@ -229,6 +229,7 @@ in
       route = {
         final = "final";
         default_domain_resolver = "alidns";
+        find_process = true;
         rules = [
           {
             action = "sniff";
