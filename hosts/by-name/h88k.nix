@@ -254,5 +254,11 @@
     };
   };
 
+  nix = {
+    settings = {
+      max-jobs = 1;
+    };
+  };
+
   system.stateVersion = "24.11";
 }
