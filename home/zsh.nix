@@ -21,6 +21,8 @@
           alias code="codium"
         fi
       fi
+      # zsh-nix-shell
+      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
     '';
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
@@ -32,7 +34,6 @@
         "history"
         "wd"
         "sudo"
-        "zsh-nix-shell"
       ];
     };
     history = {
