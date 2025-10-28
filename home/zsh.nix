@@ -32,6 +32,7 @@
         "history"
         "wd"
         "sudo"
+        "zsh-nix-shell"
       ];
     };
     history = {
