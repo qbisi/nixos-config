@@ -171,6 +171,8 @@
           ipywidgets
           notebook
           fenics-dolfinx
+          firedrake
+          (toPythonModule mpi)
         ];
       })
     ];
