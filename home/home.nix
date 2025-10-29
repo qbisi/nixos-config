@@ -16,7 +16,12 @@
     ./git.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    overlays = [
+      (self.overlays.default or (final: prev: { }))
+    ];
+    config.allowUnfree = true;
+  };
 
   systemd.user.startServices = "sd-switch";
 

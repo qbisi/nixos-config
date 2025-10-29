@@ -23,6 +23,7 @@
       fi
       # zsh-nix-shell
       source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+      source ${pkgs.venv-path-hook}/venv-path-hook.zsh
     '';
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
