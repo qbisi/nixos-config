@@ -13,8 +13,6 @@
 
   programs.git = {
     enable = true;
-    userName = self.vars.user.name;
-    userEmail = self.vars.user.mail;
     ignores = [
       ".envrc"
       ".direnv"
@@ -28,10 +26,16 @@
         repo_name=$(basename "$repo_dir")
       '';
     };
-    extraConfig = {
-      gpg.format = "ssh";
-      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
-      user.signingkey = "/etc/ssh/authorized_keys.d/qbisi";
+    settings = {
+      user = {
+        name = self.vars.user.name;
+        email = self.vars.user.mail;
+        signingkey = "/etc/ssh/authorized_keys.d/qbisi";
+      };
+      gpg = {
+        format = "ssh";
+        ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+      };
       url = {
         "git@ssh.github.com" = {
           insteadOf = "git@github.com";

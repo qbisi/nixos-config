@@ -18,13 +18,6 @@ writeTextFile {
     autoload -Uz add-zsh-hook
 
     # -----------------------------------------------------------------------------
-    # Preserve the original PATH
-    # -----------------------------------------------------------------------------
-    if [[ -z "$__VENV_ORIGINAL_PATH" ]]; then
-      export __VENV_ORIGINAL_PATH="$PATH"
-    fi
-
-    # -----------------------------------------------------------------------------
     # Internal state
     # -----------------------------------------------------------------------------
     typeset -g __VENV_LAST_PATH=""
@@ -45,9 +38,6 @@ writeTextFile {
     __venv_on_change() {
       local old="$1"
       local new="$2"
-
-      # Always reset PATH to original baseline
-      export PATH="$__VENV_ORIGINAL_PATH"
 
       if [[ -n "$new" && -d "$new" ]]; then
         local cfg="$new/pyvenv.cfg"
