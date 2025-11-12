@@ -83,10 +83,10 @@
       ];
     };
     "/.data" = {
-      device = "/dev/sda";
-      fsType = "ext4";
+      device = "/dev/disk/by-partlabel/disk-nvme-nix";
+      fsType = "btrfs";
       options = [
-        "nodev"
+        "subvol=/@data"
         "noatime"
       ];
     };
