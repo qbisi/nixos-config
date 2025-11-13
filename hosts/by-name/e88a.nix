@@ -234,7 +234,7 @@
     mergerfs
   ];
 
-  nix.distributedBuilds = true;
+  # nix.distributedBuilds = true;
 
   system.stateVersion = "25.11";
 }
