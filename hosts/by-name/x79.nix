@@ -51,6 +51,9 @@
       "sd_mod"
       "sr_mod"
     ];
+    binfmt.emulatedSystems = [
+      "aarch64-linux"
+    ];
   };
 
   fileSystems = {
