@@ -78,6 +78,7 @@
       options = [
         "nofail"
         "x-systemd.wanted-by=dev-disk-by\\x2duuid-e64827a8\\x2d9986\\x2d42da\\x2d8364\\x2da958dcd129d4.device"
+        "x-systemd.mount-timeout=600s"
         "nodev"
         "noatime"
       ];
