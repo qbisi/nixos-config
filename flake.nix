@@ -56,6 +56,7 @@
         specialArgs = {
           lib = nixpkgs.lib.foldl' (prev: overlay: prev.extend overlay) nixpkgs.lib [
             (l: _: import ./lib.nix l)
+            inputs.nixvim.lib.overlay
           ];
         };
       }
@@ -85,9 +86,8 @@
 
             legacyPackages = lib.makeScope pkgs.newScope (
               self:
-              inputs'.nixvim.legacyPackages
-              // lib.packagesFromDirectoryRecursive {
-                inherit (self) callPackage;
+              lib.packagesFromDirectoryRecursive {
+                callPackage = lib.callPackageWith (pkgs // inputs'.nixvim.legacyPackages);
                 directory = ./pkgs;
               }
             );
