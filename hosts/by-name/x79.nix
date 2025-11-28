@@ -167,17 +167,16 @@
   environment = {
     systemPackages = with pkgs; [
       lm_sensors
-      (python-env.override {
-        extraLibs = with python3Packages; [
+      (python3.withPackages (
+        ps: with ps; [
           scipy
           pyvista
           ipywidgets
           notebook
           fenics-dolfinx
           firedrake
-          (toPythonModule mpi)
-        ];
-      })
+        ]
+      ))
     ];
   };
 

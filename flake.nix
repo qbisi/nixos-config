@@ -43,8 +43,8 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    daeuniverse = {
-      url = "github:daeuniverse/flake.nix";
+    nixvim = {
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -54,14 +54,13 @@
       {
         inherit inputs;
         specialArgs = {
-          lib = nixpkgs.lib.extend (l: _: (import ./lib.nix l));
+          lib = nixpkgs.lib.foldl' (prev: overlay: prev.extend overlay) nixpkgs.lib [
+            (l: _: import ./lib.nix l)
+          ];
         };
       }
       {
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-        ];
+        systems = nixpkgs.lib.systems.flakeExposed;
 
         imports = [
           flake-parts.flakeModules.easyOverlay
@@ -76,6 +75,7 @@
             config,
             lib,
             pkgs,
+            inputs',
             ...
           }:
           {
@@ -85,7 +85,8 @@
 
             legacyPackages = lib.makeScope pkgs.newScope (
               self:
-              lib.packagesFromDirectoryRecursive {
+              inputs'.nixvim.legacyPackages
+              // lib.packagesFromDirectoryRecursive {
                 inherit (self) callPackage;
                 directory = ./pkgs;
               }

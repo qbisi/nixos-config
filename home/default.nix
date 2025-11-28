@@ -1,11 +1,5 @@
 { inputs, self, ... }:
 {
-  systems = [
-    "x86_64-linux"
-    "x86_64-darwin"
-    "aarch64-linux"
-    "aarch64-darwin"
-  ];
   perSystem =
     {
       config,
@@ -22,7 +16,12 @@
           (inputs.home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             extraSpecialArgs = {
-              inherit inputs' inputs self system;
+              inherit
+                inputs'
+                inputs
+                self
+                system
+                ;
             };
             modules = [
               path
