@@ -52,5 +52,6 @@
         };
       };
     };
+    grug-far.enable = true;
   };
 }
