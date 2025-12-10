@@ -15,8 +15,12 @@
     buildOnTarget = true;
   };
 
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.nvidia.acceptLicense = true;
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      nvidia.acceptLicense = true;
+    };
+  };
 
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-x86_64-uefi.nix"
@@ -167,6 +171,7 @@
   environment = {
     systemPackages = with pkgs; [
       lm_sensors
+      zotero
       (python3.withPackages (
         ps: with ps; [
           scipy

@@ -31,16 +31,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nixos-vscode-server";
     };
-    nix-vscode-extensions = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/nix-vscode-extensions";
-    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nur = {
-      url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
