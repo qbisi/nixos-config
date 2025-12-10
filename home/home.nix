@@ -18,7 +18,8 @@
 
   nixpkgs = {
     overlays = [
-      (self.overlays.default or (final: prev: { }))
+      inputs.colmena.overlays.default
+      self.overlays.default
     ];
     config.allowUnfree = true;
   };

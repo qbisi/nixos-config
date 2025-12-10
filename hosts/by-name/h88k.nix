@@ -122,6 +122,7 @@
       minicom
       rkdeveloptool
       myrktop
+      colmena
     ];
     variables = {
       MESA_GLSL_VERSION_OVERRIDE = 330;

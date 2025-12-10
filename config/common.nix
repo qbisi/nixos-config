@@ -23,6 +23,8 @@
           config.allowUnfree = true;
         };
       })
+      inputs.colmena.overlays.default
+      self.overlays.default
     ];
   };
 

@@ -170,6 +170,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      colmena
       lm_sensors
       zotero
       (python3.withPackages (

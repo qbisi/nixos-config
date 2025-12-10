@@ -386,11 +386,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1765369993,
-        "narHash": "sha256-qZN2UHbhdCctKkGRsCEvF5ufCWKLnKoMAIXTyxJrDB0=",
+        "lastModified": 1765382196,
+        "narHash": "sha256-goHemmvjA49tdoS0j3MRjgpRBnlgWdzudOMoSlosywc=",
         "owner": "qbisi",
         "repo": "nixos-images",
-        "rev": "98fe505674228f22ac1f15a55c7637f891e70bc7",
+        "rev": "bdb8bc70484fca5831b22741cc44fbcfb2f338e0",
         "type": "github"
       },
       "original": {
