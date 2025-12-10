@@ -27,7 +27,7 @@
               path
               inputs.vscode-server.homeModules.default
               inputs.nix-index-database.homeModules.nix-index
-              inputs.secrets.homeModules.default
+              "${self}/secrets/home.nix"
               ./home.nix
             ];
           });

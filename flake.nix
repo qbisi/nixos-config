@@ -2,7 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-images.url = "github:qbisi/nixos-images";
-    secrets.url = "git+ssh://git@github.com/qbisi/secrets";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -60,7 +59,6 @@
           ./home
           ./hosts
           ./modules
-          ./vars
         ];
 
         perSystem =
@@ -84,5 +82,7 @@
               }
             );
           };
+
+        flake.vars = import ./vars.nix;
       };
 }

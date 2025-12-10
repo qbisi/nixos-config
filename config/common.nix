@@ -10,7 +10,7 @@
   imports = [
     self.nixosModules.default
     inputs.nixos-images.nixosModules.default
-    inputs.secrets.nixosModules.default
+    "${self}/secrets/nixos.nix"
   ]
   ++ lib.listNixFilesRecursive ./common;
 
@@ -84,7 +84,8 @@
     defaultUserShell = pkgs.zsh;
     users = {
       admin = {
-        inherit (self.vars.user) name hashedPassword;
+        inherit (self.vars.user) name;
+        hashedPasswordFile = config.age.secrets.passwd.path;
         uid = 1000;
         isNormalUser = true;
         linger = true;
