@@ -81,6 +81,8 @@
     file
     nix-tree
     patchelf
+    ssh-to-age
+    gcc
   ];
 
   programs = {
