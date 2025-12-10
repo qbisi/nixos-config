@@ -72,7 +72,7 @@
           {
             formatter = pkgs.nixfmt-rfc-style;
 
-            overlayAttrs = config.legacyPackages;
+            overlayAttrs = config.packages;
 
             legacyPackages = lib.makeScope pkgs.newScope (
               self:
@@ -82,6 +82,11 @@
                 directory = ./pkgs;
               }
             );
+
+            packages = lib.packagesFromDirectoryRecursive {
+              inherit (config.legacyPackages) callPackage;
+              directory = ./pkgs;
+            };
           };
 
         flake.vars = import ./vars.nix;
