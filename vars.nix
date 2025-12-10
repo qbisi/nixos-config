@@ -1,7 +1,6 @@
 rec {
   user = {
     name = "qbisi";
-    hashedPassword = "$y$j9T$xdHHoC/jDk/s.8ouipA47.$sfNZt0ytLpzdlA7TpJUU5ivGXAUxMDw7IRFT1B8z792";
     authorizedKeys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIc0M/36MG2YkGTPpx7nEc3gILV9VbovrRga1ig1P69b";
     mail = "qbisicwate@gmail.com";
   };
