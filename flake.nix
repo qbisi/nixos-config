@@ -76,8 +76,9 @@
 
             legacyPackages = lib.makeScope pkgs.newScope (
               self:
-              lib.packagesFromDirectoryRecursive {
-                callPackage = lib.callPackageWith (pkgs // inputs'.nixvim.legacyPackages);
+              inputs'.nixvim.legacyPackages
+              // lib.packagesFromDirectoryRecursive {
+                inherit (self) callPackage;
                 directory = ./pkgs;
               }
             );
