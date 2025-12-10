@@ -54,7 +54,7 @@
       type = "fcitx5";
       fcitx5.waylandFrontend = true;
       fcitx5.addons = with pkgs; [
-        fcitx5-pinyin-zhwiki
+        kdePackages.fcitx5-chinese-addons
       ];
     };
   };
