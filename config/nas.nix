@@ -15,7 +15,7 @@
 
   users.users = {
     guest = {
-      group = "guest";
+      group = "media";
       isSystemUser = true;
     };
   };
@@ -39,7 +39,7 @@
   # };
 
   fileSystems = {
-    "/srv/samba/private/data" = {
+    "/srv/samba" = {
       device = "/data";
       options = [
         "bind"
@@ -69,13 +69,15 @@
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "yes";
-        "create mask" = "0644";
-        "directory mask" = "0755";
+        "guest only" = "yes";
+        "public" = "yes";
+        "create mask" = "0664";
+        "directory mask" = "0775";
         "force user" = "guest";
-        "force group" = "guest";
+        "force group" = "media";
       };
       "private" = {
-        "path" = "/srv/samba/private";
+        "path" = "/srv/samba";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "no";
