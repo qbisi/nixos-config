@@ -255,6 +255,13 @@
     };
   };
 
+  virtualisation.fex = {
+    enable = true;
+    addToNixSandbox = false;
+    extraPackages = ps: with ps; [ libgcc ];
+    guestPackageSets = [ inputs.nixpkgs.legacyPackages.x86_64-linux ];
+  };
+
   nix = {
     settings = {
       max-jobs = 1;

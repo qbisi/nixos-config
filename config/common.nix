@@ -17,12 +17,6 @@
   nixpkgs = {
     flake.source = lib.mkDefault inputs.nixpkgs;
     overlays = [
-      (final: prev: {
-        pkgs-x86 = import inputs.nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-        };
-      })
       inputs.colmena.overlays.default
       self.overlays.default
     ];
