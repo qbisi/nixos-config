@@ -13,6 +13,7 @@
 
   programs.git = {
     enable = true;
+    lfs.enable = true;
     ignores = [
       ".envrc"
       ".direnv"
