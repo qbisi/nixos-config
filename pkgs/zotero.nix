@@ -30,7 +30,7 @@
   sndioSupport ? true,
   sndio,
 }:
-
+# still broken
 stdenv.mkDerivation (finalAttrs: {
   pname = "zotero";
   version = "8.0-beta.17+0748b0975";
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://download.zotero.org/client/beta/${lib.escapeURL finalAttrs.version}/Zotero-${lib.escapeURL finalAttrs.version}_linux-${stdenv.hostPlatform.linuxArch}.tar.xz";
     hash =
       if stdenv.system == "x86_64-linux" then
-        ""
+        "sha256-b8TTrLnFkpuirmFcVSv8aqn00sEK/rBHJMv+Ft5VXq0="
       else if stdenv.system == "aarch64-linux" then
         "sha256-uqRvxarZlqWqWjn+3NlHHlP+uxX9CGBwnFKO5Jgv8g0="
       else
