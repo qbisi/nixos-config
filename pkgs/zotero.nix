@@ -15,6 +15,7 @@
   libGL,
   libva,
   xorg,
+  wayland,
   libgbm,
   nspr,
   nss,
@@ -32,15 +33,15 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zotero";
-  version = "8.0-beta.10+5a96e7c90";
+  version = "8.0-beta.17+0748b0975";
 
   src = fetchurl {
     url = "https://download.zotero.org/client/beta/${lib.escapeURL finalAttrs.version}/Zotero-${lib.escapeURL finalAttrs.version}_linux-${stdenv.hostPlatform.linuxArch}.tar.xz";
     hash =
       if stdenv.system == "x86_64-linux" then
-        "sha256-tlIvUyp0wGQyyF1pvTqHaM019iV26mZlaqsgsRSzYMs="
+        ""
       else if stdenv.system == "aarch64-linux" then
-        "sha256-Iu2p07aSXJ1axYJbVw6U7IHr7MuEarAjBSdrT//r4dA="
+        "sha256-uqRvxarZlqWqWjn+3NlHHlP+uxX9CGBwnFKO5Jgv8g0="
       else
         "";
   };
@@ -69,6 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
         xorg.libXrandr
         xorg.libXtst
         xorg.libxcb
+        wayland
         libgbm
         pango
         pciutils
