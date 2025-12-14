@@ -40,7 +40,12 @@
     };
   };
   outputs =
-    { nixpkgs, flake-parts, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      flake-parts,
+      ...
+    }@inputs:
     inputs.flake-parts.lib.mkFlake
       {
         inherit inputs;
@@ -55,7 +60,6 @@
         systems = nixpkgs.lib.systems.flakeExposed;
 
         imports = [
-          flake-parts.flakeModules.easyOverlay
           ./home
           ./hosts
           ./modules
@@ -72,8 +76,6 @@
           {
             formatter = pkgs.nixfmt-rfc-style;
 
-            overlayAttrs = config.packages;
-
             legacyPackages = lib.makeScope pkgs.newScope (
               self:
               inputs'.nixvim.legacyPackages
@@ -89,6 +91,9 @@
             };
           };
 
-        flake.vars = import ./vars.nix;
+        flake = {
+          vars = import ./vars.nix;
+          overlays.default = final: prev: self.packages.${prev.stdenv.hostPlatform.system};
+        };
       };
 }

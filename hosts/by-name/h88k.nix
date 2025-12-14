@@ -123,6 +123,7 @@
       rkdeveloptool
       myrktop
       colmena
+      zotero
     ];
     variables = {
       MESA_GLSL_VERSION_OVERRIDE = 330;
