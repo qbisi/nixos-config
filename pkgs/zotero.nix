@@ -140,11 +140,6 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  dontWrapGApps = true;
-  preFixup = ''
-    makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '';
-
   postFixup = ''
     for executable in \
       zotero-bin plugin-container updater vaapitest \
@@ -152,15 +147,14 @@ stdenv.mkDerivation (finalAttrs: {
     do
       if [ -e "$out/usr/lib/zotero-bin-${finalAttrs.version}/$executable" ]; then
         patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+          --add-needed libGL.so.1 \
+          --add-needed libEGL.so.1 \
           "$out/usr/lib/zotero-bin-${finalAttrs.version}/$executable"
       fi
     done
     find . -executable -type f -exec \
       patchelf --set-rpath "$libPath" \
         "$out/usr/lib/zotero-bin-${finalAttrs.version}/{}" \;
-
-    wrapProgram $out/bin/zotero \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libGL ]}
   '';
 
   meta = {
