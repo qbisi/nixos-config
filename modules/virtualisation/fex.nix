@@ -69,6 +69,8 @@ let
         if [ -f "$guestPath_32/$guestName" ]; then
           doPatch "$guestPath_32/$guestName" "$guestArgs"
         fi
+
+        cp $guestPath/libVDSO-guest.so $out/$guestPath
       '';
 
   forwardedLibrarySubmodule = lib.types.submodule (

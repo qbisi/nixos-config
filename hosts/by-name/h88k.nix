@@ -259,7 +259,15 @@
   virtualisation.fex = {
     enable = true;
     addToNixSandbox = false;
-    extraPackages = ps: with ps; [ libgcc ];
+    extraPackages =
+      ps: with ps; [
+        stdenv.cc.cc
+        xorg.libX11
+        xorg.libxcb
+        xorg.libXrandr
+        xorg.libXrender
+        xorg.xorgproto
+      ];
     guestPackageSets = [ inputs.nixpkgs.legacyPackages.x86_64-linux ];
   };
 
