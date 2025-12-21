@@ -347,6 +347,14 @@ in
         ".1.7.0"
       ];
 
+      libEGL = {
+        packages = pkgs: [ pkgs.libGL ];
+        names = enumSuffixes "libEGL.so" [
+          ".1"
+          ".1.1.0"
+        ];
+      };
+
       libvulkan = {
         packages = pkgs: [ pkgs.vulkan-loader ];
         names = enumSuffixes "libvulkan.so" [
