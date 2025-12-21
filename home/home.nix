@@ -66,7 +66,6 @@
     eza
     bat
     gh
-    yazi
     fd
     ripgrep
     tldr
@@ -87,6 +86,17 @@
   ];
 
   programs = {
+    yazi = {
+      enable = true;
+      keymap = {
+        mgr.prepend_keymap = [
+          {
+            run = ''shell "$SHELL" --block'';
+            on = [ "!" ];
+          }
+        ];
+      };
+    };
     nh = {
       enable = true;
       flake = "$HOME/nixos-config";
