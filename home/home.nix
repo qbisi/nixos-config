@@ -69,7 +69,7 @@
     fd
     ripgrep
     tldr
-    nixfmt-rfc-style
+    nixfmt
     nixpkgs-review
     nix-output-monitor
     nix-update

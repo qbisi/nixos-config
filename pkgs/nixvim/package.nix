@@ -1,4 +1,4 @@
-{ makeNixvim, nixfmt-rfc-style }:
+{ makeNixvim }:
 makeNixvim {
   imports = [
     ./plugins
@@ -63,10 +63,5 @@ makeNixvim {
     providers.xclip.enable = true;
     providers.wl-copy.enable = true;
   };
-
-  # Packages
-  extraPackages = [
-    nixfmt-rfc-style
-  ];
 
 }

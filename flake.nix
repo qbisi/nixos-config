@@ -70,7 +70,7 @@
             ...
           }:
           {
-            formatter = pkgs.nixfmt-rfc-style;
+            formatter = pkgs.nixfmt;
 
             legacyPackages = lib.makeScope pkgs.newScope (
               self:
