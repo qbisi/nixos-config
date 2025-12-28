@@ -173,6 +173,7 @@
       colmena
       lm_sensors
       zotero
+      kdePackages.kdenlive
       (python3.withPackages (
         ps: with ps; [
           scipy
