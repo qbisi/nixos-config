@@ -258,7 +258,8 @@
 
   virtualisation.fex = {
     enable = true;
-    addToNixSandbox = false;
+    addToNixSandbox = true;
+    forwardedLibraries = lib.mkForce {};
     extraPackages =
       ps: with ps; [
         stdenv.cc.cc
