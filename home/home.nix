@@ -54,8 +54,6 @@
       GOOGLE_API_KEY = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.google-api.path} 2>/dev/null)";
     };
 
-    sessionPath = [ "$HOME/.nix-profile/bin" ];
-
     shellAliases = {
       os = "nh os";
       hm = "nh home";

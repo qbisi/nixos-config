@@ -24,6 +24,9 @@
       # zsh-nix-shell
       source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
       source ${pkgs.venv-path-hook}/venv-path-hook.zsh
+
+      # for darwin
+      export PATH=/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:$PATH
     '';
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
