@@ -1,4 +1,4 @@
-{ makeNixvim }:
+{ stdenv, makeNixvim }:
 makeNixvim {
   imports = [
     ./plugins
@@ -60,8 +60,8 @@ makeNixvim {
 
   # Clipboard.
   clipboard = {
-    providers.xclip.enable = true;
-    providers.wl-copy.enable = true;
+    providers.xclip.enable = stdenv.hostPlatform.isLinux;
+    providers.wl-copy.enable = stdenv.hostPlatform.isLinux;
   };
 
 }
