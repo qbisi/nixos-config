@@ -9,8 +9,8 @@
     ./qbisi.nix
   ];
 
-  home.sessionVariables = {
-    http_proxy = self.vars.http_proxy;
-    https_proxy = self.vars.http_proxy;
+  home.sessionVariables = rec {
+    http_proxy = "http://127.0.0.1:7897";
+    https_proxy = http_proxy;
   };
 }
