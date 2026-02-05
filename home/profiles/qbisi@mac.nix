@@ -24,6 +24,8 @@
         scipy
         matplotlib
         pytest
+        ipykernel
+        (fenics-dolfinx.overrideAttrs { doCheck = false; })
       ]
     ))
   ];
