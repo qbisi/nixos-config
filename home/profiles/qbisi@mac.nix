@@ -29,4 +29,10 @@
       ]
     ))
   ];
+
+  programs.ssh.matchBlocks = {
+    builder = {
+      hostname = "192.168.50.189";
+    };
+  };
 }
