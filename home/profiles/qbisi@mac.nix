@@ -25,7 +25,7 @@
         matplotlib
         pytest
         ipykernel
-        (fenics-dolfinx.overrideAttrs { doCheck = false; })
+        (fenics-dolfinx.overrideAttrs { doInstallCheck = false; })
       ]
     ))
   ];
