@@ -34,5 +34,9 @@
     builder = {
       hostname = "192.168.50.189";
     };
+    jpzg = {
+      user = "ubuntu";
+      hostname = "123.56.5.10";
+    };
   };
 }
