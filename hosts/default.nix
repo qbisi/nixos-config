@@ -22,6 +22,20 @@
       directory = ./by-name;
     };
 
+    darwinConfigurations = lib.packagesFromDirectoryRecursive {
+      callPackage =
+        path: _:
+        inputs.nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs self lib;
+          };
+          modules = [
+            path
+          ];
+        };
+      directory = ./darwin-by-name;
+    };
+
     colmena =
       (lib.packagesFromDirectoryRecursive {
         callPackage = path: _: {
