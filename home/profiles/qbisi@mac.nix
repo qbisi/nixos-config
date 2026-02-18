@@ -25,7 +25,11 @@
         matplotlib
         pytest
         ipykernel
-        (fenics-dolfinx.overrideAttrs { doInstallCheck = false; })
+        nanobind
+        (fenics-dolfinx.overrideAttrs {
+          patches = [ ./nanobind.patch ];
+          doInstallCheck = false;
+        })
       ]
     ))
   ];
