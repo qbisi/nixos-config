@@ -7,6 +7,7 @@
   nix-rosetta-builder.onDemand = true;
 
   nix.settings = {
+    sandbox = true;
     warn-dirty = false;
     substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
     experimental-features = "nix-command flakes";
