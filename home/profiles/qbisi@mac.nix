@@ -15,6 +15,7 @@
   };
 
   home.packages = with pkgs; [
+    paraview
     iproute2mac
     htop
     typst
