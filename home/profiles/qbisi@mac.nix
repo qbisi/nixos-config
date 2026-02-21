@@ -44,4 +44,6 @@
       hostname = "123.56.5.10";
     };
   };
+
+  targets.darwin.copyApps.directory = "Applications";
 }
