@@ -211,6 +211,7 @@
       externalInterfaces = [
         "wwan0"
         "eth0"
+        "wlan0"
       ];
     };
 
@@ -219,7 +220,7 @@
       # acme get confused by hijacked sing-box dns response
       groups = [ "acme" ];
       internalIPs = [
-        "192.168.0.0/16"
+        "192.168.200.0/24"
       ];
       allowedTCPPorts = [
         53
