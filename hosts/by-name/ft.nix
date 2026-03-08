@@ -26,7 +26,7 @@
     ];
   };
 
-  services.resolved.fallbackDns = [
+  services.resolved.settings.Resolve.FallbackDNS = [
     "223.5.5.5"
     "114.114.114.114"
   ];

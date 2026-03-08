@@ -84,7 +84,7 @@
 
   services.nginx.serverName = "csrc.eu.org";
 
-  services.resolved.fallbackDns = [
+  services.resolved.settings.Resolve.FallbackDNS = [
     "223.5.5.5"
   ];
 
