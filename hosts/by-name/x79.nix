@@ -180,6 +180,7 @@
           pyvista
           ipywidgets
           notebook
+          jupytext
           fenics-dolfinx
           firedrake
         ]
