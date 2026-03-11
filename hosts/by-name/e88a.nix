@@ -35,8 +35,7 @@
   };
 
   boot = {
-    # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.linuxPackagesFor pkgs.linux_rockchip64_6_15;
+    kernelPackages = pkgs.linuxPackages_latest;
     initrd.availableKernelModules = lib.mkForce [ ];
     kernelParams = [
       "console=tty1"
