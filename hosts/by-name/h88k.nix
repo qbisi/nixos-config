@@ -101,14 +101,26 @@
   };
 
   systemd = {
-    network.networks."40-br0" = {
-      matchConfig.Name = "br0";
-      networkConfig = {
-        DHCPServer = "yes";
+    network.networks = {
+      "40-br0" = {
+        matchConfig.Name = "br0";
+        networkConfig = {
+          DHCPServer = "yes";
+        };
+        dhcpServerConfig = {
+          EmitDNS = "yes";
+          DNS = "192.168.100.1";
+        };
       };
-      dhcpServerConfig = {
-        EmitDNS = "yes";
-        DNS = "192.168.100.1";
+      "40-eth0" = {
+        matchConfig.Name = "eth0";
+        networkConfig = {
+          DHCPServer = "yes";
+        };
+        dhcpServerConfig = {
+          EmitDNS = "yes";
+          DNS = "192.168.50.254";
+        };
       };
     };
     slices."user-1000".sliceConfig = {
@@ -162,7 +174,7 @@
     };
 
     defaultGateway = {
-      address = "172.16.4.254";
+      address = "192.168.50.1";
       interface = "eth0";
       metric = 100;
     };
@@ -172,21 +184,21 @@
         addresses = [
           {
             address = self.vars.hosts.h88k.ip;
-            prefixLength = 23;
+            prefixLength = 24;
           }
         ];
-        routes = [
-          {
-            address = "10.0.0.0";
-            via = "172.16.4.254";
-            prefixLength = 12;
-          }
-          {
-            address = "172.16.0.0";
-            prefixLength = 16;
-            via = "172.16.4.254";
-          }
-        ];
+        # routes = [
+        #   {
+        #     address = "10.0.0.0";
+        #     via = "172.16.4.254";
+        #     prefixLength = 12;
+        #   }
+        #   {
+        #     address = "172.16.0.0";
+        #     prefixLength = 16;
+        #     via = "172.16.4.254";
+        #   }
+        # ];
       };
       br0.ipv4.addresses = [
         {
@@ -207,11 +219,11 @@
         "br0"
         "eth0"
         "wg0"
+        "wlan0"
       ];
       externalInterfaces = [
         "wwan0"
         "eth0"
-        "wlan0"
       ];
     };
 
@@ -258,9 +270,9 @@
   };
 
   virtualisation.fex = {
-    enable = true;
+    enable = false;
     addToNixSandbox = true;
-    forwardedLibraries = lib.mkForce {};
+    forwardedLibraries = lib.mkForce { };
     extraPackages =
       ps: with ps; [
         stdenv.cc.cc

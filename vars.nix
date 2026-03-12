@@ -8,7 +8,7 @@ rec {
   http_proxy = "http://${hosts.e88a.ip}:1080";
   hosts = {
     h88k = {
-      ip = "172.16.4.100";
+      ip = "192.168.50.254";
       sshpub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCLBMbos1i4TBM1HlvgiErYE36HcVamVVnG2/2k8Z3b h88k";
       wgpub = "8eVRdLTybPEzCGj9BxlkQlcS68cTrYtib/wH/SGHFkg=";
       wgip = "192.168.200.1";
