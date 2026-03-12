@@ -258,10 +258,13 @@
           allowedTCPPorts = [
             53
             1080
+            5201
+            9090
           ];
           allowedUDPPorts = [
             53
             1080
+            5201
             5355 # LLMNR
           ];
         };
