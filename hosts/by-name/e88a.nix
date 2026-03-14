@@ -213,6 +213,17 @@
     };
   };
 
+  services = {
+    mptcpd = {
+      enable = true;
+      extraMptcpdFlags = [
+        "--path-manager=sspi"
+        "--addr-flags=subflow"
+        "--notify-flags=existing,skip_link_local,skip_loopback,check_route"
+      ];
+    };
+  };
+
   systemd.slices."user-1000".sliceConfig = {
     CPUQuota = "600%";
     MemoryMax = "6G";

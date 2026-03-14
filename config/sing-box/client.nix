@@ -83,12 +83,12 @@ in
       ];
 
       vless = cartesianProduct' {
-        # tcp_multi_path = true;
-        bind_interface = [
-          config.networking.defaultGateway.interface
-          "wwan0"
-          "wlan0"
-        ];
+        tcp_multi_path = true;
+        # bind_interface = [
+        #   config.networking.defaultGateway.interface
+        #   "wwan0"
+        #   "wlan0"
+        # ];
         inherit uuid;
         tls = forEach vps (v: {
           server_name = "${v}.${domain}";
@@ -111,7 +111,7 @@ in
           "reality-"
           + lib.genTag [
             "server"
-            "bind_interface"
+            # "bind_interface"
           ] config;
         group = [
           [
