@@ -26,7 +26,7 @@ rec {
       wgip = "192.168.200.2";
     };
     ft = {
-      ip = "172.16.7.125";
+      ip = "10.0.5.125";
       sshpub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMaB38zfFByF9iolK5iJou7qjCmxtIFWreYMr/dKqeJp ft";
       wgpub = "3LH3eFmP740FxC8ysAYqaR3y+8152TJWb1RaifGDSyc=";
       wgip = "192.168.200.3";
@@ -61,19 +61,11 @@ rec {
       wgpub = "v+hUfovrMpRD6HTtiCs9TFycR+uZtKbA3g1OOp6EZF0=";
       wgip = "192.168.200.105";
     };
-    lv = {
-      sshpub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICQoF0et/KIteVQAaMeedIHtML36UuFFtGGFDHLyk+1r lv";
-      ip = "209.141.53.128";
-    };
     ody = {
       ip = "172.16.5.183";
       sshpub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILG60ATkXJr8v2nIkJRUgR0hzPXbfhSGeRZ3Zybb63O+ ody";
       wgpub = "hpien40f7rgZ7vtcU5Bv3DLBM7nseyZmYKvwfPnonWI=";
       wgip = "192.168.200.4";
-    };
-    mac = {
-      sshpub = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHsMQ8sngPX9eA1tIZAlcLam41RfeWxyrIS+ozthA0eY mac";
-      ip = "172.16.5.113";
     };
   };
 }

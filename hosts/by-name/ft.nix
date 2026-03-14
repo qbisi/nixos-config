@@ -26,18 +26,14 @@
     ];
   };
 
-  services.resolved.settings.Resolve.FallbackDNS = [
-    "223.5.5.5"
-    "114.114.114.114"
-  ];
-
   networking = {
     hostName = "ft";
-    proxy.default = self.vars.http_proxy;
+    nameservers = [ self.vars.hosts.e88a.ip ];
+    proxy.default = lib.mkProxy self.vars.hosts.e88a.ip;
 
     defaultGateway = {
-      address = "172.16.6.254";
-      interface = "eth1";
+      address = self.vars.hosts.e88a.wgip;
+      interface = "wg0";
       metric = 100;
     };
 
@@ -62,44 +58,6 @@
           }
         ];
       };
-      eth1.ipv4 = {
-        routes = [
-          {
-            address = "172.16.0.0";
-            prefixLength = 16;
-            via = "172.16.6.254";
-          }
-          {
-            address = "10.0.0.0";
-            prefixLength = 12;
-            via = "172.16.6.254";
-          }
-        ];
-        addresses = [
-          {
-            address = "172.16.7.125";
-            prefixLength = 23;
-          }
-        ];
-      };
-    };
-
-    wireguard = {
-      enable = true;
-      interfaces.wg0.peers = lib.mkForce [
-        {
-          publicKey = self.vars.hosts.h88k.wgpub;
-          allowedIPs = [ "192.168.200.1/32" ];
-          endpoint = "${self.vars.hosts.h88k.ip}:51820";
-          persistentKeepalive = 25;
-        }
-        {
-          publicKey = self.vars.hosts.x79.wgpub;
-          allowedIPs = [ "192.168.200.2/32" ];
-          endpoint = "${self.vars.hosts.x79.ip}:51820";
-          persistentKeepalive = 25;
-        }
-      ];
     };
   };
 

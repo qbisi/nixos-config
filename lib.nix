@@ -18,4 +18,6 @@ lib: rec {
 
   listNixFilesRecursive =
     dir: lib.filter (p: lib.hasSuffix ".nix" p) (lib.filesystem.listFilesRecursive dir);
+
+  mkProxy = ip: "http://${ip}:1080";
 }

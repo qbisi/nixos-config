@@ -20,18 +20,13 @@
               let
                 wgHosts = lib.filterAttrs (_: v: builtins.hasAttr "wgpub" v) self.vars.hosts;
               in
-              lib.mapAttrsToList (
-                n: v:
-                {
-                  name = n;
-                  publicKey = v.wgpub;
-                  allowedIPs = [ "${v.wgip}/32" ];
-                }
-                // (lib.optionalAttrs (!(lib.isPrivateIP v.ip)) {
-                  endpoint = "${v.ip}:51820";
-                  persistentKeepalive = 25;
-                })
-              ) wgHosts;
+              lib.mapAttrsToList (n: v: {
+                name = n;
+                publicKey = v.wgpub;
+                allowedIPs = [ "${v.wgip}/32" ];
+                endpoint = "${v.ip}:51820";
+                persistentKeepalive = 25;
+              }) wgHosts;
           };
         };
       };
