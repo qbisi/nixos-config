@@ -39,9 +39,11 @@
       allowedTCPPorts = [
         80
         443
+        5201
       ];
       allowedUDPPorts = [
         443
+        5201
       ];
     };
   };
