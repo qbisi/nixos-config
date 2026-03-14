@@ -31,12 +31,6 @@
     nameservers = [ self.vars.hosts.e88a.ip ];
     proxy.default = lib.mkProxy self.vars.hosts.e88a.ip;
 
-    defaultGateway = {
-      address = self.vars.hosts.e88a.wgip;
-      interface = "wg0";
-      metric = 100;
-    };
-
     interfaces = {
       eth0.ipv4 = {
         routes = [

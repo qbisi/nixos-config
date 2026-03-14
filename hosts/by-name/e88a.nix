@@ -130,10 +130,12 @@
         "wg0"
       ];
       allowedTCPPorts = [
+        53
         1080
         9090
       ];
       allowedUDPPorts = [
+        53
         5355 # LLMNR
       ];
     };
