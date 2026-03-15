@@ -69,10 +69,14 @@ in
 
     services.sing-box.outbounds = {
       selector = [
-        { tag = "direct"; }
+        {
+          tag = "direct";
+          outbounds = [ "direct-auto" ];
+        }
         { tag = "private"; }
         {
           tag = "proxy";
+          outbounds = [ "direct" ];
         }
         { tag = "game"; }
         { tag = "ai"; }
