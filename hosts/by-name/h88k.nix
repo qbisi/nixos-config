@@ -251,7 +251,7 @@
         "wg0"
       ];
       extraInputRules = ''
-        ip saddr { ${self.vars.hosts.mac.ip}, ${self.vars.hosts.x79.ip} } counter accept
+        ip saddr { ${self.vars.hosts.x79.ip} } counter accept
       '';
       interfaces = {
         "eth0" = {
