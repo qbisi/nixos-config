@@ -12,6 +12,12 @@
         ];
 
         imports = lib.listNixFilesRecursive ./.;
+
+        nixpkgs = {
+          overlays = [
+            self.overlays.default
+          ];
+        };
       };
     };
   };

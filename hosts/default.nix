@@ -42,6 +42,8 @@
           imports = [
             path
             "${self}/config/common.nix"
+            self.nixosModules.default
+            inputs.nixos-images.nixosModules.default
             # SSH to llmnr hosts need retry to wait for hostname resolution.
             # Requires colmena version > 0.5.0.
             { deployment.sshOptions = [ "-o ConnectionAttempts=2" ]; }

@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-images.url = "github:qbisi/nixos-images";
+    nixos-images.url = "github:qbisi/nixos-images/stage";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";

@@ -8,8 +8,6 @@
 }:
 {
   imports = [
-    self.nixosModules.default
-    inputs.nixos-images.nixosModules.default
     "${self}/secrets/nixos.nix"
   ]
   ++ lib.listNixFilesRecursive ./common;
@@ -18,7 +16,6 @@
     flake.source = lib.mkDefault inputs.nixpkgs;
     overlays = [
       inputs.colmena.overlays.default
-      self.overlays.default
     ];
   };
 
