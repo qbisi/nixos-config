@@ -73,7 +73,10 @@ in
           tag = "direct";
           outbounds = [ "direct-auto" ];
         }
-        { tag = "private"; }
+        {
+          tag = "private";
+          outbounds = [ "direct-auto" ];
+        }
         {
           tag = "proxy";
           outbounds = [ "direct" ];
@@ -82,7 +85,10 @@ in
         { tag = "ai"; }
         {
           tag = "final";
-          outbounds = [ "proxy" ];
+          outbounds = [
+            "direct"
+            "proxy"
+          ];
         }
       ];
 
@@ -155,10 +161,7 @@ in
         group = [
           [
             "direct"
-            "private"
-            "final"
             "game"
-            "proxy"
           ]
         ];
       };

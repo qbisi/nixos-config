@@ -150,7 +150,7 @@
     networkmanager.ensureProfiles.profiles = {
       hotspot = {
         connection = {
-          autoconnect = "true";
+          autoconnect = "false";
           id = "hotspot";
           interface-name = "wlan0";
           type = "wifi";
