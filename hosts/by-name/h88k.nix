@@ -253,8 +253,8 @@
       extraInputRules = ''
         ip saddr { ${self.vars.hosts.x79.ip} } counter accept
       '';
-      interfaces = {
-        "eth0" = {
+      interfaces = rec {
+        eth0 = {
           allowedTCPPorts = [
             53
             1080
@@ -268,6 +268,7 @@
             5355 # LLMNR
           ];
         };
+        wlan0 = eth0;
       };
     };
   };
