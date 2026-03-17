@@ -71,10 +71,12 @@ in
       selector = [
         {
           tag = "direct";
+          default = "direct-auto";
           outbounds = [ "direct-auto" ];
         }
         {
           tag = "private";
+          default = "direct-auto";
           outbounds = [ "direct-auto" ];
         }
         {
@@ -85,6 +87,7 @@ in
         { tag = "ai"; }
         {
           tag = "final";
+          default = "direct";
           outbounds = [
             "direct"
             "proxy"

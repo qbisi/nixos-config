@@ -219,11 +219,11 @@
         "br0"
         "eth0"
         "wg0"
-        "wlan0"
       ];
       externalInterfaces = [
         "wwan0"
         "eth0"
+        "wlan0"
       ];
     };
 

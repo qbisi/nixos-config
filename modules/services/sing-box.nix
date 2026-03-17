@@ -30,7 +30,7 @@ let
           default = "selector";
         };
         outbounds = mkOption {
-          type = types.nonEmptyListOf types.str;
+          type = types.listOf types.str;
         };
         default = mkOption {
           type = types.str;
