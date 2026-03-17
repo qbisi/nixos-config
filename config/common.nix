@@ -9,6 +9,8 @@
 {
   imports = [
     "${self}/secrets/nixos.nix"
+    self.nixosModules.default
+    inputs.nixos-images.nixosModules.default
   ]
   ++ lib.listNixFilesRecursive ./common;
 
