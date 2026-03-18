@@ -293,7 +293,7 @@
     settings = {
       max-jobs = 1;
     };
-    distributedBuilds = true;
+    distributedBuilds = false;
   };
 
   system.stateVersion = "24.11";
