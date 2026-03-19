@@ -28,8 +28,8 @@
 
   networking = {
     hostName = "ft";
-    nameservers = [ self.vars.hosts.e88a.ip ];
-    proxy.default = lib.mkProxy self.vars.hosts.e88a.ip;
+    nameservers = [ self.vars.hosts.ody.ip ];
+    proxy.default = lib.mkProxy self.vars.hosts.ody.ip;
 
     interfaces = {
       eth0.ipv4 = {
