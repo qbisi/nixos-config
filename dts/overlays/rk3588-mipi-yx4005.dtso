@@ -143,7 +143,7 @@
 		reg = <0x48>;
 		interrupt-parent = <&gpio3>;
 		interrupts = <RK_PC0 IRQ_TYPE_LEVEL_LOW>;
-		reset-gpios = <&gpio3 RK_PC1 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio3 RK_PC1 GPIO_ACTIVE_LOW>;
 		touchscreen-size-x = <720>;
 		touchscreen-size-y = <720>;
 		wakeup-source;

@@ -108,8 +108,9 @@
   environment.systemPackages = with pkgs; [
     usbutils
     pciutils
-    minicom
+    i2c-tools
     libgpiod
+    minicom
     ethtool
     iperf3
     myrktop
