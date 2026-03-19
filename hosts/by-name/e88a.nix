@@ -147,6 +147,7 @@
     wireless = {
       enable = true;
       networks = {
+        # wpa_passphrase <SSID> <passphrase>
         "csrc" = {
           pskRaw = "70f2e33aa583cedb1fdb4e5cfff1ab2ffc13976d63f585290ca1c475ed5c9584";
         };

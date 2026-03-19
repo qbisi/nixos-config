@@ -8,7 +8,7 @@
 }:
 {
   deployment = {
-    targetHost = "192.168.100.187";
+    targetHost = "192.168.100.59";
     targetUser = "root";
     tags = [
       "test"
@@ -37,20 +37,13 @@
       dtboBuildExtraIncludePaths = lib.mkBefore [ "${self}/dts" ];
     };
     graphics.enable = true;
-    bluetooth.enable = false;
   };
 
   networking = {
-    useNetworkd = true;
     nftables.enable = true;
-    wireless = {
+    networkmanager = {
       enable = true;
-      networks = {
-        "jpzg" = {
-          # wpa_passphrase <SSID> <passphrase>
-          pskRaw = "d19fc5fba94188f5920bad77e8831993a92379bca58b0de0d62e262ce2c17e95";
-        };
-      };
+      ensureProfiles.profiles = { };
     };
   };
 
@@ -92,11 +85,19 @@
   };
 
   services = {
-    desktopManager.plasma6.enable = true;
-
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
+    desktopManager.plasma6 = {
+      mobile.enable = true;
+    };
+    displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+        autoLogin = {
+          enable = true;
+          user = config.users.users.admin.name;
+          relogin = true;
+        };
+      };
     };
   };
 
@@ -116,6 +117,7 @@
     myrktop
     vim
     git
+    python3
   ];
 
   system.stateVersion = "25.11";
