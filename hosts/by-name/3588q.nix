@@ -8,7 +8,7 @@
 }:
 {
   deployment = {
-    targetHost = "192.168.50.110";
+    targetHost = "192.168.100.187";
     targetUser = "root";
     tags = [
       "test"
@@ -26,11 +26,18 @@
   disabledModules = [ "${self}/config/common.nix" ];
 
   hardware = {
-    deviceTree.dtsFile = lib.mkForce "${self}/dts/rk3588-firefly-aio-3588q.dts";
-  };
-
-  boot = {
-    kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_rockchip64_6_18);
+    deviceTree = {
+      dtsFile = lib.mkForce "${self}/dts/rk3588-firefly-aio-3588q.dts";
+      overlays = [
+        {
+          name = "mipi-yx4005";
+          dtsFile = "${self}/dts/overlays/rk3588-mipi-yx4005.dtso";
+        }
+      ];
+      dtboBuildExtraIncludePaths = lib.mkBefore [ "${self}/dts" ];
+    };
+    graphics.enable = true;
+    bluetooth.enable = false;
   };
 
   networking = {
@@ -47,6 +54,52 @@
     };
   };
 
+  users = {
+    defaultUserShell = pkgs.zsh;
+    users = {
+      admin = {
+        name = "nixusr";
+        initialPassword = "nixusr";
+        uid = 1000;
+        isNormalUser = true;
+        linger = true;
+        extraGroups = [
+          "wheel"
+          "root"
+          "video"
+          "audio"
+        ];
+      };
+    };
+  };
+
+  time.timeZone = "Asia/Shanghai";
+
+  programs.zsh = {
+    enable = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+    ohMyZsh = {
+      enable = true;
+      theme = "gentoo";
+      plugins = [
+        "git"
+        "history"
+        "wd"
+        "sudo"
+      ];
+    };
+  };
+
+  services = {
+    desktopManager.plasma6.enable = true;
+
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+  };
+
   environment.variables = {
     MESA_GLSL_VERSION_OVERRIDE = 330;
     ALSA_CONFIG_UCM2 = "${pkgs.alsa-ucm-conf-rk3588}/share/alsa/ucm2";
@@ -59,6 +112,9 @@
     libgpiod
     ethtool
     iperf3
+    myrktop
+    vim
+    git
   ];
 
   system.stateVersion = "25.11";
