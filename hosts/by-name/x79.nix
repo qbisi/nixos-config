@@ -107,14 +107,13 @@
   networking = {
     hostName = "x79";
     domain = "csrc.eu.org";
-    proxy.default = self.vars.http_proxy;
     firewall.extraInputRules = ''
       ip saddr { ${self.vars.hosts.ft.ip}, ${self.vars.hosts.h88k.ip} } counter accept
     '';
     firewall.allowedTCPPorts = [ 8000 ];
 
     defaultGateway = {
-      address = self.vars.hosts.e88a.ip;
+      address = self.vars.hosts.ody.ip;
       interface = "eth1";
       metric = 100;
     };

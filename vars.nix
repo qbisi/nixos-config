@@ -5,7 +5,7 @@ rec {
     mail = "qbisicwate@gmail.com";
   };
   domain = "qbisi.cc";
-  http_proxy = "http://${hosts.e88a.ip}:1080";
+  http_proxy = "http://${hosts.ody.ip}:1080";
   hosts = {
     h88k = {
       ip = "192.168.50.254";
