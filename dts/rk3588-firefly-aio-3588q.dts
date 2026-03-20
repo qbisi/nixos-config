@@ -1,6 +1,7 @@
 /dts-v1/;
 
 #include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
 #include <dt-bindings/pinctrl/rockchip.h>
 #include <dt-bindings/soc/rockchip,vop2.h>
 #include <dt-bindings/usb/pd.h>
@@ -79,26 +80,33 @@
 		pwms = <&pwm15 0 50000 0>;
 	};
 
+	adc-keys-0 {
+		compatible = "adc-keys";
+		io-channels = <&saradc 1>;
+		io-channel-names = "buttons";
+		keyup-threshold-microvolt = <1800000>;
+		poll-interval = <100>;
+
+		button-recovery {
+			label = "Recovery";
+			linux,code = <KEY_VENDOR>;
+			press-threshold-microvolt = <2000>;
+		};
+	};
+
 	analog-sound {
 		compatible = "simple-audio-card";
 		pinctrl-names = "default";
 		pinctrl-0 = <&hp_detect>;
-		simple-audio-card,name = "rockchip,es8388";
 		simple-audio-card,format = "i2s";
 		simple-audio-card,mclk-fs = <384>;
-		simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
-		simple-audio-card,bitclock-master = <&masterdai>;
-		simple-audio-card,frame-master = <&masterdai>;
-
+		simple-audio-card,name = "rockchip,es8388";
+		simple-audio-card,pin-switches = "Headphones", "Speaker";
 		simple-audio-card,routing =
-		"Headphones", "LOUT1",
-		"Headphones", "ROUT1",
 		"Speaker", "LOUT2",
 		"Speaker", "ROUT2",
-		"Headphone", "Headphone Power",
-		"Headphone", "Headphone Power",
-		"Speaker", "Speaker Power",
-		"Speaker", "Speaker Power",
+		"Headphones", "LOUT1",
+		"Headphones", "ROUT1",
 		"LINPUT1", "Microphone Jack",
 		"RINPUT1", "Microphone Jack",
 		"LINPUT2", "Onboard Microphone",
@@ -106,15 +114,15 @@
 		simple-audio-card,widgets =
 		"Microphone", "Microphone Jack",
 		"Microphone", "Onboard Microphone",
-		"Headphone", "Headphones";
+		"Headphone", "Headphones",
+		"Speaker", "Speaker";
 
 		simple-audio-card,cpu {
 			sound-dai = <&i2s0_8ch>;
-			system-clock-frequency = <12288000>;
 		};
 
-		masterdai: simple-audio-card,codec {
-			sound-dai = <&es8388>;
+		simple-audio-card,codec {
+			sound-dai = <&es8323>;
 			system-clock-frequency = <12288000>;
 		};
 	};
@@ -173,6 +181,11 @@
 			rockchip,pins = <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_down>;
 		};
 	};
+};
+
+&saradc {
+	vref-supply = <&avcc_1v8_s0>;
+	status = "okay";
 };
 
 &gpu {
@@ -389,32 +402,29 @@
 	};
 };
 
-/* es8388 audio codec */
+/* es8323 audio codec */
 &i2c3 {
 	status = "okay";
 
-	es8388: audio-codec@11 {
-		compatible = "everest,es8388";
+	es8323: audio-codec@11 {
+		compatible = "everest,es8323";
 		reg = <0x11>;
 		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
 		assigned-clock-rates = <12288000>;
-		AVDD-supply = <&vcc_3v3_s3>;
 		clocks = <&cru I2S0_8CH_MCLKOUT>;
-		DVDD-supply = <&vcc_1v8_s3>;
-		HPVDD-supply = <&vcc_3v3_s3>;
-		PVDD-supply = <&vcc_1v8_s3>;
+		clock-names = "mclk";
 		#sound-dai-cells = <0>;
 	};
 };
 
-&i2s0_8ch{
-	status = "okay";
+&i2s0_8ch {
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2s0_lrck
 	&i2s0_mclk
 	&i2s0_sclk
 	&i2s0_sdi0
 	&i2s0_sdo0>;
+	status = "okay";
 };
 
 /* ehternet */
@@ -510,11 +520,11 @@
 
 /* hdmi0 sound */
 &hdmi0_sound {
-	status = "okay";
+	status = "disalbed";
 };
 
 &i2s5_8ch {
-	status = "okay";
+	status = "disalbed";
 };
 
 /* display generator */
