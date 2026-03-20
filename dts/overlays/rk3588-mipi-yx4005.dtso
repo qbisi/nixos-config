@@ -15,8 +15,9 @@
 	backlight: backlight {
 		compatible = "pwm-backlight";
         enable-gpios = <&gpio2 RK_PB5 GPIO_ACTIVE_LOW>;
-		pwms = <&pwm12 0 50000 1>;
-		power-supply = <&vcc12v_dcin>;
+		pwms = <&pwm12 0 25000 1>;
+		brightness-levels = <0 8 16 32 64 128 160 200 255>;
+		default-brightness-level = <8>;
 	};
 };
 
