@@ -134,7 +134,6 @@
 	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2c1m2_xfer>;
-	clock-frequency = <400000>;
 
 	touchscreen@48 {
 		compatible = "focaltech,ft6236";
