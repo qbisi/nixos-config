@@ -79,6 +79,46 @@
 		pwms = <&pwm15 0 50000 0>;
 	};
 
+	analog-sound {
+		compatible = "simple-audio-card";
+		pinctrl-names = "default";
+		pinctrl-0 = <&hp_detect>;
+		simple-audio-card,name = "rockchip,es8388";
+		simple-audio-card,format = "i2s";
+		simple-audio-card,mclk-fs = <384>;
+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
+		simple-audio-card,bitclock-master = <&masterdai>;
+		simple-audio-card,frame-master = <&masterdai>;
+
+		simple-audio-card,routing =
+		"Headphones", "LOUT1",
+		"Headphones", "ROUT1",
+		"Speaker", "LOUT2",
+		"Speaker", "ROUT2",
+		"Headphone", "Headphone Power",
+		"Headphone", "Headphone Power",
+		"Speaker", "Speaker Power",
+		"Speaker", "Speaker Power",
+		"LINPUT1", "Microphone Jack",
+		"RINPUT1", "Microphone Jack",
+		"LINPUT2", "Onboard Microphone",
+		"RINPUT2", "Onboard Microphone";
+		simple-audio-card,widgets =
+		"Microphone", "Microphone Jack",
+		"Microphone", "Onboard Microphone",
+		"Headphone", "Headphones";
+
+		simple-audio-card,cpu {
+			sound-dai = <&i2s0_8ch>;
+			system-clock-frequency = <12288000>;
+		};
+
+		masterdai: simple-audio-card,codec {
+			sound-dai = <&es8388>;
+			system-clock-frequency = <12288000>;
+		};
+	};
+
 	hdmi0-con {
 		compatible = "hdmi-connector";
 		type = "a";
@@ -95,6 +135,12 @@
 	hym8563 {
 		hym8563_int: hym8563-int {
 			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>;
+		};
+	};
+
+	headphone {
+		hp_detect: hp-detect {
+			rockchip,pins = <1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 
@@ -209,6 +255,37 @@
 	};
 };
 
+/* npu */
+&rknn_core_0 {
+	npu-supply = <&vdd_npu_s0>;
+	sram-supply = <&vdd_npu_s0>;
+	status = "okay";
+};
+
+&rknn_core_1 {
+	npu-supply = <&vdd_npu_s0>;
+	sram-supply = <&vdd_npu_s0>;
+	status = "okay";
+};
+
+&rknn_core_2 {
+	npu-supply = <&vdd_npu_s0>;
+	sram-supply = <&vdd_npu_s0>;
+	status = "okay";
+};
+
+&rknn_mmu_0 {
+	status = "okay";
+};
+
+&rknn_mmu_1 {
+	status = "okay";
+};
+
+&rknn_mmu_2 {
+	status = "okay";
+};
+
 /* tf card */
 &sdmmc {
 	max-frequency = <150000000>;
@@ -312,7 +389,35 @@
 	};
 };
 
-/* gmac0 */
+/* es8388 audio codec */
+&i2c3 {
+	status = "okay";
+
+	es8388: audio-codec@11 {
+		compatible = "everest,es8388";
+		reg = <0x11>;
+		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
+		assigned-clock-rates = <12288000>;
+		AVDD-supply = <&vcc_3v3_s3>;
+		clocks = <&cru I2S0_8CH_MCLKOUT>;
+		DVDD-supply = <&vcc_1v8_s3>;
+		HPVDD-supply = <&vcc_3v3_s3>;
+		PVDD-supply = <&vcc_1v8_s3>;
+		#sound-dai-cells = <0>;
+	};
+};
+
+&i2s0_8ch{
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2s0_lrck
+	&i2s0_mclk
+	&i2s0_sclk
+	&i2s0_sdi0
+	&i2s0_sdo0>;
+};
+
+/* ehternet */
 &gmac0 {
 	clock_in_out = "output";
 	phy-handle = <&rgmii_phy0>;
@@ -400,6 +505,15 @@
 };
 
 &hdptxphy0 {
+	status = "okay";
+};
+
+/* hdmi0 sound */
+&hdmi0_sound {
+	status = "okay";
+};
+
+&i2s5_8ch {
 	status = "okay";
 };
 
