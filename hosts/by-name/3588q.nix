@@ -111,6 +111,7 @@
     pciutils
     i2c-tools
     libgpiod
+    alsa-utils
     minicom
     ethtool
     iperf3
