@@ -7,7 +7,9 @@
   ...
 }:
 {
-  systemd.services.ModemManager.wantedBy = lib.mkIf config.networking.modemmanager.enable [ "multi-user.target" ];
+  systemd.services.ModemManager.wantedBy = lib.mkIf config.networking.modemmanager.enable [
+    "multi-user.target"
+  ];
 
   networking.networkmanager = lib.mkIf config.networking.networkmanager.enable {
     settings.main.no-auto-default = lib.mkDefault "*";
@@ -20,8 +22,14 @@
           type = "gsm";
           mptcp-flags = 1;
         };
-        ipv4.method = "auto";
-        ipv6.method = "auto";
+        ipv4 = {
+          method = "auto";
+          route-metric = "400";
+        };
+        ipv6 = {
+          method = "auto";
+          route-metric = "400";
+        };
       };
     };
   };
