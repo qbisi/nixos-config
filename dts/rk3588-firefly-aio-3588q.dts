@@ -98,24 +98,30 @@
 		compatible = "simple-audio-card";
 		pinctrl-names = "default";
 		pinctrl-0 = <&hp_detect>;
+		simple-audio-card,aux-devs = <&amp_headphones>, <&amp_speaker>;
 		simple-audio-card,format = "i2s";
 		simple-audio-card,mclk-fs = <384>;
 		simple-audio-card,name = "rockchip,es8388";
+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
 		simple-audio-card,pin-switches = "Headphones", "Speaker";
 		simple-audio-card,routing =
-		"Speaker", "LOUT2",
-		"Speaker", "ROUT2",
-		"Headphones", "LOUT1",
-		"Headphones", "ROUT1",
-		"LINPUT1", "Microphone Jack",
-		"RINPUT1", "Microphone Jack",
-		"LINPUT2", "Onboard Microphone",
-		"RINPUT2", "Onboard Microphone";
+			"Speaker Amplifier INL", "LOUT2",
+			"Speaker Amplifier INR", "ROUT2",
+			"Speaker", "Speaker Amplifier OUTL",
+			"Speaker", "Speaker Amplifier OUTR",
+			"Headphones Amplifier INL", "LOUT1",
+			"Headphones Amplifier INR", "ROUT1",
+			"Headphones", "Headphones Amplifier OUTL",
+			"Headphones", "Headphones Amplifier OUTR",
+			"LINPUT1", "Microphone Jack",
+			"RINPUT1", "Microphone Jack",
+			"LINPUT2", "Onboard Microphone",
+			"RINPUT2", "Onboard Microphone";
 		simple-audio-card,widgets =
-		"Microphone", "Microphone Jack",
-		"Microphone", "Onboard Microphone",
-		"Headphone", "Headphones",
-		"Speaker", "Speaker";
+			"Microphone", "Microphone Jack",
+			"Microphone", "Onboard Microphone",
+			"Headphone", "Headphones",
+			"Speaker", "Speaker";
 
 		simple-audio-card,cpu {
 			sound-dai = <&i2s0_8ch>;
@@ -125,6 +131,27 @@
 			sound-dai = <&es8323>;
 			system-clock-frequency = <12288000>;
 		};
+	};
+
+	/*
+	 * this does not seem to be a proper "amplifier" but is just
+	 * a way to control the GPIO pins to switch on or off the given
+	 * sound output device
+	 */
+	amp_headphones: headphones-audio-amplifier {
+		compatible = "simple-audio-amplifier";
+		enable-gpios = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&headphone_amplifier_en>;
+		sound-name-prefix = "Headphones Amplifier";
+	};
+
+	amp_speaker: speaker-audio-amplifier {
+		compatible = "simple-audio-amplifier";
+		enable-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_HIGH>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&speaker_amplifier_en>;
+		sound-name-prefix = "Speaker Amplifier";
 	};
 
 	hdmi0-con {
@@ -146,9 +173,17 @@
 		};
 	};
 
-	headphone {
+	sound {
 		hp_detect: hp-detect {
 			rockchip,pins = <1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+		headphone_amplifier_en: headphone-amplifier-en {
+			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+		speaker_amplifier_en: speaker-amplifier-en {
+			rockchip,pins = <3 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 
@@ -407,7 +442,7 @@
 	status = "okay";
 
 	es8323: audio-codec@11 {
-		compatible = "everest,es8388";
+		compatible = "everest,es8323";
 		reg = <0x11>;
 		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
 		assigned-clock-rates = <12288000>;
