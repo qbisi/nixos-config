@@ -67,7 +67,7 @@
       unit = 2;
       baudrate = 1500000;
     };
-    bluetooth.enable = lib.mkForce false;
+    # bluetooth.enable = lib.mkForce false;
   };
 
   fileSystems = {
