@@ -128,7 +128,7 @@
 		};
 
 		simple-audio-card,codec {
-			sound-dai = <&es8323>;
+			sound-dai = <&es8388>;
 			system-clock-frequency = <12288000>;
 		};
 	};
@@ -437,12 +437,12 @@
 	};
 };
 
-/* es8323 audio codec */
+/* es8388 audio codec */
 &i2c3 {
 	status = "okay";
 
-	es8323: audio-codec@11 {
-		compatible = "everest,es8323";
+	es8388: audio-codec@11 {
+		compatible = "everest,es8388";
 		reg = <0x11>;
 		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
 		assigned-clock-rates = <12288000>;
