@@ -80,35 +80,19 @@
 		pwms = <&pwm15 0 50000 0>;
 	};
 
-	adc-keys-0 {
-		compatible = "adc-keys";
-		io-channels = <&saradc 1>;
-		io-channel-names = "buttons";
-		keyup-threshold-microvolt = <1800000>;
-		poll-interval = <100>;
-
-		button-recovery {
-			label = "Recovery";
-			linux,code = <KEY_VENDOR>;
-			press-threshold-microvolt = <2000>;
-		};
-	};
-
 	analog-sound {
 		compatible = "simple-audio-card";
 		pinctrl-names = "default";
 		pinctrl-0 = <&hp_detect>;
-		simple-audio-card,aux-devs = <&amp_headphones>, <&amp_speaker>;
+		simple-audio-card,aux-devs = <&amp_headphones>;
 		simple-audio-card,format = "i2s";
 		simple-audio-card,mclk-fs = <384>;
 		simple-audio-card,name = "rockchip,es8388";
 		simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
-		simple-audio-card,pin-switches = "Headphones", "Speaker";
+		simple-audio-card,pin-switches = "Headphones";
 		simple-audio-card,routing =
-			"Speaker Amplifier INL", "LOUT2",
-			"Speaker Amplifier INR", "ROUT2",
-			"Speaker", "Speaker Amplifier OUTL",
-			"Speaker", "Speaker Amplifier OUTR",
+			"Speaker", "LOUT2",
+			"Speaker", "ROUT2",
 			"Headphones Amplifier INL", "LOUT1",
 			"Headphones Amplifier INR", "ROUT1",
 			"Headphones", "Headphones Amplifier OUTL",
@@ -144,14 +128,6 @@
 		pinctrl-names = "default";
 		pinctrl-0 = <&headphone_amplifier_en>;
 		sound-name-prefix = "Headphones Amplifier";
-	};
-
-	amp_speaker: speaker-audio-amplifier {
-		compatible = "simple-audio-amplifier";
-		enable-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_HIGH>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&speaker_amplifier_en>;
-		sound-name-prefix = "Speaker Amplifier";
 	};
 
 	hdmi0-con {
