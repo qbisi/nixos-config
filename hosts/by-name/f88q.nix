@@ -8,7 +8,7 @@
 }:
 {
   deployment = {
-    targetHost = "192.168.100.59";
+    targetHost = "192.168.100.209";
     targetUser = "root";
     tags = [
       "test"
@@ -119,6 +119,7 @@
     vim
     git
     python3
+    mpv
   ];
 
   system.stateVersion = "25.11";
