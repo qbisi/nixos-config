@@ -39,6 +39,8 @@
     graphics.enable = true;
   };
 
+  boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_6_18);
+
   networking = {
     nftables.enable = true;
     networkmanager = {
