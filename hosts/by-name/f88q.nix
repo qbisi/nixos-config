@@ -16,6 +16,10 @@
     buildOnTarget = false;
   };
 
+  nixpkgs = {
+    flake.source = lib.mkDefault inputs.nixpkgs;
+  };
+
   imports = [
     "${inputs.nixos-images}/devices/by-name/nixos-firefly-aio-3588q.nix"
     "${inputs.nixos-images}/modules/config/passless.nix"
@@ -132,12 +136,13 @@
     mpv
   ];
 
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-      # "pipe-operators"
-    ];
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
   };
 
   system.stateVersion = "25.11";
