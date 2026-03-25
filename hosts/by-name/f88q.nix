@@ -139,6 +139,14 @@
     mpv
   ];
 
+  environment.etc."xdg/kscreenlockerrc".text = lib.generators.toINI { } {
+    Daemon = {
+      RequirePassword = false;
+      Autolock = false;
+      LockOnResume = false;
+    };
+  };
+
   nix = {
     settings = {
       experimental-features = [
