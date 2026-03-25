@@ -83,6 +83,9 @@
     enable = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
+    shellInit = ''
+      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+    '';
     ohMyZsh = {
       enable = true;
       theme = "gentoo";
