@@ -115,6 +115,7 @@
     libgpiod
     alsa-utils
     minicom
+    evtest
     ethtool
     iperf3
     myrktop
@@ -123,6 +124,14 @@
     python3
     mpv
   ];
+
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+      # "pipe-operators"
+    ];
+  };
 
   system.stateVersion = "25.11";
 }
