@@ -12,11 +12,23 @@ let
 
     G=/sys/kernel/config/usb_gadget/g1
     UDC="$(${lib.getExe' pkgs.coreutils "ls"} /sys/class/udc | ${lib.getExe' pkgs.coreutils "head"} -n 1)"
+    FIND=${lib.getExe pkgs.findutils}
+    RM=${lib.getExe' pkgs.coreutils "rm"}
+    RMDIR=${lib.getExe' pkgs.coreutils "rmdir"}
 
-    if [ -d "$G" ]; then
+    cleanup_gadget() {
+      if [ ! -d "$G" ]; then
+        return 0
+      fi
+
       echo "" > "$G/UDC" || true
-      rm -rf "$G"
-    fi
+
+      "$FIND" "$G" -depth -type l -exec "$RM" -f {} +
+      "$FIND" "$G" -depth -mindepth 1 -type d -exec "$RMDIR" {} + 2>/dev/null || true
+      "$RMDIR" "$G" 2>/dev/null || true
+    }
+
+    cleanup_gadget
 
     mkdir -p "$G"
     cd "$G"
@@ -50,10 +62,15 @@ let
     set -eu
 
     G=/sys/kernel/config/usb_gadget/g1
+    FIND=${lib.getExe pkgs.findutils}
+    RM=${lib.getExe' pkgs.coreutils "rm"}
+    RMDIR=${lib.getExe' pkgs.coreutils "rmdir"}
 
     if [ -d "$G" ]; then
       echo "" > "$G/UDC" || true
-      rm -rf "$G"
+      "$FIND" "$G" -depth -type l -exec "$RM" -f {} +
+      "$FIND" "$G" -depth -mindepth 1 -type d -exec "$RMDIR" {} + 2>/dev/null || true
+      "$RMDIR" "$G" 2>/dev/null || true
     fi
   '';
 in
