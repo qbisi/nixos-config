@@ -41,10 +41,6 @@
 
   boot = {
     kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_6_18);
-    kernelModules = [
-      "configfs"
-      "libcomposite"
-    ];
   };
 
   networking = {
@@ -94,6 +90,7 @@
   };
 
   services = {
+    usb-rndis.enable = true;
     desktopManager.plasma6 = {
       mobile.enable = true;
     };
