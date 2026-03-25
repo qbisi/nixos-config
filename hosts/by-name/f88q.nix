@@ -44,6 +44,7 @@
   };
 
   networking = {
+    hostName = "f88q";
     firewall.enable = false;
     nftables.enable = true;
     networkmanager = {
