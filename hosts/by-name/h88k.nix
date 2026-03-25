@@ -145,6 +145,7 @@
 
   networking = {
     hostName = "h88k";
+    useDHCP = lib.mkForce true;
     domain = self.vars.domain;
     networkmanager.enable = true;
     networkmanager.ensureProfiles.profiles = {

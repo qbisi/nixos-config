@@ -45,6 +45,7 @@
 
   networking = {
     hostName = "f88q";
+    useNetworkd = true;
     firewall.enable = false;
     nftables.enable = true;
     networkmanager = {
