@@ -44,6 +44,21 @@ After deployment, use direct SSH when you need host-local inspection, such as:
 
 Build the SSH target from `deployment.targetUser` and `deployment.targetHost` in the host file unless the user tells you otherwise.
 
+## Reboot-required changes
+
+Some system changes do not fully take effect until the remote host is restarted.
+
+Common cases include:
+- kernel or initrd changes
+- bootloader changes
+- device tree changes
+- some low-level hardware or firmware-related configuration changes
+
+When the change may require a reboot:
+- call that out explicitly after `colmena apply --on <host>`
+- if needed, reboot the remote host and then reconnect to verify the result
+- do not assume a successful activation alone proves the runtime change is active
+
 ## Stale target IP recovery
 
 If `deployment.targetHost` no longer responds, assume the host may have picked up a new address on the LAN.
