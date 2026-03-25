@@ -39,9 +39,16 @@
     graphics.enable = true;
   };
 
-  boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_6_18);
+  boot = {
+    kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux_6_18);
+    kernelModules = [
+      "configfs"
+      "libcomposite"
+    ];
+  };
 
   networking = {
+    firewall.enable = false;
     nftables.enable = true;
     networkmanager = {
       enable = true;
@@ -116,6 +123,7 @@
     alsa-utils
     minicom
     evtest
+    libinput
     ethtool
     iperf3
     myrktop
