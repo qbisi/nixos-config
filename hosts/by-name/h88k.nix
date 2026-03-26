@@ -46,6 +46,7 @@
   };
 
   hardware = {
+    husb311.enable = true;
     firmware = [
       (pkgs.armbian-firmware.override {
         filters = [
