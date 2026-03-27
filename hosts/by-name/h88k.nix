@@ -35,7 +35,9 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackagesFor pkgs.linux_rockchip64_6_18;
+    initrd.allowMissingModules = !config.boot.kernelPackages.kernel.configfile.autoModules;
     kernelParams = [
       "console=tty1"
       "earlycon"
@@ -46,7 +48,6 @@
   };
 
   hardware = {
-    husb311.enable = true;
     firmware = [
       (pkgs.armbian-firmware.override {
         filters = [

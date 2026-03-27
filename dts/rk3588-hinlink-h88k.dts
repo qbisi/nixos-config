@@ -432,18 +432,6 @@
 		vbus-supply = <&vbus5v0_typec>;
 		status = "okay";
 
-		ports {
-			#address-cells = <1>;
-			#size-cells = <0>;
-
-			port@0 {
-				reg = <0>;
-				usbc0_role_sw: endpoint@0 {
-					remote-endpoint = <&usb_host0_xhci_drd_sw>;
-				};
-			};
-		};
-
 		connector {
 			compatible = "usb-c-connector";
 			label = "USB-C";
@@ -453,6 +441,39 @@
 			op-sink-microwatt = <1000000>;
 			sink-pdos = <PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
 			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
+
+			altmodes {
+				displayport {
+					svid = /bits/ 16 <0xff01>;
+					vdo = <0xffffffff>;
+				};
+			};
+
+			ports {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				port@0 {
+					reg = <0>;
+					usbc0_role_sw: endpoint {
+						remote-endpoint = <&usb_host0_xhci_drd_sw>;
+					};
+				};
+
+				port@1 {
+					reg = <1>;
+					usbc0_ss: endpoint {
+						remote-endpoint = <&usbdp_phy0_typec_ss>;
+					};
+				};
+
+				port@2 {
+					reg = <2>;
+					usbc0_sbu: endpoint {
+						remote-endpoint = <&usbdp_phy0_typec_sbu>;
+					};
+				};
+			};
 		};
 	};
 };
@@ -978,7 +999,7 @@
 };
 
 &u2phy0_otg {
-	vbus-supply = <&vbus5v0_typec>;
+	phy-supply = <&vbus5v0_typec>;
 	status = "okay";
 };
 
@@ -1010,7 +1031,27 @@
 };
 
 &usbdp_phy0 {
+	mode-switch;
+	orientation-switch;
+	rockchip,dp-lane-mux = < 0 1 2 3 >;
+	sbu1-dc-gpios = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
+	sbu2-dc-gpios = <&gpio0 RK_PD3 GPIO_ACTIVE_HIGH>;
 	status = "okay";
+
+	port {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		usbdp_phy0_typec_ss: endpoint@0 {
+			reg = <0>;
+			remote-endpoint = <&usbc0_ss>;
+		};
+
+		usbdp_phy0_typec_sbu: endpoint@1 {
+			reg = <1>;
+			remote-endpoint = <&usbc0_sbu>;
+		};
+	};
 };
 
 &usbdp_phy1 {
@@ -1028,7 +1069,6 @@
 /* Type C port */
 &usb_host0_xhci {
 	usb-role-switch;
-	maximum-speed = "high-speed";
 	status = "okay";
 
 	port {
