@@ -72,6 +72,7 @@
           "root"
           "video"
           "audio"
+          "dialout"
         ];
       };
     };
