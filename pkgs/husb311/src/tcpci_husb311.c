@@ -50,7 +50,7 @@ static int husb311_write16(struct husb311_chip *chip, unsigned int reg, u16 val)
 static const struct regmap_config husb311_regmap_config = {
 	.reg_bits = 8,
 	.val_bits = 8,
-	.max_register = 0xFF,
+	.max_register = 0xFF, /* 0x80 .. 0xFF are vendor defined */
 };
 
 static struct husb311_chip *tdata_to_husb311(struct tcpci_data *tdata)
@@ -60,6 +60,7 @@ static struct husb311_chip *tdata_to_husb311(struct tcpci_data *tdata)
 
 static int husb311_sw_reset(struct husb311_chip *chip)
 {
+	/* soft reset */
 	return husb311_write8(chip, HUSB311_TCPC_SOFTRESET, 0x01);
 }
 
@@ -68,8 +69,11 @@ static int husb311_init(struct tcpci *tcpci, struct tcpci_data *tdata)
 	int ret;
 	struct husb311_chip *chip = tdata_to_husb311(tdata);
 
+	/* tTCPCfilter : (26.7 * val) us */
 	ret = husb311_write8(chip, HUSB311_TCPC_FILTER, 0x0F);
+	/* tDRP : (51.2 + 6.4 * val) ms */
 	ret |= husb311_write8(chip, HUSB311_TCPC_TDRP, 0x04);
+	/* dcSRC.DRP : 33% */
 	ret |= husb311_write16(chip, HUSB311_TCPC_DCSRCDRP, 330);
 
 	if (ret < 0)
@@ -211,6 +215,10 @@ static int husb311_pm_suspend(struct device *dev)
 	int ret = 0;
 	u8 pwr;
 
+	/*
+	 * Disable 12M oscillator to save power consumption, and it will be
+	 * enabled automatically when INT occur after system resume.
+	 */
 	ret = husb311_read8(chip, HUSB311_TCPC_POWER, &pwr);
 	if (ret < 0)
 		return ret;
@@ -229,6 +237,11 @@ static int husb311_pm_resume(struct device *dev)
 	int ret = 0;
 	u8 pwr;
 
+	/*
+	 * When the power of husb311 is lost or i2c read failed in PM S/R
+	 * process, we must reset the tcpm port first to ensure the devices
+	 * can attach again.
+	 */
 	ret = husb311_read8(chip, HUSB311_TCPC_POWER, &pwr);
 	if (pwr & BIT(0) || ret < 0) {
 		ret = husb311_sw_reset(chip);

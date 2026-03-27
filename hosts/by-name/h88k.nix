@@ -35,8 +35,11 @@
   };
 
   boot = {
-    # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.linuxPackagesFor pkgs.linux_rockchip64_6_18;
+    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackagesFor pkgs.linux_rockchip64_6_18;
+    extraModulePackages = [
+      (pkgs.husb311.override { linux = config.boot.kernelPackages.kernel; })
+    ];
     initrd.allowMissingModules = !config.boot.kernelPackages.kernel.configfile.autoModules;
     kernelParams = [
       "console=tty1"
