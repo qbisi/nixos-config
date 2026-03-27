@@ -63,7 +63,7 @@
     users = {
       admin = {
         name = "nixusr";
-        initialPassword = "nixusr";
+        initialPassword = "1234";
         uid = 1000;
         isNormalUser = true;
         linger = true;
@@ -73,6 +73,9 @@
           "video"
           "audio"
           "dialout"
+        ];
+        openssh.authorizedKeys.keys = [
+          self.vars.user.authorizedKeys
         ];
       };
     };
@@ -97,6 +100,11 @@
         "sudo"
       ];
     };
+  };
+
+  programs.nix-ld = {
+    enable = true;
+    package = pkgs.nix-ld;
   };
 
   services = {
