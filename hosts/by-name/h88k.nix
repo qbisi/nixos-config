@@ -35,11 +35,11 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-    # kernelPackages = pkgs.linuxPackagesFor pkgs.linux_rockchip64_6_18;
-    extraModulePackages = [
-      (pkgs.husb311.override { linux = config.boot.kernelPackages.kernel; })
-    ];
+    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackagesFor pkgs.linux_rockchip64_6_18;
+    # extraModulePackages = [
+    #   (pkgs.husb311.override { linux = config.boot.kernelPackages.kernel; })
+    # ];
     initrd.allowMissingModules = !config.boot.kernelPackages.kernel.configfile.autoModules;
     kernelParams = [
       "console=tty1"
@@ -117,16 +117,6 @@
           DNS = "192.168.100.1";
         };
       };
-      "40-eth0" = {
-        matchConfig.Name = "eth0";
-        networkConfig = {
-          DHCPServer = "yes";
-        };
-        dhcpServerConfig = {
-          EmitDNS = "yes";
-          DNS = "192.168.50.254";
-        };
-      };
     };
     slices."user-1000".sliceConfig = {
       CPUQuota = "600%";
@@ -179,33 +169,7 @@
       };
     };
 
-    defaultGateway = {
-      address = "192.168.50.1";
-      interface = "eth0";
-      metric = 100;
-    };
-
     interfaces = {
-      eth0.ipv4 = {
-        addresses = [
-          {
-            address = self.vars.hosts.h88k.ip;
-            prefixLength = 24;
-          }
-        ];
-        # routes = [
-        #   {
-        #     address = "10.0.0.0";
-        #     via = "172.16.4.254";
-        #     prefixLength = 12;
-        #   }
-        #   {
-        #     address = "172.16.0.0";
-        #     prefixLength = 16;
-        #     via = "172.16.4.254";
-        #   }
-        # ];
-      };
       br0.ipv4.addresses = [
         {
           address = "192.168.100.1";

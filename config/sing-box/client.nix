@@ -97,11 +97,6 @@ in
 
       vless = cartesianProduct' {
         tcp_multi_path = true;
-        # bind_interface = [
-        #   config.networking.defaultGateway.interface
-        #   "wwan0"
-        #   "wlan0"
-        # ];
         inherit uuid;
         tls = forEach vps (v: {
           server_name = "${v}.${domain}";
@@ -124,7 +119,6 @@ in
           "reality-"
           + lib.genTag [
             "server"
-            # "bind_interface"
           ] config;
         group = [
           [
@@ -135,10 +129,6 @@ in
       };
 
       hysteria2 = cartesianProduct' {
-        bind_interface = [
-          config.networking.defaultGateway.interface
-          "wwan0"
-        ];
         hop_interval = "30s";
         down_mbps = 150;
         up_mbps = 50;
@@ -157,7 +147,7 @@ in
 
       direct = cartesianProduct' {
         bind_interface = [
-          config.networking.defaultGateway.interface
+          "eth0"
           "wwan0"
           "wlan0"
         ];

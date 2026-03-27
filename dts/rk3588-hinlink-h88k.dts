@@ -441,8 +441,6 @@
 			op-sink-microwatt = <1000000>;
 			sink-pdos = <PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
 			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-			pd-revision = /bits/ 8 <0x2 0x0 0x1 0x2>;
-			typec-power-opmode = "1.5A";
 
 			altmodes {
 				displayport {
@@ -1035,7 +1033,7 @@
 &usbdp_phy0 {
 	mode-switch;
 	orientation-switch;
-	rockchip,dp-lane-mux = < 0 1 2 3 >;
+	rockchip,dp-lane-mux = < 2 3 >;
 	sbu1-dc-gpios = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
 	sbu2-dc-gpios = <&gpio0 RK_PD3 GPIO_ACTIVE_HIGH>;
 	status = "okay";
