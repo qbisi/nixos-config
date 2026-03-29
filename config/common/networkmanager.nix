@@ -11,12 +11,15 @@
     "multi-user.target"
   ];
 
+  networking.useDHCP = lib.mkOverride 99 true;
+
   networking.networkmanager = lib.mkIf config.networking.networkmanager.enable {
     settings.main.no-auto-default = lib.mkDefault "*";
 
     ensureProfiles.profiles = {
       wwan0 = {
         connection = {
+          autoconnect = "false";
           id = "wwan0";
           interface-name = "cdc-wdm0";
           type = "gsm";

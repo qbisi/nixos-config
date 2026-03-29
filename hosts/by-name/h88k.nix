@@ -140,7 +140,6 @@
 
   networking = {
     hostName = "h88k";
-    useDHCP = lib.mkForce true;
     domain = self.vars.domain;
     networkmanager.enable = true;
     networkmanager.ensureProfiles.profiles = {
@@ -228,6 +227,7 @@
         eth0 = {
           allowedTCPPorts = [
             53
+            3389 # krdp
             1080
             5201
             9090
@@ -235,6 +235,7 @@
           allowedUDPPorts = [
             53
             1080
+            3389 # krdp
             5201
             5355 # LLMNR
           ];
